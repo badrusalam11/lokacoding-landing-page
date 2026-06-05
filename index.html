@@ -1,575 +1,964 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Loka Coding</title>
-
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font -->
+  <title>Loka Coding — Software House</title>
+  <link rel="icon" href="icon/favicon.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
   <style>
-    * {
-      font-family: 'Inter', sans-serif;
+    :root {
+      --blue:       #3B82F6;
+      --blue-dark:  #2563EB;
+      --blue-light: #EFF6FF;
+      --blue-mid:   rgba(59,130,246,0.15);
+      --white:      #FFFFFF;
+      --bg:         #F8FAFF;
+      --surface:    #FFFFFF;
+      --text:       #0F172A;
+      --muted:      #64748B;
+      --border:     #E2E8F0;
+      --border-b:   rgba(59,130,246,0.2);
     }
 
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+
     body {
-      background: #050505;
-      color: white;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
       overflow-x: hidden;
     }
 
-    .gradient {
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:#F1F5F9; }
+    ::-webkit-scrollbar-thumb { background:var(--blue); border-radius:4px; }
+
+    /* ══════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════ */
+    nav {
+      position:fixed; top:0; left:0; width:100%; z-index:500;
+      height:66px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 48px;
+      background:rgba(248,250,255,0.92);
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
     }
 
-    .glass {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      backdrop-filter: blur(10px);
+    .nav-logo {
+      display:flex; align-items:center; gap:10px;
+      font-size:.95rem; font-weight:700;
+      letter-spacing:-.02em; color:var(--text);
+      text-decoration:none;
+    }
+    .nav-logo img {
+      width:34px; height:34px; border-radius:8px; object-fit:cover;
+    }
+    .nav-logo-fb {
+      display:none; width:34px; height:34px; border-radius:8px;
+      background:var(--blue); color:#fff;
+      align-items:center; justify-content:center;
+      font-size:.7rem; font-weight:800;
     }
 
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
+    .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+    .nav-links a {
+      font-size:.83rem; font-weight:500; color:var(--muted);
+      text-decoration:none; transition:color .2s;
+      position:relative;
+    }
+    .nav-links a.active { color:var(--blue); }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-3px; left:0;
+      width:0; height:2px; background:var(--blue);
+      border-radius:2px; transition:width .25s;
+    }
+    .nav-links a:hover { color:var(--blue); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+
+    .nav-cta {
+      font-size:.8rem; font-weight:600; letter-spacing:-.01em;
+      background:var(--blue); color:#fff;
+      border:none; cursor:pointer;
+      padding:10px 22px; border-radius:8px;
+      transition:background .2s, transform .15s, box-shadow .2s;
+    }
+    .nav-cta:hover {
+      background:var(--blue-dark);
+      transform:translateY(-1px);
+      box-shadow:0 4px 16px rgba(59,130,246,.35);
     }
 
-    .glow {
-      box-shadow: 0 0 120px rgba(37,99,235,0.25);
+    .mob-btn { display:none; background:none; border:none; color:var(--text); font-size:1.15rem; cursor:pointer; }
+
+    .mob-menu {
+      display:none; position:fixed; top:66px; left:0; width:100%;
+      background:rgba(248,250,255,.98); border-bottom:1px solid var(--border);
+      padding:24px 40px; flex-direction:column; gap:18px; z-index:499;
+    }
+    .mob-menu.open { display:flex; }
+    .mob-menu a { font-size:.93rem; font-weight:500; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .mob-menu a:hover { color:var(--blue); }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    #hero {
+      min-height:100vh;
+      display:flex; align-items:center;
+      padding-top:66px;
+      position:relative; overflow:hidden;
+      background:var(--white);
     }
 
-    html {
-      scroll-behavior: smooth;
+    /* subtle dot grid */
+    #hero::before {
+      content:''; position:absolute; inset:0;
+      background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px);
+      background-size:28px 28px;
+      opacity:.5;
+    }
+
+    /* blue glow top-right */
+    .hero-glow {
+      position:absolute; top:-120px; right:-100px;
+      width:600px; height:600px;
+      background:radial-gradient(circle, rgba(59,130,246,.12) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    /* second glow bottom-left */
+    .hero-glow2 {
+      position:absolute; bottom:-80px; left:-80px;
+      width:400px; height:400px;
+      background:radial-gradient(circle, rgba(59,130,246,.07) 0%, transparent 70%);
+      pointer-events:none;
+    }
+
+    .hero-wrap {
+      max-width:1200px; margin:0 auto; padding:0 48px;
+      width:100%;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:60px; align-items:center;
+      position:relative; z-index:1;
+    }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:.7rem; font-weight:600; letter-spacing:.08em;
+      text-transform:uppercase; color:var(--blue);
+      background:var(--blue-light); border:1px solid var(--border-b);
+      padding:6px 14px; border-radius:100px;
+      margin-bottom:28px;
+    }
+    .pulse { width:6px; height:6px; background:var(--blue); border-radius:50%; animation:pls 2s infinite; }
+    @keyframes pls { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+    .hero-h1 {
+      font-size:clamp(2.6rem,4.5vw,4.4rem);
+      font-weight:800; line-height:1.08;
+      letter-spacing:-.04em;
+      color:var(--text);
+      margin-bottom:22px;
+    }
+    .hero-h1 em { font-style:normal; color:var(--blue); }
+
+    .hero-p {
+      font-size:1rem; color:var(--muted);
+      line-height:1.8; max-width:450px;
+      font-weight:400;
+      margin-bottom:38px;
+    }
+
+    .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+
+    .btn-primary {
+      font-size:.85rem; font-weight:600;
+      background:var(--blue); color:#fff;
+      border:none; cursor:pointer;
+      padding:14px 28px; border-radius:9px;
+      transition:background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-primary:hover {
+      background:var(--blue-dark);
+      transform:translateY(-2px);
+      box-shadow:0 8px 24px rgba(59,130,246,.35);
+    }
+
+    .btn-outline {
+      font-size:.85rem; font-weight:600;
+      background:transparent; color:var(--text);
+      border:1.5px solid var(--border);
+      cursor:pointer; padding:14px 28px; border-radius:9px;
+      transition:border-color .2s, color .2s;
+    }
+    .btn-outline:hover { border-color:var(--blue); color:var(--blue); }
+
+    /* Hero kanan — cards */
+    .hero-right { display:flex; flex-direction:column; gap:14px; }
+
+    .hero-card {
+      background:var(--white);
+      border:1.5px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 1px 4px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.06);
+    }
+
+    /* Code window — dark mode */
+    .hero-card {
+      background:#0F172A !important;
+      border-color:#1E293B !important;
+    }
+    .code-bar {
+      display:flex; align-items:center; gap:6px;
+      padding:11px 16px;
+      background:#1E293B;
+      border-bottom:1px solid #2D3748;
+    }
+    .dot { width:10px; height:10px; border-radius:50%; }
+    .dr{background:#FF5F57} .dy{background:#FFBD2E} .dg{background:#28C840}
+    .code-fname {
+      font-size:.65rem; color:#64748B;
+      font-weight:500; margin-left:6px;
+    }
+    .code-body {
+      padding:18px 20px;
+      font-family:'Courier New', monospace;
+      font-size:.76rem; line-height:2; color:#64748B;
+      background:#0F172A;
+      min-height:220px;
+    }
+    /* code line typing */
+    .code-line {
+      display:flex; align-items:center;
+      opacity:0; white-space:pre;
+      transition: opacity .01s;
+    }
+    .code-line.visible { opacity:1; }
+    /* blinking cursor */
+    .code-cursor {
+      display:inline-block;
+      width:2px; height:1em;
+      background:#3B82F6;
+      margin-left:1px;
+      vertical-align:middle;
+      animation: blink .7s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .cb  { color:#60A5FA; font-weight:600; }
+    .cg  { color:#34D399; }
+    .co  { color:#FBBF24; }
+    .cw  { color:#E2E8F0; font-weight:500; }
+    .cs  { color:#C084FC; }
+
+    /* Stat row */
+    .stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .stat-card {
+      background:var(--white);
+      border:1.5px solid var(--border);
+      border-radius:12px; padding:18px 16px;
+      box-shadow:0 1px 4px rgba(0,0,0,.04);
+      transition:border-color .2s, box-shadow .2s;
+    }
+    .stat-card:hover {
+      border-color:var(--border-b);
+      box-shadow:0 4px 16px rgba(59,130,246,.1);
+    }
+    .stat-n {
+      font-size:1.7rem; font-weight:800;
+      letter-spacing:-.04em; color:var(--text);
+    }
+    .stat-n span { color:var(--blue); }
+    .stat-l { font-size:.7rem; color:var(--muted); margin-top:3px; font-weight:500; }
+
+    /* ══════════════════════════════════════
+       SHARED
+    ══════════════════════════════════════ */
+    .divider { width:100%; height:1px; background:var(--border); max-width:none; }
+
+    section { padding:96px 48px; max-width:1200px; margin:0 auto; }
+
+    .lbl {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:.7rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--blue);
+      margin-bottom:18px;
+    }
+    .lbl::before {
+      content:''; width:20px; height:2px;
+      background:var(--blue); border-radius:2px;
+      display:inline-block;
+    }
+
+    .sec-h {
+      font-size:clamp(1.8rem,3.2vw,2.8rem);
+      font-weight:800; line-height:1.1;
+      letter-spacing:-.04em; color:var(--text);
+    }
+    .sec-h em { font-style:normal; color:var(--blue); }
+
+    /* ══════════════════════════════════════
+       ABOUT
+    ══════════════════════════════════════ */
+    #about { background:var(--white); max-width:none; }
+    #about > .inner { max-width:1200px; margin:0 auto; padding:0 48px; }
+
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+    .about-p { font-size:.93rem; color:var(--muted); line-height:1.85; margin:20px 0 30px; font-weight:400; }
+
+    .vals {
+      display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    }
+    .val {
+      background:var(--bg);
+      border:1.5px solid var(--border);
+      border-radius:12px; padding:24px;
+      transition:border-color .25s, box-shadow .25s, transform .2s;
+    }
+    .val:hover {
+      border-color:var(--border-b);
+      box-shadow:0 4px 20px rgba(59,130,246,.1);
+      transform:translateY(-2px);
+    }
+    .val-ico {
+      width:38px; height:38px;
+      background:var(--blue-light);
+      border-radius:9px;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--blue); font-size:.95rem;
+      margin-bottom:14px;
+    }
+    .val-t { font-size:.9rem; font-weight:700; color:var(--text); margin-bottom:6px; }
+    .val-d { font-size:.78rem; color:var(--muted); line-height:1.65; }
+
+    /* ══════════════════════════════════════
+       PRODUCTS
+    ══════════════════════════════════════ */
+    .prod-hdr { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:44px; }
+    .see-all {
+      font-size:.78rem; font-weight:600; color:var(--blue);
+      text-decoration:none; display:flex; align-items:center; gap:6px;
+      transition:gap .2s;
+    }
+    .see-all:hover { gap:10px; }
+
+    .prod-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+
+    .prod-card {
+      background:var(--white);
+      border:1.5px solid var(--border);
+      border-radius:14px; padding:30px;
+      position:relative; overflow:hidden;
+      transition:border-color .25s, transform .25s, box-shadow .25s;
+      cursor:pointer;
+    }
+    .prod-card::after {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:var(--blue); opacity:0; transition:opacity .3s;
+    }
+    .prod-card:hover {
+      border-color:var(--border-b);
+      transform:translateY(-5px);
+      box-shadow:0 12px 36px rgba(59,130,246,.12);
+    }
+    .prod-card:hover::after { opacity:1; }
+
+    .prod-ico {
+      width:46px; height:46px;
+      background:var(--blue-light);
+      border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      color:var(--blue); font-size:1.05rem;
+      margin-bottom:20px;
+    }
+    .prod-num { font-size:.62rem; font-weight:600; color:#CBD5E1; margin-bottom:5px; letter-spacing:.06em; }
+    .prod-t { font-size:1.15rem; font-weight:700; color:var(--text); margin-bottom:10px; letter-spacing:-.02em; }
+    .prod-d { font-size:.82rem; color:var(--muted); line-height:1.72; margin-bottom:24px; }
+    .prod-lnk {
+      font-size:.78rem; font-weight:600; color:var(--blue);
+      text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+      transition:gap .2s;
+    }
+    .prod-lnk:hover { gap:10px; }
+
+    /* ══════════════════════════════════════
+       PORTFOLIO
+    ══════════════════════════════════════ */
+    #portfolio { background:var(--white); max-width:none; }
+    #portfolio > .inner { max-width:1200px; margin:0 auto; padding:0 48px; }
+
+    .port-hdr { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; }
+    .port-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+
+    .port-card {
+      border-radius:14px; border:1.5px solid var(--border);
+      overflow:hidden; background:var(--white);
+      transition:transform .3s, border-color .3s, box-shadow .3s;
+      cursor:pointer;
+      box-shadow:0 1px 4px rgba(0,0,0,.04);
+    }
+    .port-card:hover {
+      transform:translateY(-6px);
+      border-color:var(--border-b);
+      box-shadow:0 16px 40px rgba(59,130,246,.12);
+    }
+    .port-img {
+      width:100%; height:210px; object-fit:cover; display:block;
+      transition:transform .4s;
+    }
+    .port-card:hover .port-img { transform:scale(1.04); }
+    .port-body {
+      padding:20px 22px;
+      display:flex; justify-content:space-between; align-items:flex-end;
+    }
+    .port-tag {
+      font-size:.65rem; font-weight:700; letter-spacing:.08em;
+      color:var(--blue); text-transform:uppercase; margin-bottom:5px;
+    }
+    .port-n { font-size:1rem; font-weight:700; color:var(--text); letter-spacing:-.02em; }
+    .port-arr {
+      width:32px; height:32px; border:1.5px solid var(--border);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.72rem; color:var(--muted); flex-shrink:0;
+      transition:background .2s, border-color .2s, color .2s;
+    }
+    .port-card:hover .port-arr { background:var(--blue); border-color:var(--blue); color:#fff; }
+
+    /* ══════════════════════════════════════
+       CTA BAND
+    ══════════════════════════════════════ */
+    #cta-section { max-width:none; }
+    .cta-outer { padding:0 48px 96px; max-width:1200px; margin:0 auto; }
+
+    .cta-box {
+      background:var(--blue);
+      border-radius:20px; padding:72px 64px;
+      display:grid; grid-template-columns:1fr auto;
+      gap:40px; align-items:center;
+      position:relative; overflow:hidden;
+    }
+    /* decorative circles */
+    .cta-box::before {
+      content:''; position:absolute;
+      width:360px; height:360px; border-radius:50%;
+      border:60px solid rgba(255,255,255,.07);
+      top:-100px; right:-60px;
+    }
+    .cta-box::after {
+      content:''; position:absolute;
+      width:220px; height:220px; border-radius:50%;
+      border:40px solid rgba(255,255,255,.05);
+      bottom:-80px; right:120px;
+    }
+    .cta-lbl {
+      font-size:.68rem; font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; color:rgba(255,255,255,.7);
+      margin-bottom:12px;
+    }
+    .cta-t {
+      font-size:clamp(1.7rem,3vw,2.6rem); font-weight:800;
+      letter-spacing:-.04em; line-height:1.1;
+      color:#fff; margin-bottom:12px;
+    }
+    .cta-sub { color:rgba(255,255,255,.75); font-size:.9rem; }
+    .cta-r { position:relative; z-index:1; }
+
+    .btn-white {
+      font-size:.85rem; font-weight:700;
+      background:#fff; color:var(--blue);
+      border:none; cursor:pointer;
+      padding:16px 32px; border-radius:10px;
+      white-space:nowrap;
+      transition:transform .2s, box-shadow .2s;
+      box-shadow:0 4px 16px rgba(0,0,0,.12);
+    }
+    .btn-white:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.18); }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      background:var(--text);
+      color:#fff;
+      padding:64px 48px 36px;
+    }
+    .ft-inner { max-width:1200px; margin:0 auto; }
+
+    .ft-top {
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:56px; margin-bottom:52px;
+    }
+    .ft-logo {
+      display:flex; align-items:center; gap:10px;
+      font-size:.95rem; font-weight:700;
+      text-decoration:none; color:#fff;
+      margin-bottom:16px;
+    }
+    .ft-logo img { width:32px; height:32px; border-radius:7px; object-fit:cover; }
+    .ft-logo-fb {
+      display:none; width:32px; height:32px; border-radius:7px;
+      background:var(--blue); align-items:center; justify-content:center;
+      font-size:.65rem; font-weight:800; color:#fff;
+    }
+    .ft-desc { font-size:.82rem; color:#94A3B8; line-height:1.78; max-width:270px; margin-bottom:24px; }
+    .ft-soc { display:flex; gap:8px; }
+    .soc {
+      width:34px; height:34px;
+      border:1px solid rgba(255,255,255,.1); border-radius:8px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.8rem; color:#94A3B8; text-decoration:none;
+      transition:border-color .2s, color .2s, background .2s;
+    }
+    .soc:hover { border-color:var(--blue); color:var(--blue); background:rgba(59,130,246,.1); }
+
+    .ft-col-t { font-size:.8rem; font-weight:700; color:#fff; margin-bottom:18px; }
+    .ft-links { list-style:none; display:flex; flex-direction:column; gap:11px; }
+    .ft-links a { font-size:.8rem; color:#94A3B8; text-decoration:none; transition:color .2s; }
+    .ft-links a:hover { color:#fff; }
+
+    .ft-bot {
+      border-top:1px solid rgba(255,255,255,.07); padding-top:24px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .ft-copy { font-size:.72rem; color:#475569; }
+    .ft-build { font-size:.72rem; color:#475569; }
+    .ft-build span { color:var(--blue); }
+
+    /* ══════════════════════════════════════
+       REVEAL
+    ══════════════════════════════════════ */
+    .reveal { opacity:0; transform:translateY(26px); transition:opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+    .d1{transition-delay:.08s} .d2{transition-delay:.18s} .d3{transition-delay:.28s}
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media(max-width:960px){
+      nav{padding:0 24px;}
+      .nav-links,.nav-cta{display:none;}
+      .mob-btn{display:block;}
+      section{padding:64px 24px;}
+      #about>.inner, #portfolio>.inner { padding:64px 24px; }
+      .cta-outer{padding:0 24px 64px;}
+      footer{padding:48px 24px 32px;}
+      .hero-wrap{grid-template-columns:1fr;gap:44px;padding:0 24px;}
+      .hero-right{display:none;}
+      .about-grid{grid-template-columns:1fr;gap:40px;}
+      .prod-grid{grid-template-columns:1fr 1fr;}
+      .port-grid{grid-template-columns:1fr 1fr;}
+      .cta-box{grid-template-columns:1fr;padding:44px 32px;}
+      .ft-top{grid-template-columns:1fr 1fr;gap:32px;}
+    }
+    @media(max-width:580px){
+      .prod-grid{grid-template-columns:1fr;}
+      .port-grid{grid-template-columns:1fr;}
+      .ft-top{grid-template-columns:1fr;}
+      .prod-hdr,.port-hdr{flex-direction:column;align-items:flex-start;gap:14px;}
     }
   </style>
 </head>
-
 <body>
 
-  <!-- NAVBAR -->
-  <header class="fixed top-0 left-0 w-full z-50 border-b border-white/5 bg-black/70 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="icon/locakoding.png" alt="Loka Coding"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <span class="nav-logo-fb">LC</span>
+    Loka Coding
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Beranda</a></li>
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#products">Produk</a></li>
+    <li><a href="#portfolio">Portofolio</a></li>
+    <li><a href="#cta-section">Kontak</a></li>
+  </ul>
+  <button class="nav-cta">Hubungi Kami</button>
+  <button class="mob-btn" id="mobBtn"><i class="fa-solid fa-bars"></i></button>
+</nav>
 
-      <div class="flex items-center justify-between h-20">
+<div class="mob-menu" id="mobMenu">
+  <a href="#">Beranda</a>
+  <a href="#about">Profil</a>
+  <a href="#products">Produk</a>
+  <a href="#portfolio">Portofolio</a>
+  <a href="#cta-section">Kontak</a>
+  <button class="nav-cta" style="align-self:flex-start;margin-top:6px;">Hubungi Kami</button>
+</div>
 
-        <!-- Logo -->
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl gradient"></div>
-          <h1 class="font-bold text-xl md:text-2xl">
-            loka coding
-          </h1>
-        </div>
+<!-- ════ HERO ════ -->
+<section id="hero" style="padding:0;max-width:none;">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-wrap">
 
-        <!-- Desktop Menu -->
-        <nav class="hidden md:flex items-center gap-10 text-sm text-white/70">
-          <a href="#" class="text-blue-500">Home</a>
-          <a href="#">Profile</a>
-          <a href="#">Product</a>
-          <a href="#">Portfolio</a>
-          <a href="#">Contact</a>
-        </nav>
-
-        <!-- CTA -->
-        <button class="hidden md:block gradient px-6 py-3 rounded-xl font-semibold hover:scale-105 transition">
-          Let's Talk
-        </button>
-
-        <!-- Mobile Button -->
-        <button id="menuBtn" class="md:hidden text-2xl">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-
+    <!-- Kiri -->
+    <div>
+      <div class="hero-badge">
+        <div class="pulse"></div>
+        Software House &amp; Solusi Digital
       </div>
-
-      <!-- Mobile Menu -->
-      <div id="mobileMenu" class="hidden md:hidden pb-6">
-
-        <div class="flex flex-col gap-5 text-white/70">
-          <a href="#" class="text-blue-500">Home</a>
-          <a href="#">Profile</a>
-          <a href="#">Product</a>
-          <a href="#">Portfolio</a>
-          <a href="#">Contact</a>
-
-          <button class="gradient px-5 py-3 rounded-xl font-semibold mt-3">
-            Let's Talk
-          </button>
-        </div>
-
+      <h1 class="hero-h1">
+        Kami wujudkan<br>
+        ide Anda menjadi<br>
+        produk digital yang<br>
+        <em>berdampak.</em>
+      </h1>
+      <p class="hero-p">
+        LokaCoding membantu bisnis bertransformasi digital — dari platform web hingga aplikasi mobile, semua dibangun dengan teknologi modern dan presisi tinggi.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary">Lihat Portofolio</button>
+        <button class="btn-outline">Mulai Kerja Sama</button>
       </div>
-
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="relative min-h-screen flex items-center overflow-hidden">
-
-    <div class="absolute inset-0 grid-bg opacity-50"></div>
-
-    <div class="max-w-7xl mx-auto px-4 md:px-6 relative z-10 py-32">
-
-      <div class="grid lg:grid-cols-2 gap-20 items-center">
-
-        <!-- LEFT -->
-        <div>
-
-          <span class="text-blue-500 text-xs md:text-sm uppercase tracking-[4px]">
-            Software House & Digital Solution
-          </span>
-
-          <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight mt-6">
-            We build digital solutions that
-            <span class="text-blue-500">drive</span>
-            your business
-          </h1>
-
-          <p class="text-white/60 mt-8 text-base md:text-lg leading-relaxed max-w-xl">
-            LokaCoding helps businesses transform ideas into powerful digital products and seamless experiences.
-          </p>
-
-          <div class="flex flex-col sm:flex-row gap-4 mt-10">
-
-            <button class="gradient px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition">
-              Our Portfolio
-            </button>
-
-            <button class="border border-white/10 px-8 py-4 rounded-2xl font-semibold hover:bg-white/5 transition">
-              Let's Work Together
-            </button>
-
-          </div>
-
-        </div>
-
-        <!-- RIGHT -->
-        <div class="relative flex justify-center">
-
-          <div class="absolute w-64 md:w-96 h-64 md:h-96 bg-blue-500/20 blur-[100px] rounded-full"></div>
-
-          <div class="relative flex items-center justify-center glow">
-
-            <div class="flex gap-4 md:gap-8 rotate-12">
-
-              <div class="w-20 md:w-28 h-32 md:h-44 rounded-[40px] gradient"></div>
-
-              <div class="w-20 md:w-28 h-32 md:h-44 rounded-[40px] bg-white"></div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
 
-  </section>
-
-  <!-- ABOUT -->
-  <section class="py-20 md:py-28 border-t border-white/5">
-
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
-
-      <div class="grid lg:grid-cols-2 gap-14 items-start">
-
-        <!-- LEFT -->
-        <div>
-
-          <span class="text-blue-500 uppercase tracking-[4px] text-xs md:text-sm">
-            Company Profile
-          </span>
-
-          <h2 class="text-3xl md:text-5xl font-black leading-tight mt-5">
-            Building digital solutions with passion and purpose.
-          </h2>
-
-          <p class="text-white/60 text-base md:text-lg leading-relaxed mt-8">
-            LokaCoding is a software house that focuses on creating innovative,
-            scalable, and impactful digital products.
-            We combine technology, design, and strategy to help businesses grow in the digital era.
-          </p>
-
-          <button class="mt-10 border border-white/10 px-6 py-4 rounded-2xl hover:bg-white/5 transition">
-            Learn More About Us
-          </button>
-
+    <!-- Kanan -->
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="code-bar">
+          <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+          <span class="code-fname">lokacoding.ts</span>
         </div>
-
-        <!-- RIGHT -->
-        <div class="grid sm:grid-cols-2 gap-5">
-
-          <div class="glass rounded-3xl p-7 hover:-translate-y-1 transition">
-            <div class="text-blue-500 text-4xl">
-              <i class="fa-solid fa-users"></i>
-            </div>
-
-            <h3 class="text-2xl font-bold mt-5">
-              Client First
-            </h3>
-
-            <p class="text-white/50 mt-4 leading-relaxed">
-              We build solutions that truly solve real problems.
-            </p>
-          </div>
-
-          <div class="glass rounded-3xl p-7 hover:-translate-y-1 transition">
-            <div class="text-blue-500 text-4xl">
-              <i class="fa-solid fa-code"></i>
-            </div>
-
-            <h3 class="text-2xl font-bold mt-5">
-              Clean Code
-            </h3>
-
-            <p class="text-white/50 mt-4 leading-relaxed">
-              We write scalable and maintainable systems.
-            </p>
-          </div>
-
-          <div class="glass rounded-3xl p-7 hover:-translate-y-1 transition">
-            <div class="text-blue-500 text-4xl">
-              <i class="fa-solid fa-rocket"></i>
-            </div>
-
-            <h3 class="text-2xl font-bold mt-5">
-              Innovation
-            </h3>
-
-            <p class="text-white/50 mt-4 leading-relaxed">
-              We leverage modern technology for innovation.
-            </p>
-          </div>
-
-          <div class="glass rounded-3xl p-7 hover:-translate-y-1 transition">
-            <div class="text-blue-500 text-4xl">
-              <i class="fa-solid fa-shield-halved"></i>
-            </div>
-
-            <h3 class="text-2xl font-bold mt-5">
-              Quality Driven
-            </h3>
-
-            <p class="text-white/50 mt-4 leading-relaxed">
-              We ensure quality in every product we build.
-            </p>
-          </div>
-
-        </div>
-
+        <div class="code-body" id="codeBody"></div>
       </div>
 
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-n">50<span>+</span></div>
+          <div class="stat-l">Proyek Selesai</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-n">98<span>%</span></div>
+          <div class="stat-l">Klien Puas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-n">3<span>th</span></div>
+          <div class="stat-l">Pengalaman</div>
+        </div>
+      </div>
     </div>
 
-  </section>
+  </div>
+</section>
 
-  <!-- PRODUCTS -->
-  <section class="py-20 md:py-28 border-t border-white/5">
+<div class="divider"></div>
 
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
+<!-- ════ ABOUT ════ -->
+<section id="about" style="padding:0;max-width:none;">
+  <div class="inner" style="padding-top:96px;padding-bottom:96px;">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="lbl">Profil Perusahaan</div>
+        <h2 class="sec-h">Membangun solusi digital<br>dengan <em>semangat</em><br>& tujuan nyata.</h2>
+        <p class="about-p">
+          LokaCoding adalah software house yang berfokus pada pembuatan produk digital yang inovatif, skalabel, dan berdampak. Kami menggabungkan teknologi, desain, dan strategi untuk membantu bisnis berkembang pesat di era digital.
+        </p>
+        <button class="btn-outline">Kenali Kami Lebih Lanjut</button>
+      </div>
 
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
-
-        <div>
-          <span class="text-blue-500 uppercase tracking-[4px] text-xs md:text-sm">
-            Our Products
-          </span>
-
-          <h2 class="text-3xl md:text-5xl font-black mt-5">
-            Products we build
-            to empower your business.
-          </h2>
+      <div class="vals reveal d2">
+        <div class="val">
+          <div class="val-ico"><i class="fa-solid fa-users"></i></div>
+          <div class="val-t">Klien Utama</div>
+          <div class="val-d">Kami membangun solusi yang benar-benar memecahkan masalah nyata klien kami.</div>
         </div>
+        <div class="val">
+          <div class="val-ico"><i class="fa-solid fa-code"></i></div>
+          <div class="val-t">Kode Bersih</div>
+          <div class="val-d">Sistem yang scalable, maintainable, dan siap digunakan di lingkungan produksi.</div>
+        </div>
+        <div class="val">
+          <div class="val-ico"><i class="fa-solid fa-rocket"></i></div>
+          <div class="val-t">Inovasi</div>
+          <div class="val-d">Kami memanfaatkan teknologi terkini untuk menghadirkan solusi masa depan.</div>
+        </div>
+        <div class="val">
+          <div class="val-ico"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="val-t">Kualitas Tinggi</div>
+          <div class="val-d">Standar kualitas ketat diterapkan di setiap produk yang kami kirimkan.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <a href="#" class="text-blue-500">
-          See all products →
+<div class="divider"></div>
+
+<!-- ════ PRODUCTS ════ -->
+<section id="products">
+  <div class="prod-hdr reveal">
+    <div>
+      <div class="lbl">Produk Kami</div>
+      <h2 class="sec-h">Produk yang kami bangun untuk<br><em>memberdayakan</em> bisnis Anda.</h2>
+    </div>
+    <a href="#" class="see-all">Lihat semua <i class="fa-solid fa-arrow-right" style="font-size:.65rem"></i></a>
+  </div>
+
+  <div class="prod-grid">
+    <div class="prod-card reveal d1">
+      <div class="prod-num">01</div>
+      <div class="prod-ico"><i class="fa-solid fa-globe"></i></div>
+      <div class="prod-t">Web Development</div>
+      <div class="prod-d">Website responsif dan performan yang memperkuat kehadiran digital bisnis Anda secara profesional.</div>
+      <a href="#" class="prod-lnk">Pelajari lebih lanjut <i class="fa-solid fa-arrow-right" style="font-size:.6rem"></i></a>
+    </div>
+    <div class="prod-card reveal d2">
+      <div class="prod-num">02</div>
+      <div class="prod-ico"><i class="fa-solid fa-mobile-screen"></i></div>
+      <div class="prod-t">Mobile Development</div>
+      <div class="prod-d">Aplikasi mobile native dan cross-platform dengan pengalaman pengguna yang mulus di iOS dan Android.</div>
+      <a href="#" class="prod-lnk">Pelajari lebih lanjut <i class="fa-solid fa-arrow-right" style="font-size:.6rem"></i></a>
+    </div>
+    <div class="prod-card reveal d3">
+      <div class="prod-num">03</div>
+      <div class="prod-ico"><i class="fa-solid fa-chart-line"></i></div>
+      <div class="prod-t">Lokasee</div>
+      <div class="prod-d">Platform analitik in-house kami untuk insight real-time demi keputusan bisnis berbasis data yang tepat.</div>
+      <a href="#" class="prod-lnk">Pelajari lebih lanjut <i class="fa-solid fa-arrow-right" style="font-size:.6rem"></i></a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════ PORTFOLIO ════ -->
+<section id="portfolio" style="padding:0;max-width:none;">
+  <div class="inner" style="padding-top:96px;padding-bottom:96px;">
+    <div class="port-hdr reveal">
+      <div>
+        <div class="lbl">Portofolio Kami</div>
+        <h2 class="sec-h">Proyek yang kami<br><em>banggakan.</em></h2>
+      </div>
+      <a href="#" class="see-all">Lihat semua <i class="fa-solid fa-arrow-right" style="font-size:.65rem"></i></a>
+    </div>
+
+    <div class="port-grid">
+      <div class="port-card reveal d1">
+        <div style="overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200" class="port-img"/>
+        </div>
+        <div class="port-body">
+          <div>
+            <div class="port-tag">Aplikasi Web</div>
+            <div class="port-n">FinTrack Dashboard</div>
+          </div>
+          <div class="port-arr"><i class="fa-solid fa-arrow-up-right"></i></div>
+        </div>
+      </div>
+      <div class="port-card reveal d2">
+        <div style="overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200" class="port-img"/>
+        </div>
+        <div class="port-body">
+          <div>
+            <div class="port-tag">Aplikasi Mobile</div>
+            <div class="port-n">Healthio Mobile App</div>
+          </div>
+          <div class="port-arr"><i class="fa-solid fa-arrow-up-right"></i></div>
+        </div>
+      </div>
+      <div class="port-card reveal d3">
+        <div style="overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200" class="port-img"/>
+        </div>
+        <div class="port-body">
+          <div>
+            <div class="port-tag">Web Development</div>
+            <div class="port-n">Furnia E-Commerce</div>
+          </div>
+          <div class="port-arr"><i class="fa-solid fa-arrow-up-right"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA ════ -->
+<div id="cta-section">
+  <div class="cta-outer">
+    <div class="cta-box reveal">
+      <div style="position:relative;z-index:1;">
+        <div class="cta-lbl">// Mulai Proyek</div>
+        <div class="cta-t">Siap membangun<br>sesuatu yang luar biasa?</div>
+        <div class="cta-sub">Mari diskusikan bagaimana kami bisa membantu bisnis Anda berkembang secara digital.</div>
+      </div>
+      <div class="cta-r">
+        <button class="btn-white">Hubungi Kami →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div>
+        <a class="ft-logo" href="#">
+          <img src="icon/locakoding.png" alt="Loka Coding"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="ft-logo-fb">LC</span>
+          Loka Coding
         </a>
-
+        <p class="ft-desc">Kami membangun produk dan solusi digital yang memberdayakan bisnis untuk berkembang di dunia modern.</p>
+        <div class="ft-soc">
+          <a href="#" class="soc"><i class="fa-brands fa-github"></i></a>
+          <a href="#" class="soc"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" class="soc"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="soc"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
       </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="glass rounded-3xl p-8 hover:-translate-y-2 transition">
-          <div class="w-16 h-16 rounded-2xl gradient"></div>
-
-          <h3 class="text-3xl font-bold mt-6">
-            LokaCRM
-          </h3>
-
-          <p class="text-white/50 mt-4 leading-relaxed">
-            Smart CRM to manage leads, sales, and customer relationships.
-          </p>
-
-          <a href="#" class="inline-block mt-6 text-blue-500">
-            Learn More →
-          </a>
-        </div>
-
-        <div class="glass rounded-3xl p-8 hover:-translate-y-2 transition">
-          <div class="w-16 h-16 rounded-2xl gradient"></div>
-
-          <h3 class="text-3xl font-bold mt-6">
-            LokaFlow
-          </h3>
-
-          <p class="text-white/50 mt-4 leading-relaxed">
-            Workflow automation to streamline business processes.
-          </p>
-
-          <a href="#" class="inline-block mt-6 text-blue-500">
-            Learn More →
-          </a>
-        </div>
-
-        <div class="glass rounded-3xl p-8 hover:-translate-y-2 transition">
-          <div class="w-16 h-16 rounded-2xl gradient"></div>
-
-          <h3 class="text-3xl font-bold mt-6">
-            LokaAnalytics
-          </h3>
-
-          <p class="text-white/50 mt-4 leading-relaxed">
-            Data insights and analytics for better business decisions.
-          </p>
-
-          <a href="#" class="inline-block mt-6 text-blue-500">
-            Learn More →
-          </a>
-        </div>
-
+      <div>
+        <div class="ft-col-t">Navigasi</div>
+        <ul class="ft-links">
+          <li><a href="#">Beranda</a></li>
+          <li><a href="#about">Profil</a></li>
+          <li><a href="#products">Produk</a></li>
+          <li><a href="#portfolio">Portofolio</a></li>
+          <li><a href="#cta-section">Kontak</a></li>
+        </ul>
       </div>
-
+      <div>
+        <div class="ft-col-t">Layanan</div>
+        <ul class="ft-links">
+          <li><a href="#">Web Development</a></li>
+          <li><a href="#">Mobile Development</a></li>
+          <li><a href="#">Desain UI/UX</a></li>
+          <li><a href="#">Otomasi</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-t">Perusahaan</div>
+        <ul class="ft-links">
+          <li><a href="#">Tentang Kami</a></li>
+          <li><a href="#">Karier</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Kontak</a></li>
+        </ul>
+      </div>
     </div>
-
-  </section>
-
-  <!-- PORTFOLIO -->
-  <section class="py-20 md:py-28 border-t border-white/5">
-
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
-
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
-
-        <div>
-          <span class="text-blue-500 uppercase tracking-[4px] text-xs md:text-sm">
-            Our Portfolio
-          </span>
-
-          <h2 class="text-3xl md:text-5xl font-black mt-5">
-            Some of the projects
-            we're proud of.
-          </h2>
-        </div>
-
-        <a href="#" class="text-blue-500">
-          View all portfolio →
-        </a>
-
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- CARD -->
-        <div class="glass rounded-3xl overflow-hidden hover:-translate-y-2 transition">
-
-          <img
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200"
-            class="w-full h-64 object-cover"
-          />
-
-          <div class="p-6">
-            <h3 class="text-2xl font-bold">
-              FinTrack Dashboard
-            </h3>
-
-            <p class="text-white/50 mt-3">
-              Web Application
-            </p>
-          </div>
-
-        </div>
-
-        <div class="glass rounded-3xl overflow-hidden hover:-translate-y-2 transition">
-
-          <img
-            src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200"
-            class="w-full h-64 object-cover"
-          />
-
-          <div class="p-6">
-            <h3 class="text-2xl font-bold">
-              Healthio Mobile App
-            </h3>
-
-            <p class="text-white/50 mt-3">
-              Mobile Application
-            </p>
-          </div>
-
-        </div>
-
-        <div class="glass rounded-3xl overflow-hidden hover:-translate-y-2 transition">
-
-          <img
-            src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200"
-            class="w-full h-64 object-cover"
-          />
-
-          <div class="p-6">
-            <h3 class="text-2xl font-bold">
-              Furnia E-Commerce
-            </h3>
-
-            <p class="text-white/50 mt-3">
-              Web Development
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
+    <div class="ft-bot">
+      <span class="ft-copy">© 2026 LokaCoding. Semua hak dilindungi.</span>
+      <span class="ft-build">Dibuat dengan <span>♥</span> di Indonesia</span>
     </div>
+  </div>
+</footer>
 
-  </section>
+<script>
+  /* Mobile menu */
+  const mobBtn = document.getElementById('mobBtn');
+  const mobMenu = document.getElementById('mobMenu');
+  mobBtn.addEventListener('click', () => {
+    mobMenu.classList.toggle('open');
+    mobBtn.querySelector('i').className = mobMenu.classList.contains('open')
+      ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+  });
+  mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobMenu.classList.remove('open');
+    mobBtn.querySelector('i').className = 'fa-solid fa-bars';
+  }));
 
-  <!-- CTA -->
-  <section class="py-20 md:py-28">
+  /* About & Portfolio inner padding */
+  document.querySelectorAll('#about .inner, #portfolio .inner').forEach(el => {
+    el.style.maxWidth = '1200px';
+    el.style.margin = '0 auto';
+    el.style.padding = '96px 48px';
+  });
 
-    <div class="max-w-7xl mx-auto px-4 md:px-6">
+  /* Scroll reveal */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-      <div class="gradient rounded-[40px] p-8 md:p-16 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+  /* ── Typing animation ── */
+  const codeLines = [
+    { html: '<span class="cb">const</span> <span class="cw">lokaCoding</span> = {',        plain: 'const lokaCoding = {' },
+    { html: '&nbsp;&nbsp;<span class="cs">misi</span>: <span class="co">"Keunggulan Digital"</span>,', plain: '  misi: "Keunggulan Digital",' },
+    { html: '&nbsp;&nbsp;<span class="cs">layanan</span>: [',                              plain: '  layanan: [' },
+    { html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="co">"Web Development"</span>,',          plain: '    "Web Development",' },
+    { html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="co">"Mobile Apps"</span>,',              plain: '    "Mobile Apps",' },
+    { html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="co">"UI/UX Design"</span>,',             plain: '    "UI/UX Design",' },
+    { html: '&nbsp;&nbsp;],',                                                              plain: '  ],' },
+    { html: '&nbsp;&nbsp;<span class="cs">status</span>: <span class="cb">() =&gt;</span> <span class="cg">"Tersedia ✓"</span>', plain: '  status: () => "Tersedia ✓"' },
+    { html: '};',                                                                          plain: '};' },
+  ];
 
-        <div>
-          <h2 class="text-3xl md:text-5xl font-black leading-tight">
-            Ready to start your project?
-          </h2>
+  const codeBody = document.getElementById('codeBody');
+  const CHAR_SPEED = 38;   // ms per karakter
+  const LINE_PAUSE = 120;  // ms jeda antar baris
 
-          <p class="text-white/80 mt-5 text-base md:text-xl">
-            Let's discuss how we can help your business grow.
-          </p>
-        </div>
+  function typeLine(lineIndex, lineData, resolve) {
+    const row = document.createElement('div');
+    row.className = 'code-line visible';
 
-        <button class="bg-white text-black px-8 py-5 rounded-2xl font-bold hover:scale-105 transition">
-          Let's Talk
-        </button>
+    // Elemen teks yang sedang diketik (plain text)
+    const textNode = document.createElement('span');
+    textNode.style.color = '#94A3B8';
 
-      </div>
+    // Cursor
+    const cursor = document.createElement('span');
+    cursor.className = 'code-cursor';
 
-    </div>
+    row.appendChild(textNode);
+    row.appendChild(cursor);
+    codeBody.appendChild(row);
 
-  </section>
+    const plain = lineData.plain;
+    let charIdx = 0;
 
-  <!-- FOOTER -->
-  <footer class="border-t border-white/5">
+    const interval = setInterval(() => {
+      charIdx++;
+      textNode.textContent = plain.slice(0, charIdx);
+      if (charIdx >= plain.length) {
+        clearInterval(interval);
+        // Ganti teks plain → HTML berwarna, hapus cursor
+        setTimeout(() => {
+          textNode.remove();
+          cursor.remove();
+          const colored = document.createElement('span');
+          colored.innerHTML = lineData.html;
+          row.appendChild(colored);
+          resolve();
+        }, 80);
+      }
+    }, CHAR_SPEED);
+  }
 
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-16">
+  async function runTypingAnimation() {
+    // Tunggu hero entrance selesai dulu
+    await new Promise(r => setTimeout(r, 900));
+    for (let i = 0; i < codeLines.length; i++) {
+      await new Promise(resolve => typeLine(i, codeLines[i], resolve));
+      await new Promise(r => setTimeout(r, LINE_PAUSE));
+    }
+  }
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-12">
+  runTypingAnimation();
 
-        <!-- Brand -->
-        <div class="lg:col-span-2">
-
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl gradient"></div>
-            <h1 class="font-bold text-2xl">
-              loka coding
-            </h1>
-          </div>
-
-          <p class="text-white/50 mt-6 leading-relaxed max-w-md">
-            We build digital products and solutions that empower businesses to grow in the digital world.
-          </p>
-
-          <div class="flex gap-4 mt-8">
-
-            <div class="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 cursor-pointer">
-              <i class="fa-brands fa-github"></i>
-            </div>
-
-            <div class="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 cursor-pointer">
-              <i class="fa-brands fa-linkedin"></i>
-            </div>
-
-            <div class="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 cursor-pointer">
-              <i class="fa-brands fa-instagram"></i>
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- Menu -->
-        <div>
-          <h4 class="font-bold mb-6">
-            Navigation
-          </h4>
-
-          <div class="space-y-4 text-white/50">
-            <p>Home</p>
-            <p>Profile</p>
-            <p>Product</p>
-            <p>Portfolio</p>
-            <p>Contact</p>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="font-bold mb-6">
-            Services
-          </h4>
-
-          <div class="space-y-4 text-white/50">
-            <p>Web Development</p>
-            <p>Mobile Development</p>
-            <p>UI/UX Design</p>
-            <p>Automation</p>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="font-bold mb-6">
-            Company
-          </h4>
-
-          <div class="space-y-4 text-white/50">
-            <p>About Us</p>
-            <p>Careers</p>
-            <p>Blog</p>
-            <p>Contact</p>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="border-t border-white/5 mt-16 pt-8 text-center text-white/40 text-sm">
-        © 2026 LokaCoding. All rights reserved.
-      </div>
-
-    </div>
-
-  </footer>
-
-  <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
-
-    menuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
-  </script>
-
+  /* Hero entrance */
+  const heroEls = document.querySelectorAll(
+    '#hero .hero-badge, #hero .hero-h1, #hero .hero-p, #hero .hero-btns, #hero .hero-right'
+  );
+  heroEls.forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity .75s ease ${i * .13}s, transform .75s ease ${i * .13}s`;
+    setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, 60 + i * 130);
+  });
+</script>
 </body>
 </html>
