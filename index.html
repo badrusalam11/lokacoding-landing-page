@@ -579,7 +579,7 @@
     Loka Coding
   </a>
   <ul class="nav-links">
-    <li><a href="#" class="active">Beranda</a></li>
+    <li><a href="#">Beranda</a></li>
     <li><a href="#about">Profil</a></li>
     <li><a href="#products">Produk</a></li>
     <li><a href="#portfolio">Portofolio</a></li>
@@ -606,7 +606,7 @@
 
     <!-- Kiri -->
     <div>
-      <div class="hero-badge">
+      <div class="hero-badge"  style="margin-top: 90px;">
         <div class="pulse"></div>
         Software House &amp; Solusi Digital
       </div>
@@ -620,8 +620,8 @@
         LokaCoding membantu bisnis bertransformasi digital — dari platform web hingga aplikasi mobile, semua dibangun dengan teknologi modern dan presisi tinggi.
       </p>
       <div class="hero-btns">
-        <button class="btn-primary">Lihat Portofolio</button>
-        <button class="btn-outline">Mulai Kerja Sama</button>
+        <a class="btn-primary" href="#portfolio" style="text-decoration: none;">Lihat Portofolio</a>
+        <a class="btn-outline" href="#cta-section" style="text-decoration: none;">Mulai Kerja Sama</a>
       </div>
     </div>
 
@@ -726,8 +726,8 @@
       <div class="prod-num">03</div>
       <div class="prod-ico"><i class="fa-solid fa-chart-line"></i></div>
       <div class="prod-t">Lokasee</div>
-      <div class="prod-d">Platform analitik in-house kami untuk insight real-time demi keputusan bisnis berbasis data yang tepat.</div>
-      <a href="#" class="prod-lnk">Pelajari lebih lanjut <i class="fa-solid fa-arrow-right" style="font-size:.6rem"></i></a>
+      <div class="prod-d">Lokasee membantu sales, UMKM, dan agency menemukan kontak bisnis dari area tertentu, mengelola leads, dan menjangkau prospek lebih cepat melalui WhatsApp.</div>
+      <a href="https://lokasee.id" target="_blank" class="prod-lnk">Pergi ke Lokasee<i class="fa-solid fa-arrow-right" style="font-size:.6rem"></i></a>
     </div>
   </div>
 </section>
@@ -787,7 +787,7 @@
 </section>
 
 <!-- ════ CTA ════ -->
-<div id="cta-section">
+<div id="cta-section" style="scroll-margin-top: 80px;">
   <div class="cta-outer">
     <div class="cta-box reveal">
       <div style="position:relative;z-index:1;">
@@ -796,7 +796,13 @@
         <div class="cta-sub">Mari diskusikan bagaimana kami bisa membantu bisnis Anda berkembang secara digital.</div>
       </div>
       <div class="cta-r">
-        <button class="btn-white">Hubungi Kami →</button>
+        <a 
+          class="btn-white" 
+          href="https://wa.me/6285121533661?text=Halo%20Admin,%20saya%20tertarik%20untuk%20menggunakan%20jasa%20pembuatan%20software.%20Mohon%20informasinya."
+          target="_blank" 
+          style="text-decoration: none;">
+            Hubungi Kami →
+        </a>
       </div>
     </div>
   </div>
@@ -815,10 +821,9 @@
         </a>
         <p class="ft-desc">Kami membangun produk dan solusi digital yang memberdayakan bisnis untuk berkembang di dunia modern.</p>
         <div class="ft-soc">
-          <a href="#" class="soc"><i class="fa-brands fa-github"></i></a>
-          <a href="#" class="soc"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="#" class="soc"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" class="soc"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://wa.me/6285121533661" target="_blank" class="soc"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/lokacoding" target="_blank" class="soc"><i class="fa-brands fa-instagram"></i></a>
+          <a href="mailto:lokacoding@gmail.com" class="soc"><i class="fa-solid fa-envelope"></i></a>
         </div>
       </div>
       <div>
@@ -852,7 +857,6 @@
     </div>
     <div class="ft-bot">
       <span class="ft-copy">© 2026 LokaCoding. Semua hak dilindungi.</span>
-      <span class="ft-build">Dibuat dengan <span>♥</span> di Indonesia</span>
     </div>
   </div>
 </footer>
@@ -948,6 +952,37 @@
   }
 
   runTypingAnimation();
+
+    /* ── Scroll Spy ── */
+  const sections = [
+    { id: 'hero',        link: document.querySelector('.nav-links a[href="#"]') },
+    { id: 'about',       link: document.querySelector('.nav-links a[href="#about"]') },
+    { id: 'products',    link: document.querySelector('.nav-links a[href="#products"]') },
+    { id: 'portfolio',   link: document.querySelector('.nav-links a[href="#portfolio"]') },
+    { id: 'cta-section', link: document.querySelector('.nav-links a[href="#cta-section"]') },
+  ];
+ 
+  function updateActiveNav() {
+    const scrollY = window.scrollY;
+    const navH = 66;
+    let current = sections[0];
+ 
+    sections.forEach(s => {
+      const el = document.getElementById(s.id);
+      if (!el) return;
+      // section dianggap aktif kalau top-nya sudah melewati tengah layar
+      if (el.getBoundingClientRect().top <= navH + 80) {
+        current = s;
+      }
+    });
+ 
+    sections.forEach(s => s.link && s.link.classList.remove('active'));
+    if (current.link) current.link.classList.add('active');
+  }
+ 
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav(); // jalankan sekali saat load
+
 
   /* Hero entrance */
   const heroEls = document.querySelectorAll(
