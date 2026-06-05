@@ -943,11 +943,30 @@
   }
 
   async function runTypingAnimation() {
-    // Tunggu hero entrance selesai dulu
+    // Tunggu hero entrance selesai dulu (hanya sekali di awal)
     await new Promise(r => setTimeout(r, 900));
-    for (let i = 0; i < codeLines.length; i++) {
-      await new Promise(resolve => typeLine(i, codeLines[i], resolve));
-      await new Promise(r => setTimeout(r, LINE_PAUSE));
+ 
+    while (true) {
+      // Ketik semua baris
+      for (let i = 0; i < codeLines.length; i++) {
+        await new Promise(resolve => typeLine(i, codeLines[i], resolve));
+        await new Promise(r => setTimeout(r, LINE_PAUSE));
+      }
+ 
+      // Jeda sebentar sebelum dihapus
+      await new Promise(r => setTimeout(r, 1800));
+ 
+      // Hapus baris satu per satu dari bawah (efek delete)
+      const rows = Array.from(codeBody.children);
+      for (let i = rows.length - 1; i >= 0; i--) {
+        rows[i].style.transition = 'opacity .12s ease';
+        rows[i].style.opacity = '0';
+        await new Promise(r => setTimeout(r, 80));
+        rows[i].remove();
+      }
+ 
+      // Jeda sebentar sebelum mulai lagi
+      await new Promise(r => setTimeout(r, 500));
     }
   }
 
