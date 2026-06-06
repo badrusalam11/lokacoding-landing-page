@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://badrusalam11.github.io/lokacoding-landing-page/sitemap.xml

@@ -26,7 +26,9 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/index.html
-          cp -r icon _site/icon          # ← tambah baris ini
+          cp -r icon _site/icon
+          cp robots.txt _site/robots.txt
+          cp sitemap.xml _site/sitemap.xml
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
