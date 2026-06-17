@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nova — Template Landing Page SaaS | Loka Coding</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{
+    --bg:#0A0A12; --bg-2:#10101C; --violet:#7C3AED; --lime:#C4F042; --line:rgba(255,255,255,.09);
+    --text:#F4F4F8; --muted:#9499AE; --card:#13131F;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'Space Grotesk',sans-serif;}
+  a{color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#000;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;border-bottom:1px solid var(--line);}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#9499AE;display:flex;align-items:center;gap:7px;transition:color .2s;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#5b5f72;display:none;}
+  .lc-bar-order{background:var(--lime);color:#0A0A12;font-weight:700;padding:7px 16px;border-radius:7px;display:flex;align-items:center;gap:6px;transition:opacity .2s;}
+  .lc-bar-order:hover{opacity:.85;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:74px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:rgba(10,10,18,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;}
+  .brand .dot{width:10px;height:10px;border-radius:3px;background:var(--lime);}
+  .nlinks{display:flex;gap:34px;list-style:none;}
+  .nlinks a{font-size:.83rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;}
+  .nlinks a:hover{color:#fff;}
+  .nav-cta{font-size:.8rem;font-weight:700;background:var(--lime);color:#0A0A12;border:none;padding:11px 22px;border-radius:8px;cursor:pointer;text-decoration:none;}
+  .mob-btn{display:none;background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;}
+
+  #hero{position:relative;padding:200px 0 0;overflow:hidden;}
+  .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45;}
+  .blob1{width:480px;height:480px;background:var(--violet);top:-160px;right:-100px;}
+  .blob2{width:380px;height:380px;background:#2563EB;bottom:-200px;left:-120px;opacity:.3;}
+  .hero-inner{position:relative;z-index:1;text-align:center;max-width:760px;margin:0 auto;}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid var(--line);
+    border-radius:100px;padding:7px 16px;font-size:.74rem;color:var(--muted);margin-bottom:28px;}
+  .hero-badge b{color:var(--lime);font-weight:700;}
+  .hero-h{font-size:clamp(2.4rem,5.6vw,4.2rem);font-weight:700;line-height:1.08;letter-spacing:-.03em;margin-bottom:22px;}
+  .hero-h .grad{background:linear-gradient(90deg,var(--lime),#7DD3FC);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero-p{color:var(--muted);font-size:1.02rem;line-height:1.75;max-width:540px;margin:0 auto 36px;}
+  .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+  .btn-lime{background:var(--lime);color:#0A0A12;font-weight:700;font-size:.88rem;padding:15px 30px;border-radius:9px;text-decoration:none;transition:transform .2s,box-shadow .2s;}
+  .btn-lime:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(196,240,66,.25);}
+  .btn-ghost{color:#fff;font-weight:600;font-size:.88rem;padding:15px 26px;border:1px solid var(--line);border-radius:9px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s;}
+  .btn-ghost:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04);}
+  .hero-note{font-size:.75rem;color:#5b5f72;margin-bottom:60px;}
+
+  /* product mockup */
+  .mock-wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:0 24px 0;}
+  .mock{border-radius:16px 16px 0 0;border:1px solid var(--line);border-bottom:none;background:var(--card);
+    box-shadow:0 -40px 120px rgba(124,58,237,.18);overflow:hidden;}
+  .mock-bar{display:flex;align-items:center;gap:7px;padding:13px 18px;background:#181826;border-bottom:1px solid var(--line);}
+  .mock-bar .d{width:9px;height:9px;border-radius:50%;background:#3a3a4d;}
+  .mock-body{display:grid;grid-template-columns:170px 1fr;min-height:340px;}
+  .mock-side{border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:8px;}
+  .mock-side .item{height:10px;border-radius:4px;background:rgba(255,255,255,.07);}
+  .mock-side .item.active{background:var(--violet);width:70%;}
+  .mock-main{padding:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-content:start;}
+  .mock-card{background:#181826;border:1px solid var(--line);border-radius:10px;padding:16px;}
+  .mock-card .n{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.3rem;color:#fff;}
+  .mock-card .l{font-size:.66rem;color:var(--muted);margin-top:4px;}
+  .mock-chart{grid-column:1/-1;height:120px;border:1px solid var(--line);border-radius:10px;background:#181826;
+    display:flex;align-items:flex-end;gap:6px;padding:14px;}
+  .mock-chart span{flex:1;background:linear-gradient(180deg,var(--violet),transparent);border-radius:3px 3px 0 0;}
+
+  #logos{padding:64px 0 0;text-align:center;}
+  .logos-l{font-size:.72rem;color:#5b5f72;letter-spacing:.1em;text-transform:uppercase;margin-bottom:30px;}
+  .logos-row{display:flex;justify-content:center;gap:54px;flex-wrap:wrap;opacity:.5;font-family:'Space Grotesk',sans-serif;font-weight:600;}
+
+  section{padding:110px 0;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);margin-bottom:16px;}
+  .sec-hdr{text-align:center;max-width:600px;margin:0 auto 60px;}
+  .sec-h{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.15;}
+  .sec-sub{color:var(--muted);margin-top:16px;font-size:.95rem;line-height:1.7;}
+
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .feat-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:30px;transition:border-color .25s,transform .25s;}
+  .feat-card:hover{border-color:rgba(196,240,66,.4);transform:translateY(-4px);}
+  .feat-ico{width:42px;height:42px;border-radius:10px;background:rgba(124,58,237,.18);color:#C4B5FD;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:20px;}
+  .feat-t{font-weight:700;font-size:1rem;margin-bottom:10px;font-family:'Space Grotesk',sans-serif;}
+  .feat-d{color:var(--muted);font-size:.84rem;line-height:1.7;}
+
+  #how{background:var(--bg-2);}
+  .how-row{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .how-step{text-align:center;}
+  .how-n{width:50px;height:50px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--lime);margin:0 auto 22px;}
+  .how-t{font-weight:700;margin-bottom:10px;font-family:'Space Grotesk',sans-serif;}
+  .how-d{color:var(--muted);font-size:.84rem;line-height:1.7;max-width:260px;margin:0 auto;}
+
+  #statband{text-align:center;}
+  .stat-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.4rem,5vw,3.6rem);font-weight:700;}
+  .stat-big .grad{background:linear-gradient(90deg,var(--lime),#7DD3FC);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .stat-sub{color:var(--muted);margin-top:14px;max-width:460px;margin-inline:auto;}
+
+  #pricing .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch;}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px;display:flex;flex-direction:column;}
+  .plan.feat{border-color:var(--lime);box-shadow:0 0 0 1px var(--lime),0 30px 60px -20px rgba(196,240,66,.2);}
+  .plan-name{font-weight:700;font-family:'Space Grotesk',sans-serif;margin-bottom:10px;}
+  .plan-price{font-family:'Space Grotesk',sans-serif;font-size:2.1rem;font-weight:700;margin-bottom:6px;}
+  .plan-price span{font-size:.85rem;color:var(--muted);font-weight:400;}
+  .plan-desc{color:var(--muted);font-size:.82rem;margin-bottom:24px;}
+  .plan-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:30px;flex:1;}
+  .plan-list li{font-size:.83rem;color:#D6D6E0;display:flex;gap:9px;align-items:flex-start;}
+  .plan-list i{color:var(--lime);margin-top:2px;}
+  .plan-btn{text-align:center;padding:13px;border-radius:9px;font-weight:700;font-size:.85rem;text-decoration:none;border:1px solid var(--line);color:#fff;}
+  .plan.feat .plan-btn{background:var(--lime);color:#0A0A12;border-color:var(--lime);}
+
+  #testi{background:var(--bg-2);text-align:center;}
+  .testi-card{max-width:680px;margin:0 auto;}
+  .testi-stars{color:var(--lime);font-size:.9rem;margin-bottom:24px;}
+  .testi-t{font-size:clamp(1.2rem,2.2vw,1.6rem);font-family:'Space Grotesk',sans-serif;font-weight:600;line-height:1.5;margin-bottom:26px;}
+  .testi-who{color:var(--muted);font-size:.85rem;}
+
+  #cta2{text-align:center;}
+  .cta2-h{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3.6vw,2.8rem);font-weight:700;margin-bottom:18px;letter-spacing:-.02em;}
+  .cta2-p{color:var(--muted);max-width:460px;margin:0 auto 34px;}
+
+  footer{border-top:1px solid var(--line);padding:50px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .ft-brand{font-family:'Space Grotesk',sans-serif;font-weight:700;}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;color:var(--muted);}
+  .ft-note{font-size:.74rem;color:#5b5f72;margin-top:24px;text-align:center;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    .nlinks,.nav-cta{display:none;}
+    .mob-btn{display:block;}
+    .feat-grid,.how-row,#pricing .grid3{grid-template-columns:1fr;}
+    .mock-body{grid-template-columns:1fr;}
+    .mock-side{display:none;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+    #hero{padding:175px 0 0;}
+    .mock-main{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — Landing Page</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Landing%20Page" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+
+<nav>
+  <a class="brand" href="#"><span class="dot"></span>Nova</a>
+  <ul class="nlinks">
+    <li><a href="#features">Fitur</a></li>
+    <li><a href="#how">Cara Kerja</a></li>
+    <li><a href="#pricing">Harga</a></li>
+  </ul>
+  <a href="#cta2" class="nav-cta">Coba Gratis</a>
+  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<section id="hero">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="container hero-inner">
+    <div class="hero-badge">🚀 <b>Baru:</b> Nova 2.0 sudah rilis — otomasi 2x lebih cepat</div>
+    <h1 class="hero-h">Luncurkan produkmu dengan <span class="grad">kepercayaan diri.</span></h1>
+    <p class="hero-p">Nova membantu tim produk merilis fitur lebih cepat, melacak metrik penting secara real-time, dan menjaga semua orang selaras dalam satu tempat.</p>
+    <div class="hero-btns">
+      <a href="#cta2" class="btn-lime">Mulai Gratis 14 Hari</a>
+      <a href="#how" class="btn-ghost"><i class="fa-solid fa-circle-play"></i> Lihat Demo</a>
+    </div>
+    <div class="hero-note">Tanpa kartu kredit · Setup dalam 5 menit</div>
+  </div>
+  <div class="mock-wrap reveal">
+    <div class="mock">
+      <div class="mock-bar"><span class="d"></span><span class="d"></span><span class="d"></span></div>
+      <div class="mock-body">
+        <div class="mock-side">
+          <div class="item active"></div>
+          <div class="item" style="width:50%"></div>
+          <div class="item" style="width:65%"></div>
+          <div class="item" style="width:40%"></div>
+          <div class="item" style="width:58%"></div>
+        </div>
+        <div class="mock-main">
+          <div class="mock-card"><div class="n">12.4K</div><div class="l">Active Users</div></div>
+          <div class="mock-card"><div class="n">98.2%</div><div class="l">Uptime</div></div>
+          <div class="mock-card"><div class="n">+38%</div><div class="l">Growth MoM</div></div>
+          <div class="mock-chart">
+            <span style="height:40%"></span><span style="height:65%"></span><span style="height:50%"></span>
+            <span style="height:80%"></span><span style="height:60%"></span><span style="height:90%"></span>
+            <span style="height:70%"></span><span style="height:55%"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="logos">
+  <div class="container">
+    <div class="logos-l">Dipercaya oleh tim produk dari</div>
+    <div class="logos-row">
+      <span>brightloop</span><span>orbitly</span><span>flux/labs</span><span>nimbus</span><span>kindred.io</span>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Fitur Utama</div>
+      <h2 class="sec-h">Semua yang tim produk butuhkan,<br>dalam satu workspace.</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal"><div class="feat-ico"><i class="fa-solid fa-bolt"></i></div><div class="feat-t">Rilis Lebih Cepat</div><div class="feat-d">Atur roadmap, sprint, dan rilis fitur dari satu dashboard yang ringkas.</div></div>
+      <div class="feat-card reveal"><div class="feat-ico"><i class="fa-solid fa-chart-line"></i></div><div class="feat-t">Analitik Real-time</div><div class="feat-d">Pantau metrik produk dan perilaku pengguna tanpa perlu tools tambahan.</div></div>
+      <div class="feat-card reveal"><div class="feat-ico"><i class="fa-solid fa-people-group"></i></div><div class="feat-t">Kolaborasi Tim</div><div class="feat-d">Diskusi, anotasi, dan keputusan tersimpan langsung di konteks kerja.</div></div>
+      <div class="feat-card reveal"><div class="feat-ico"><i class="fa-solid fa-plug"></i></div><div class="feat-t">Integrasi Mudah</div><div class="feat-d">Hubungkan dengan stack favoritmu lewat API dan integrasi siap pakai.</div></div>
+      <div class="feat-card reveal"><div class="feat-ico"><i class="fa-solid fa-shield-halved"></i></div><div class="feat-t">Aman &amp; Andal</div><div class="feat-d">Enkripsi end-to-end dan uptime 99.9% yang dijaga ketat tim infrastruktur.</div></div>
+      <div class="feat-card reveal"><div class="feat-ico"><i class="fa-solid fa-wand-magic-sparkles"></i></div><div class="feat-t">Otomasi Pintar</div><div class="feat-d">Otomatiskan tugas berulang sehingga tim fokus pada hal yang penting.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Cara Kerja</div>
+      <h2 class="sec-h">Mulai dalam tiga langkah sederhana.</h2>
+    </div>
+    <div class="how-row">
+      <div class="how-step reveal"><div class="how-n">01</div><div class="how-t">Hubungkan Workspace</div><div class="how-d">Sambungkan tools yang sudah kamu pakai dalam hitungan menit.</div></div>
+      <div class="how-step reveal"><div class="how-n">02</div><div class="how-t">Atur Alur Kerja</div><div class="how-d">Sesuaikan papan kerja dengan proses tim produkmu sendiri.</div></div>
+      <div class="how-step reveal"><div class="how-n">03</div><div class="how-t">Luncurkan &amp; Pantau</div><div class="how-d">Rilis fitur baru dan lihat dampaknya secara langsung.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="statband">
+  <div class="container reveal">
+    <div class="stat-big"><span class="grad">4,800+</span> tim produk</div>
+    <p class="stat-sub">memakai Nova setiap hari untuk merilis fitur lebih cepat dan lebih percaya diri.</p>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Harga</div>
+      <h2 class="sec-h">Paket yang tumbuh bersama timmu.</h2>
+    </div>
+    <div class="grid3">
+      <div class="plan reveal">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">Rp0<span>/bulan</span></div>
+        <div class="plan-desc">Untuk tim kecil yang baru mulai.</div>
+        <ul class="plan-list">
+          <li><i class="fa-solid fa-check"></i> Hingga 3 anggota tim</li>
+          <li><i class="fa-solid fa-check"></i> 1 workspace aktif</li>
+          <li><i class="fa-solid fa-check"></i> Analitik dasar</li>
+        </ul>
+        <a href="#" class="plan-btn">Mulai Gratis</a>
+      </div>
+      <div class="plan feat reveal">
+        <div class="plan-name">Growth</div>
+        <div class="plan-price">Rp349K<span>/bulan</span></div>
+        <div class="plan-desc">Untuk tim yang sedang berkembang cepat.</div>
+        <ul class="plan-list">
+          <li><i class="fa-solid fa-check"></i> Anggota tim tanpa batas</li>
+          <li><i class="fa-solid fa-check"></i> Workspace tanpa batas</li>
+          <li><i class="fa-solid fa-check"></i> Analitik &amp; otomasi penuh</li>
+          <li><i class="fa-solid fa-check"></i> Dukungan prioritas</li>
+        </ul>
+        <a href="#" class="plan-btn">Pilih Growth</a>
+      </div>
+      <div class="plan reveal">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">Custom</div>
+        <div class="plan-desc">Untuk organisasi dengan kebutuhan khusus.</div>
+        <ul class="plan-list">
+          <li><i class="fa-solid fa-check"></i> SLA &amp; keamanan khusus</li>
+          <li><i class="fa-solid fa-check"></i> Integrasi custom</li>
+          <li><i class="fa-solid fa-check"></i> Account manager khusus</li>
+        </ul>
+        <a href="#" class="plan-btn">Hubungi Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testi">
+  <div class="container testi-card reveal">
+    <div class="testi-stars">★★★★★</div>
+    <p class="testi-t">"Sejak pindah ke Nova, waktu rilis fitur kami turun dari 3 minggu menjadi 4 hari. Timnya jadi jauh lebih selaras."</p>
+    <div class="testi-who">Head of Product, brightloop</div>
+  </div>
+</section>
+
+<section id="cta2">
+  <div class="container reveal">
+    <div class="cta2-h">Siap meluncurkan produk<br>berikutnya dengan Nova?</div>
+    <p class="cta2-p">Gabung dengan ribuan tim produk yang sudah merilis lebih cepat bersama kami.</p>
+    <a href="#" class="btn-lime">Mulai Gratis Sekarang</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">Nova</div>
+      <ul class="ft-links">
+        <li><a href="#features">Fitur</a></li>
+        <li><a href="#pricing">Harga</a></li>
+        <li><a href="#cta2">Mulai</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan produk SaaS sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Forge Performance Garage — Template Otomotif | Loka Coding</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{ --bg:#0D0D0D; --bg-2:#161616; --red:#E10600; --steel:#3D4047; --line:rgba(255,255,255,.09); --muted:#9A9A9A; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:#F2F2F2;overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'Oswald',sans-serif;text-transform:uppercase;}
+  a{color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#000;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;border-bottom:1px solid var(--line);}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#8a8a8a;display:flex;align-items:center;gap:7px;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#4d4d4d;display:none;}
+  .lc-bar-order{background:var(--red);color:#fff;font-weight:700;padding:7px 16px;border-radius:4px;display:flex;align-items:center;gap:6px;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:rgba(13,13,13,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:.04em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px;}
+  .brand .mark{width:32px;height:32px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;clip-path:polygon(0 0,100% 0,80% 100%,0 100%);}
+  .nlinks{display:flex;gap:34px;list-style:none;}
+  .nlinks a{font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#D8D8D8;text-decoration:none;}
+  .nlinks a:hover{color:var(--red);}
+  .nav-cta{font-size:.78rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:12px 22px;cursor:pointer;text-decoration:none;}
+  .mob-btn{display:none;background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;}
+
+  #hero{position:relative;height:90vh;min-height:560px;}
+  #hero img{width:100%;height:100%;object-fit:cover;filter:grayscale(.25) contrast(1.1);}
+  .hero-shade{position:absolute;inset:0;background:linear-gradient(100deg,rgba(13,13,13,.96) 30%,rgba(13,13,13,.3) 75%);
+    display:flex;align-items:center;padding-top:120px;}
+  .hero-inner{padding:0 40px;max-width:680px;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--red);font-weight:700;font-size:.78rem;letter-spacing:.16em;margin-bottom:22px;}
+  .hero-h{font-size:clamp(2.6rem,6.4vw,5rem);font-weight:700;line-height:1.02;letter-spacing:-.01em;margin-bottom:22px;}
+  .hero-h .red{color:var(--red);}
+  .hero-p{color:var(--muted);font-size:.95rem;line-height:1.75;max-width:460px;margin-bottom:32px;}
+  .btn-red{background:var(--red);color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.03em;text-transform:uppercase;padding:16px 30px;text-decoration:none;display:inline-block;transition:background .2s;}
+  .btn-red:hover{background:#b80500;}
+  .btn-out{color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.03em;text-transform:uppercase;padding:16px 28px;border:1.5px solid rgba(255,255,255,.25);text-decoration:none;display:inline-block;margin-left:12px;}
+
+  section{padding:108px 0;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:16px;}
+  .sec-h{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:700;line-height:1.15;letter-spacing:-.01em;}
+
+  /* services */
+  #services{background:var(--bg-2);}
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .svc-card{background:var(--bg-2);padding:38px 28px;transition:background .25s;}
+  .svc-card:hover{background:#1f1f1f;}
+  .svc-ico{color:var(--red);font-size:1.4rem;margin-bottom:24px;}
+  .svc-t{font-family:'Oswald',sans-serif;font-weight:600;font-size:1.05rem;margin-bottom:12px;}
+  .svc-d{font-size:.82rem;color:var(--muted);line-height:1.65;}
+
+  /* before/after */
+  #showcase{background:var(--bg);}
+  .show-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .show-card{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:4/3.2;}
+  .show-card img{width:100%;height:100%;object-fit:cover;}
+  .show-tag{position:absolute;top:16px;left:16px;background:var(--red);color:#fff;font-weight:700;font-size:.7rem;letter-spacing:.06em;padding:7px 14px;text-transform:uppercase;}
+  @media(max-width:860px){ .show-grid{grid-template-columns:1fr;} }
+
+  /* stats */
+  #stats{background:var(--red);}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:center;}
+  .stat-n{font-family:'Oswald',sans-serif;font-size:2.6rem;font-weight:700;}
+  .stat-l{font-size:.76rem;color:rgba(255,255,255,.8);margin-top:6px;letter-spacing:.04em;text-transform:uppercase;}
+  @media(max-width:760px){ .stats-grid{grid-template-columns:1fr;gap:30px;} }
+
+  /* testimonial */
+  #testi{background:var(--bg-2);text-align:center;}
+  .testi-stars{color:var(--red);margin-bottom:18px;font-size:1rem;}
+  .testi-t{font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:600;line-height:1.5;max-width:680px;margin:0 auto 20px;font-family:'Oswald',sans-serif;text-transform:none;}
+  .testi-who{color:var(--muted);font-size:.85rem;}
+
+  #cta{text-align:center;}
+  .cta-h{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:700;margin-bottom:18px;}
+  .cta-h .red{color:var(--red);}
+  .cta-p{color:var(--muted);max-width:460px;margin:0 auto 32px;text-transform:none;font-family:'Inter',sans-serif;}
+
+  footer{border-top:1px solid var(--line);padding:48px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .ft-brand{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.03em;}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;color:var(--muted);}
+  .ft-note{font-size:.74rem;color:#4d4d4d;margin-top:24px;text-align:center;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    .nlinks,.nav-cta{display:none;}
+    .mob-btn{display:block;}
+    .svc-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+    .hero-inner{padding:0 24px;}
+    .svc-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — Otomotif</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Otomotif" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+
+<nav>
+  <a class="brand" href="#"><span class="mark">F</span>FORGE</a>
+  <ul class="nlinks">
+    <li><a href="#services">Layanan</a></li>
+    <li><a href="#showcase">Galeri</a></li>
+    <li><a href="#testi">Testimoni</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Booking Servis</a>
+  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<section id="hero" style="padding:0;">
+  <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1600&auto=format&fit=crop" alt="Forge Performance Garage"/>
+  <div class="hero-shade">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">— Bengkel Performa &amp; Restorasi</div>
+      <h1 class="hero-h">Dibangun untuk <span class="red">performa.</span></h1>
+      <p class="hero-p">Forge Performance Garage menangani tune-up, detailing, dan restorasi dengan standar bengkel balap — untuk mobil yang dikendarai sepenuh hati.</p>
+      <a href="#cta" class="btn-red">Booking Servis</a>
+      <a href="#services" class="btn-out">Lihat Layanan</a>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:50px;">
+      <div class="eyebrow">Layanan Kami</div>
+      <h2 class="sec-h">Ditangani mekanik bersertifikat.</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal"><div class="svc-ico"><i class="fa-solid fa-gauge-high"></i></div><div class="svc-t">Tune-Up Performance</div><div class="svc-d">Optimasi mesin untuk tenaga dan respons maksimal.</div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><i class="fa-solid fa-soap"></i></div><div class="svc-t">Detailing Premium</div><div class="svc-d">Perawatan interior &amp; eksterior tingkat showroom.</div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><i class="fa-solid fa-wrench"></i></div><div class="svc-t">Restorasi Klasik</div><div class="svc-d">Mengembalikan mobil klasik ke kondisi terbaiknya.</div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><i class="fa-solid fa-microchip"></i></div><div class="svc-t">ECU Tuning</div><div class="svc-d">Penyesuaian software untuk performa yang lebih presisi.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="showcase">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:50px;">
+      <div class="eyebrow">Hasil Kerja Kami</div>
+      <h2 class="sec-h">Setiap detail diperhitungkan.</h2>
+    </div>
+    <div class="show-grid">
+      <div class="show-card reveal">
+        <img src="https://images.unsplash.com/photo-1486496572940-2bb2341fdbdf?q=80&w=800&auto=format&fit=crop" alt="Proses servis di Forge"/>
+        <span class="show-tag">Workshop</span>
+      </div>
+      <div class="show-card reveal">
+        <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?q=80&w=800&auto=format&fit=crop" alt="Hasil detailing Forge"/>
+        <span class="show-tag">Hasil Akhir</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="container stats-grid">
+    <div class="reveal"><div class="stat-n">11</div><div class="stat-l">Tahun Beroperasi</div></div>
+    <div class="reveal"><div class="stat-n">3.600+</div><div class="stat-l">Mobil Ditangani</div></div>
+    <div class="reveal"><div class="stat-n">14</div><div class="stat-l">Mekanik Bersertifikat</div></div>
+  </div>
+</section>
+
+<section id="testi">
+  <div class="container reveal">
+    <div class="testi-stars">★★★★★</div>
+    <p class="testi-t">"Mobil saya terasa seperti baru lagi. Timnya jujur soal apa yang perlu diperbaiki, tidak asal jual jasa."</p>
+    <div class="testi-who">Pelanggan Forge, Jakarta Selatan</div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container reveal">
+    <div class="cta-h">Siap kembalikan performa<br><span class="red">mobil kesayanganmu?</span></div>
+    <p class="cta-p">Booking slot servis sekarang, kuota terbatas setiap minggunya.</p>
+    <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Otomotif" target="_blank" rel="noopener" class="btn-red">Booking Sekarang</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">FORGE</div>
+      <ul class="ft-links">
+        <li><a href="#services">Layanan</a></li>
+        <li><a href="#showcase">Galeri</a></li>
+        <li><a href="#cta">Kontak</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan bengkel sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tani Hijau Nusantara — Template Agrikultur | Loka Coding</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{ --green:#2F5233; --green-2:#3F6B45; --sun:#E8B23B; --cream:#F6F2E7; --line:#E3DCC8; --muted:#6E6A5C; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:#23291F;overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'Lora',serif;}
+  a{color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#192417;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#9eab92;display:flex;align-items:center;gap:7px;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#566150;display:none;}
+  .lc-bar-order{background:var(--sun);color:#23291F;font-weight:700;padding:7px 16px;border-radius:7px;display:flex;align-items:center;gap:6px;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:rgba(246,242,231,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .brand{font-family:'Lora',serif;font-weight:700;font-size:1.18rem;color:var(--green);text-decoration:none;display:flex;align-items:center;gap:10px;}
+  .brand .mark{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;}
+  .nlinks{display:flex;gap:34px;list-style:none;}
+  .nlinks a{font-size:.83rem;font-weight:600;color:#23291F;text-decoration:none;}
+  .nlinks a:hover{color:var(--green);}
+  .nav-cta{font-size:.8rem;font-weight:700;background:var(--green);color:#fff;border:none;padding:12px 24px;border-radius:100px;cursor:pointer;text-decoration:none;}
+  .mob-btn{display:none;background:none;border:none;color:var(--green);font-size:1.2rem;cursor:pointer;}
+
+  #hero{position:relative;height:88vh;min-height:540px;}
+  #hero img{width:100%;height:100%;object-fit:cover;}
+  .hero-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(25,36,23,.85) 0%,rgba(25,36,23,.15) 55%);
+    display:flex;align-items:flex-end;padding-bottom:90px;color:#fff;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);
+    backdrop-filter:blur(6px);padding:7px 16px;border-radius:100px;font-size:.74rem;font-weight:600;margin-bottom:22px;}
+  .hero-h{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;line-height:1.15;max-width:680px;margin-bottom:20px;}
+  .hero-h em{font-style:italic;color:var(--sun);}
+  .hero-p{max-width:460px;color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.75;margin-bottom:30px;}
+  .btn-sun{background:var(--sun);color:#23291F;font-weight:700;font-size:.85rem;padding:15px 30px;border-radius:100px;text-decoration:none;display:inline-block;}
+  .btn-line2{color:#fff;font-weight:600;font-size:.85rem;padding:15px 26px;border:1.5px solid rgba(255,255,255,.4);border-radius:100px;text-decoration:none;display:inline-block;margin-left:12px;}
+
+  section{padding:108px 0;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-2);margin-bottom:16px;}
+  .sec-h{font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;line-height:1.2;}
+  .sec-h em{font-style:italic;color:var(--green-2);}
+
+  /* stats */
+  #stats{background:var(--green);color:#fff;}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;}
+  .stat-n{font-family:'Lora',serif;font-size:2.3rem;font-weight:700;color:var(--sun);}
+  .stat-l{font-size:.76rem;color:rgba(255,255,255,.65);margin-top:6px;}
+  @media(max-width:760px){ .stats-grid{grid-template-columns:1fr 1fr;gap:36px;} }
+
+  /* products */
+  #products{background:#fff;}
+  .pr-hdr{text-align:center;max-width:580px;margin:0 auto 56px;}
+  .pr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .pr-card{border-radius:14px;overflow:hidden;background:var(--cream);box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .3s;}
+  .pr-card:hover{transform:translateY(-6px);}
+  .pr-card img{width:100%;aspect-ratio:1/1;object-fit:cover;}
+  .pr-body{padding:18px 20px;}
+  .pr-t{font-weight:700;font-size:.92rem;margin-bottom:4px;}
+  .pr-c{font-size:.74rem;color:var(--muted);}
+  @media(max-width:900px){ .pr-grid{grid-template-columns:1fr 1fr;} }
+
+  /* farmer story */
+  #story .grid2{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  #story img{border-radius:16px;aspect-ratio:4/4.4;object-fit:cover;}
+  .story-quote{font-family:'Lora',serif;font-style:italic;font-size:1.3rem;color:var(--green);line-height:1.5;margin:18px 0 16px;}
+  .story-who{font-size:.84rem;color:var(--muted);font-weight:600;}
+  @media(max-width:900px){ #story .grid2{grid-template-columns:1fr;} }
+
+  /* process */
+  #process{background:var(--cream);}
+  .proc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:50px;}
+  .proc-step{text-align:center;}
+  .proc-ico{width:64px;height:64px;border-radius:50%;background:#fff;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;
+    color:var(--green-2);font-size:1.3rem;margin:0 auto 18px;}
+  .proc-t{font-weight:700;margin-bottom:8px;}
+  .proc-d{font-size:.82rem;color:var(--muted);line-height:1.6;}
+  @media(max-width:760px){ .proc-row{grid-template-columns:1fr 1fr;} }
+
+  #cta{background:linear-gradient(135deg,var(--green),var(--green-2));color:#fff;text-align:center;}
+  .cta-h{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:700;margin-bottom:18px;}
+  .cta-h em{font-style:italic;color:var(--sun);}
+  .cta-p{color:rgba(255,255,255,.7);max-width:460px;margin:0 auto 32px;}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:48px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .ft-brand{font-family:'Lora',serif;font-weight:700;color:var(--green);}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;color:var(--muted);}
+  .ft-note{font-size:.74rem;color:#A39E8E;margin-top:24px;text-align:center;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    .nlinks,.nav-cta{display:none;}
+    .mob-btn{display:block;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+    .hero-shade{padding-left:24px;padding-right:24px;}
+    .pr-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — Agrikultur</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Agrikultur" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+
+<nav>
+  <a class="brand" href="#"><span class="mark"><i class="fa-solid fa-seedling"></i></span>Tani Hijau Nusantara</a>
+  <ul class="nlinks">
+    <li><a href="#products">Produk</a></li>
+    <li><a href="#story">Mitra Tani</a></li>
+    <li><a href="#process">Proses</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Jadi Mitra</a>
+  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<section id="hero" style="padding:0;">
+  <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600&auto=format&fit=crop" alt="Ladang mitra Tani Hijau Nusantara"/>
+  <div class="hero-shade">
+    <div class="container">
+      <div class="hero-eyebrow">🌱 Pertanian Berkelanjutan</div>
+      <h1 class="hero-h">Dari ladang petani lokal, untuk <em>meja Anda.</em></h1>
+      <p class="hero-p">Tani Hijau Nusantara menghubungkan hasil bumi dari petani binaan kami langsung ke konsumen dan mitra bisnis — segar, adil, dan berkelanjutan.</p>
+      <a href="#products" class="btn-sun">Lihat Produk Kami</a>
+      <a href="#story" class="btn-line2">Kenali Mitra Tani</a>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="container stats-grid">
+    <div class="reveal"><div class="stat-n">3.200</div><div class="stat-l">Hektar Lahan Mitra</div></div>
+    <div class="reveal"><div class="stat-n">1.450</div><div class="stat-l">Petani Binaan</div></div>
+    <div class="reveal"><div class="stat-n">68</div><div class="stat-l">Desa Dampingan</div></div>
+    <div class="reveal"><div class="stat-n">100%</div><div class="stat-l">Bebas Pestisida Kimia</div></div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="container">
+    <div class="pr-hdr reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Hasil Bumi Kami</div>
+      <h2 class="sec-h">Dipanen segar, <em>dikirim cepat.</em></h2>
+    </div>
+    <div class="pr-grid">
+      <div class="pr-card reveal">
+        <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=500&auto=format&fit=crop" alt="Beras Organik"/>
+        <div class="pr-body"><div class="pr-t">Beras Organik</div><div class="pr-c">Tanpa pestisida kimia</div></div>
+      </div>
+      <div class="pr-card reveal">
+        <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=500&auto=format&fit=crop" alt="Kopi Robusta"/>
+        <div class="pr-body"><div class="pr-t">Kopi Robusta</div><div class="pr-c">Dari dataran tinggi mitra</div></div>
+      </div>
+      <div class="pr-card reveal">
+        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=500&auto=format&fit=crop" alt="Sayur Hidroponik"/>
+        <div class="pr-body"><div class="pr-t">Sayur Hidroponik</div><div class="pr-c">Dipanen setiap hari</div></div>
+      </div>
+      <div class="pr-card reveal">
+        <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=500&auto=format&fit=crop" alt="Buah Tropis"/>
+        <div class="pr-body"><div class="pr-t">Buah Tropis</div><div class="pr-c">Musiman &amp; berkualitas ekspor</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="container grid2">
+    <img class="reveal" src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=800&auto=format&fit=crop" alt="Petani mitra Tani Hijau Nusantara"/>
+    <div class="reveal">
+      <div class="eyebrow">Cerita Mitra Tani</div>
+      <h2 class="sec-h">Kemitraan yang <em>menyejahterakan</em> petani.</h2>
+      <p class="story-quote">"Sejak bergabung, harga panen saya lebih stabil dan saya tidak lagi bingung mencari pembeli setiap musim."</p>
+      <div class="story-who">— Pak Slamet, Petani Mitra di Wonosobo</div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container">
+    <div class="pr-hdr reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Proses Kami</div>
+      <h2 class="sec-h">Dari tanam hingga <em>sampai ke tangan Anda.</em></h2>
+    </div>
+    <div class="proc-row">
+      <div class="proc-step reveal"><div class="proc-ico"><i class="fa-solid fa-seedling"></i></div><div class="proc-t">Tanam</div><div class="proc-d">Bersama petani binaan dengan praktik bertani berkelanjutan.</div></div>
+      <div class="proc-step reveal"><div class="proc-ico"><i class="fa-solid fa-wheat-awn"></i></div><div class="proc-t">Panen</div><div class="proc-d">Dipanen pada waktu optimal untuk kualitas terbaik.</div></div>
+      <div class="proc-step reveal"><div class="proc-ico"><i class="fa-solid fa-filter"></i></div><div class="proc-t">Sortir</div><div class="proc-d">Pemilahan ketat untuk memastikan standar mutu konsisten.</div></div>
+      <div class="proc-step reveal"><div class="proc-ico"><i class="fa-solid fa-truck"></i></div><div class="proc-t">Distribusi</div><div class="proc-d">Dikirim segar ke mitra ritel dan konsumen di seluruh Indonesia.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container reveal">
+    <div class="cta-h">Mari tumbuh bersama,<br><em>untuk hasil yang adil.</em></div>
+    <p class="cta-p">Baik Anda petani, distributor, atau pembeli — kami terbuka untuk kemitraan baru.</p>
+    <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Agrikultur" target="_blank" rel="noopener" class="btn-sun">Hubungi Kami</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">Tani Hijau Nusantara</div>
+      <ul class="ft-links">
+        <li><a href="#products">Produk</a></li>
+        <li><a href="#story">Mitra Tani</a></li>
+        <li><a href="#cta">Kontak</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan perusahaan sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

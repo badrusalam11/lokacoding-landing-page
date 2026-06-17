@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cendekia Learning — Template Website Sekolah/Kursus | Loka Coding</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{ --amber:#F59E0B; --amber-d:#D97706; --navy:#1E2A4A; --bg:#FFFBF3; --line:#F0E6CF; --muted:#6B7280; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'Outfit',sans-serif;}
+  a{color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#1a2238;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#b7bdd0;display:flex;align-items:center;gap:7px;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#5a6280;display:none;}
+  .lc-bar-order{background:var(--amber);color:#1a2238;font-weight:700;padding:7px 16px;border-radius:7px;display:flex;align-items:center;gap:6px;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:rgba(255,251,243,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .brand{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none;display:flex;align-items:center;gap:10px;}
+  .brand .mark{width:36px;height:36px;border-radius:10px;background:var(--amber);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+  .nlinks{display:flex;gap:34px;list-style:none;}
+  .nlinks a{font-size:.84rem;font-weight:600;color:var(--navy);text-decoration:none;}
+  .nlinks a:hover{color:var(--amber-d);}
+  .nav-cta{font-size:.8rem;font-weight:700;background:var(--navy);color:#fff;border:none;padding:12px 24px;border-radius:100px;cursor:pointer;text-decoration:none;}
+  .mob-btn{display:none;background:none;border:none;color:var(--navy);font-size:1.2rem;cursor:pointer;}
+
+  #hero{padding:190px 0 0;overflow:hidden;position:relative;}
+  #hero::before{content:'';position:absolute;top:120px;right:-120px;width:420px;height:420px;border-radius:50%;background:rgba(245,158,11,.14);}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:100px;
+    padding:8px 16px;font-size:.76rem;font-weight:700;color:var(--amber-d);margin-bottom:24px;}
+  .hero-h{font-size:clamp(2.2rem,4.6vw,3.4rem);font-weight:800;line-height:1.12;margin-bottom:20px;letter-spacing:-.01em;}
+  .hero-h .hl{color:var(--amber-d);position:relative;}
+  .hero-p{color:var(--muted);font-size:.98rem;line-height:1.8;max-width:440px;margin-bottom:32px;}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px;}
+  .btn-amber{background:var(--amber);color:#fff;font-weight:700;font-size:.86rem;padding:15px 30px;border-radius:100px;text-decoration:none;
+    display:inline-block;transition:transform .2s,box-shadow .2s;}
+  .btn-amber:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(245,158,11,.3);}
+  .btn-navy-line{color:var(--navy);font-weight:700;font-size:.86rem;padding:15px 26px;border-radius:100px;border:1.5px solid var(--line);text-decoration:none;display:inline-block;background:#fff;}
+  .hero-img-wrap{position:relative;}
+  .hero-img-wrap img{border-radius:24px;aspect-ratio:4/4.4;object-fit:cover;}
+  .float-card{position:absolute;bottom:-24px;left:-24px;background:#fff;border-radius:16px;box-shadow:0 16px 40px rgba(30,42,74,.14);
+    padding:18px 22px;display:flex;align-items:center;gap:14px;}
+  .float-card .ico{width:42px;height:42px;border-radius:50%;background:#FEF3E2;color:var(--amber-d);display:flex;align-items:center;justify-content:center;}
+  .float-card .n{font-weight:800;font-size:1.1rem;}
+  .float-card .l{font-size:.72rem;color:var(--muted);}
+  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+
+  section{padding:110px 0;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-d);margin-bottom:16px;}
+  .sec-h{font-size:clamp(1.7rem,3vw,2.4rem);font-weight:800;line-height:1.2;}
+  .sec-h .hl{color:var(--amber-d);}
+
+  /* stats */
+  #stats{background:var(--navy);}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;}
+  .stat-n{font-family:'Outfit',sans-serif;font-size:2.4rem;font-weight:800;color:var(--amber);}
+  .stat-l{font-size:.76rem;color:rgba(255,255,255,.65);margin-top:6px;}
+  @media(max-width:760px){ .stats-grid{grid-template-columns:1fr 1fr;gap:36px;} }
+
+  /* programs */
+  #programs{background:#fff;}
+  .prog-hd{text-align:center;max-width:580px;margin:0 auto 56px;}
+  .prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .prog-card{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:30px 26px;transition:transform .25s,box-shadow .25s;}
+  .prog-card:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(245,158,11,.14);}
+  .prog-ico{width:48px;height:48px;border-radius:12px;background:#FEF3E2;color:var(--amber-d);display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:20px;}
+  .prog-t{font-weight:700;font-size:1rem;margin-bottom:10px;}
+  .prog-d{font-size:.82rem;color:var(--muted);line-height:1.65;margin-bottom:16px;}
+  .prog-meta{font-size:.74rem;font-weight:700;color:var(--amber-d);}
+  @media(max-width:900px){ .prog-grid{grid-template-columns:1fr 1fr;} }
+
+  /* why us */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .why-list{display:flex;flex-direction:column;gap:22px;margin-top:24px;}
+  .why-item{display:flex;gap:16px;align-items:flex-start;}
+  .why-item .ico{width:38px;height:38px;border-radius:50%;background:#FEF3E2;color:var(--amber-d);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .why-item .t{font-weight:700;font-size:.92rem;margin-bottom:4px;}
+  .why-item .d{font-size:.82rem;color:var(--muted);line-height:1.6;}
+  .why-grid img{border-radius:20px;aspect-ratio:4/4.2;object-fit:cover;}
+  @media(max-width:900px){ .why-grid{grid-template-columns:1fr;} .why-grid img{order:-1;} }
+
+  /* instructors */
+  #instructors{background:#fff;}
+  .ins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .ins-card img{width:100%;aspect-ratio:1/1.1;object-fit:cover;border-radius:18px;}
+  .ins-name{font-weight:700;margin-top:16px;}
+  .ins-role{font-size:.78rem;color:var(--amber-d);font-weight:600;margin-top:3px;}
+  @media(max-width:900px){ .ins-grid{grid-template-columns:1fr 1fr;} }
+
+  /* testimonial */
+  #testi{background:var(--bg);text-align:center;}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .testi-card{background:#fff;border-radius:18px;padding:28px;text-align:left;border:1px solid var(--line);}
+  .testi-stars{color:var(--amber);margin-bottom:14px;font-size:.85rem;}
+  .testi-t{font-size:.86rem;color:var(--navy);line-height:1.7;margin-bottom:16px;}
+  .testi-who{font-size:.78rem;color:var(--muted);font-weight:600;}
+  @media(max-width:900px){ .testi-grid{grid-template-columns:1fr;} }
+
+  #cta{background:var(--navy);text-align:center;}
+  .cta-h{color:#fff;font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:800;margin-bottom:18px;}
+  .cta-h .hl{color:var(--amber);}
+  .cta-p{color:rgba(255,255,255,.6);max-width:460px;margin:0 auto 32px;}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:48px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .ft-brand{font-family:'Outfit',sans-serif;font-weight:800;}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;color:var(--muted);}
+  .ft-note{font-size:.74rem;color:#A8A29A;margin-top:24px;text-align:center;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    .nlinks,.nav-cta{display:none;}
+    .mob-btn{display:block;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+    #hero{padding:170px 0 0;}
+    .prog-grid,.ins-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — Website Sekolah/Kursus</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Website%20Sekolah%2FKursus" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+
+<nav>
+  <a class="brand" href="#"><span class="mark"><i class="fa-solid fa-graduation-cap"></i></span>Cendekia Learning</a>
+  <ul class="nlinks">
+    <li><a href="#programs">Program</a></li>
+    <li><a href="#why">Keunggulan</a></li>
+    <li><a href="#testi">Testimoni</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Daftar Sekarang</a>
+  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<section id="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge">🎓 Lembaga Bimbingan Belajar Terpercaya</div>
+      <h1 class="hero-h">Belajar jadi lebih <span class="hl">menyenangkan</span> dan terarah.</h1>
+      <p class="hero-p">Cendekia Learning mendampingi siswa dari SD hingga SMA dengan metode belajar interaktif dan pengajar yang benar-benar peduli pada perkembangan mereka.</p>
+      <div class="hero-btns">
+        <a href="#programs" class="btn-amber">Lihat Program</a>
+        <a href="#cta" class="btn-navy-line">Konsultasi Gratis</a>
+      </div>
+    </div>
+    <div class="hero-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?q=80&w=800&auto=format&fit=crop" alt="Siswa belajar di Cendekia Learning"/>
+      <div class="float-card">
+        <div class="ico"><i class="fa-solid fa-star"></i></div>
+        <div><div class="n">4.9/5</div><div class="l">dari 1.200+ orang tua</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="container stats-grid">
+    <div class="reveal"><div class="stat-n">2.400+</div><div class="stat-l">Siswa Aktif</div></div>
+    <div class="reveal"><div class="stat-n">85</div><div class="stat-l">Pengajar Berpengalaman</div></div>
+    <div class="reveal"><div class="stat-n">96%</div><div class="stat-l">Lulus PTN Pilihan</div></div>
+    <div class="reveal"><div class="stat-n">12</div><div class="stat-l">Cabang di Indonesia</div></div>
+  </div>
+</section>
+
+<section id="programs">
+  <div class="container">
+    <div class="prog-hd reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Program Kami</div>
+      <h2 class="sec-h">Pilih program yang sesuai<br>dengan <span class="hl">kebutuhan anak Anda.</span></h2>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-card reveal"><div class="prog-ico"><i class="fa-solid fa-pen-ruler"></i></div><div class="prog-t">UTBK Intensif</div><div class="prog-d">Persiapan matang menuju PTN favorit dengan simulasi rutin.</div><div class="prog-meta">Kelas 12 &amp; Gap Year</div></div>
+      <div class="prog-card reveal"><div class="prog-ico"><i class="fa-solid fa-code"></i></div><div class="prog-t">Coding for Kids</div><div class="prog-d">Mengenalkan logika pemrograman lewat proyek yang seru.</div><div class="prog-meta">Usia 8-15 tahun</div></div>
+      <div class="prog-card reveal"><div class="prog-ico"><i class="fa-solid fa-comments"></i></div><div class="prog-t">English Conversation</div><div class="prog-d">Melatih percaya diri berbicara dalam Bahasa Inggris sehari-hari.</div><div class="prog-meta">Semua jenjang</div></div>
+      <div class="prog-card reveal"><div class="prog-ico"><i class="fa-solid fa-calculator"></i></div><div class="prog-t">Matematika SD-SMA</div><div class="prog-d">Memperkuat fondasi matematika dengan pendekatan yang mudah dipahami.</div><div class="prog-meta">SD, SMP, SMA</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="container why-grid">
+    <img class="reveal" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop" alt="Siswa belajar bersama"/>
+    <div class="reveal">
+      <div class="eyebrow">Kenapa Cendekia</div>
+      <h2 class="sec-h">Pendekatan belajar yang <span class="hl">terbukti efektif.</span></h2>
+      <div class="why-list">
+        <div class="why-item"><div class="ico"><i class="fa-solid fa-chart-line"></i></div><div><div class="t">Progres Terpantau</div><div class="d">Laporan perkembangan rutin yang bisa diakses orang tua kapan saja.</div></div></div>
+        <div class="why-item"><div class="ico"><i class="fa-solid fa-users"></i></div><div><div class="t">Kelas Kecil</div><div class="d">Maksimal 8 siswa per kelas agar pengajar bisa fokus mendampingi.</div></div></div>
+        <div class="why-item"><div class="ico"><i class="fa-solid fa-laptop"></i></div><div><div class="t">Hybrid Learning</div><div class="d">Bisa belajar tatap muka maupun online sesuai kenyamanan.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="instructors">
+  <div class="container">
+    <div class="prog-hd reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Pengajar Kami</div>
+      <h2 class="sec-h">Dibimbing oleh pengajar <span class="hl">yang peduli.</span></h2>
+    </div>
+    <div class="ins-grid">
+      <div class="ins-card reveal"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop" alt="Pengajar Matematika"/><div class="ins-name">Pak Yudha</div><div class="ins-role">Matematika</div></div>
+      <div class="ins-card reveal"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop" alt="Pengajar Bahasa Inggris"/><div class="ins-name">Bu Citra</div><div class="ins-role">Bahasa Inggris</div></div>
+      <div class="ins-card reveal"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop" alt="Pengajar Coding"/><div class="ins-name">Kak Fariz</div><div class="ins-role">Coding for Kids</div></div>
+      <div class="ins-card reveal"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop" alt="Pengajar UTBK"/><div class="ins-name">Bu Larasati</div><div class="ins-role">UTBK Intensif</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="testi">
+  <div class="container">
+    <div class="prog-hd reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Kata Orang Tua</div>
+      <h2 class="sec-h">Dipercaya oleh ribuan <span class="hl">keluarga.</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><div class="testi-t">"Anak saya jadi lebih percaya diri belajar matematika sejak ikut kelas kecil di Cendekia."</div><div class="testi-who">Ibu Wulan, Orang Tua Siswa</div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><div class="testi-t">"Laporan progresnya detail banget, saya jadi tahu di mana anak saya perlu dibantu."</div><div class="testi-who">Bapak Hendra, Orang Tua Siswa</div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><div class="testi-t">"Kelas coding-nya seru, anak saya sekarang malah bikin game sendiri di rumah."</div><div class="testi-who">Ibu Reni, Orang Tua Siswa</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container reveal">
+    <div class="cta-h">Mulai perjalanan belajar<br><span class="hl">yang lebih baik</span> hari ini.</div>
+    <p class="cta-p">Konsultasikan kebutuhan belajar anak Anda bersama tim akademik kami, gratis tanpa biaya.</p>
+    <a href="#" class="btn-amber">Daftar Konsultasi Gratis</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">Cendekia Learning</div>
+      <ul class="ft-links">
+        <li><a href="#programs">Program</a></li>
+        <li><a href="#testi">Testimoni</a></li>
+        <li><a href="#cta">Daftar</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan lembaga sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nusantara Export Group — Template Produk Ekspor | Loka Coding</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{ --rust:#8C2F1B; --rust-l:#B8451F; --steel:#2B2D31; --steel-2:#3D4047; --bg:#F4F2EE; --line:#DDD8CD; --muted:#6B6760; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--steel);overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'Archivo',sans-serif;}
+  a{color:inherit;}
+  .container{max-width:1200px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#0d0d0e;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#9c9893;display:flex;align-items:center;gap:7px;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#56524c;display:none;}
+  .lc-bar-order{background:var(--rust-l);color:#fff;font-weight:700;padding:7px 16px;border-radius:4px;display:flex;align-items:center;gap:6px;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:rgba(244,242,238,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .brand{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.02rem;letter-spacing:-.01em;color:var(--steel);text-decoration:none;display:flex;align-items:center;gap:10px;}
+  .brand .mark{width:36px;height:36px;background:var(--rust);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;}
+  .nlinks{display:flex;gap:34px;list-style:none;}
+  .nlinks a{font-size:.8rem;font-weight:700;color:var(--steel);text-decoration:none;text-transform:uppercase;letter-spacing:.02em;}
+  .nlinks a:hover{color:var(--rust);}
+  .nav-cta{font-size:.78rem;font-weight:800;background:var(--steel);color:#fff;border:none;padding:12px 22px;cursor:pointer;text-decoration:none;text-transform:uppercase;}
+  .mob-btn{display:none;background:none;border:none;color:var(--steel);font-size:1.2rem;cursor:pointer;}
+
+  #hero{position:relative;height:88vh;min-height:560px;margin-top:0;}
+  #hero img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.05);}
+  .hero-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,13,14,.92) 0%,rgba(13,13,14,.5) 50%,rgba(13,13,14,.6) 100%);
+    display:flex;flex-direction:column;justify-content:center;padding-top:118px;}
+  .hero-inner{padding:0 40px;max-width:1200px;margin:0 auto;width:100%;color:#fff;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--rust-l);margin-bottom:22px;}
+  .hero-h{font-size:clamp(2.3rem,5.6vw,4.4rem);font-weight:900;line-height:1.04;letter-spacing:-.02em;max-width:760px;margin-bottom:24px;text-transform:uppercase;}
+  .hero-p{max-width:480px;color:rgba(255,255,255,.7);font-size:.95rem;line-height:1.75;margin-bottom:34px;}
+  .btn-rust{background:var(--rust-l);color:#fff;font-weight:800;font-size:.84rem;padding:16px 30px;text-decoration:none;display:inline-block;text-transform:uppercase;letter-spacing:.02em;transition:background .2s;}
+  .btn-rust:hover{background:var(--rust);}
+
+  .hero-stats{position:relative;z-index:2;background:var(--steel);margin-top:-1px;}
+  .hs-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+  .hs-item{padding:30px 40px;border-right:1px solid rgba(255,255,255,.08);color:#fff;}
+  .hs-item:last-child{border-right:none;}
+  .hs-n{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.9rem;color:var(--rust-l);}
+  .hs-l{font-size:.7rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.06em;margin-top:6px;}
+  @media(max-width:860px){ .hs-grid{grid-template-columns:1fr 1fr;} .hs-item{border-bottom:1px solid rgba(255,255,255,.08);} }
+
+  section{padding:110px 0;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);margin-bottom:16px;}
+  .sec-h{font-size:clamp(1.7rem,3vw,2.5rem);font-weight:900;line-height:1.15;text-transform:uppercase;letter-spacing:-.01em;}
+  .sec-h .hl{color:var(--rust);}
+
+  /* products */
+  #products{background:#fff;}
+  .pe-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:54px;gap:30px;}
+  .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .prod-card{background:#fff;padding:36px 26px;}
+  .prod-num{font-family:'Archivo',sans-serif;font-weight:900;color:var(--line);font-size:1.6rem;margin-bottom:24px;}
+  .prod-t{font-weight:800;font-size:1rem;margin-bottom:10px;text-transform:uppercase;}
+  .prod-d{font-size:.82rem;color:var(--muted);line-height:1.7;}
+
+  /* capability process */
+  #process{background:var(--bg);}
+  .proc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:50px;}
+  .proc-step{background:#fff;padding:34px 26px;position:relative;}
+  .proc-n{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.3rem;color:var(--rust);margin-bottom:20px;}
+  .proc-t{font-weight:800;font-size:.92rem;text-transform:uppercase;margin-bottom:10px;}
+  .proc-d{font-size:.8rem;color:var(--muted);line-height:1.65;}
+
+  /* markets */
+  #markets{background:var(--steel);color:#fff;}
+  .markets-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .market-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .market-chip{border:1px solid rgba(255,255,255,.18);padding:9px 16px;font-size:.78rem;font-weight:600;border-radius:2px;color:rgba(255,255,255,.85);}
+  .markets-p{color:rgba(255,255,255,.62);font-size:.92rem;line-height:1.8;margin:18px 0 0;}
+  @media(max-width:900px){ .markets-grid{grid-template-columns:1fr;} }
+
+  /* certifications */
+  #certs{background:#fff;text-align:center;}
+  .cert-row{display:flex;justify-content:center;gap:50px;flex-wrap:wrap;margin-top:40px;}
+  .cert-item{display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--muted);}
+  .cert-item .ico{width:64px;height:64px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--rust);font-size:1.3rem;}
+  .cert-item .t{font-weight:700;font-size:.78rem;color:var(--steel);text-transform:uppercase;}
+
+  #cta{background:linear-gradient(135deg,var(--rust),var(--rust-l));text-align:center;color:#fff;}
+  .cta-h{font-size:clamp(1.8rem,3.4vw,2.7rem);font-weight:900;margin-bottom:18px;text-transform:uppercase;}
+  .cta-p{color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 32px;font-size:.92rem;}
+  .btn-white2{background:#fff;color:var(--rust);font-weight:800;font-size:.85rem;padding:16px 32px;text-decoration:none;display:inline-block;text-transform:uppercase;}
+
+  footer{background:var(--steel);color:rgba(255,255,255,.65);padding:48px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .ft-brand{font-family:'Archivo',sans-serif;font-weight:900;color:#fff;text-transform:uppercase;font-size:.92rem;}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.78rem;}
+  .ft-links a{text-decoration:none;color:rgba(255,255,255,.65);}
+  .ft-note{font-size:.74rem;color:rgba(255,255,255,.3);margin-top:24px;text-align:center;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    .nlinks,.nav-cta{display:none;}
+    .mob-btn{display:block;}
+    .prod-grid,.proc-row{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+    .hero-inner{padding:0 24px;}
+    .prod-grid,.proc-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — Produk Ekspor</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Produk%20Ekspor" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+
+<nav>
+  <a class="brand" href="#"><span class="mark">NE</span>NUSANTARA EXPORT GROUP</a>
+  <ul class="nlinks">
+    <li><a href="#products">Produk</a></li>
+    <li><a href="#process">Kapasitas</a></li>
+    <li><a href="#certs">Sertifikasi</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Minta Penawaran</a>
+  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<section id="hero" style="padding:0;">
+  <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1600&auto=format&fit=crop" alt="Pelabuhan ekspor Nusantara Export Group"/>
+  <div class="hero-shade">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Eksportir Komoditas &amp; Manufaktur</div>
+      <h1 class="hero-h">Menghubungkan produk Indonesia ke pasar dunia.</h1>
+      <p class="hero-p">Nusantara Export Group melayani pengadaan, kontrol kualitas, dan pengiriman komoditas unggulan ke lebih dari 30 negara mitra dagang.</p>
+      <a href="#cta" class="btn-rust">Minta Penawaran Ekspor</a>
+    </div>
+  </div>
+</section>
+
+<div class="hero-stats">
+  <div class="container hs-grid">
+    <div class="hs-item"><div class="hs-n">30+</div><div class="hs-l">Negara Tujuan</div></div>
+    <div class="hs-item"><div class="hs-n">18.500T</div><div class="hs-l">Volume / Tahun</div></div>
+    <div class="hs-item"><div class="hs-n">19</div><div class="hs-l">Tahun Beroperasi</div></div>
+    <div class="hs-item"><div class="hs-n">ISO 9001</div><div class="hs-l">Tersertifikasi</div></div>
+  </div>
+</div>
+
+<section id="products">
+  <div class="container">
+    <div class="pe-hdr reveal">
+      <div>
+        <div class="eyebrow">Kategori Produk</div>
+        <h2 class="sec-h">Komoditas <span class="hl">unggulan</span> kami.</h2>
+      </div>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card reveal"><div class="prod-num">01</div><div class="prod-t">Kopi &amp; Rempah</div><div class="prod-d">Biji kopi pilihan dan rempah-rempah berkualitas ekspor dari berbagai daerah.</div></div>
+      <div class="prod-card reveal"><div class="prod-num">02</div><div class="prod-t">Furnitur Kayu</div><div class="prod-d">Produk furnitur dari kayu bersertifikat legal dan ramah lingkungan.</div></div>
+      <div class="prod-card reveal"><div class="prod-num">03</div><div class="prod-t">Produk Karet</div><div class="prod-d">Karet alam dan turunannya dengan standar mutu industri internasional.</div></div>
+      <div class="prod-card reveal"><div class="prod-num">04</div><div class="prod-t">Tekstil &amp; Garmen</div><div class="prod-d">Produksi tekstil skala besar dengan kontrol kualitas di setiap tahap.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Kapasitas Produksi</div>
+      <h2 class="sec-h">Dari sumber hingga <span class="hl">pelabuhan tujuan.</span></h2>
+    </div>
+    <div class="proc-row">
+      <div class="proc-step reveal"><div class="proc-n">01</div><div class="proc-t">Sourcing</div><div class="proc-d">Bekerja sama langsung dengan petani dan produsen lokal terpercaya.</div></div>
+      <div class="proc-step reveal"><div class="proc-n">02</div><div class="proc-t">Quality Control</div><div class="proc-d">Inspeksi berlapis sesuai standar negara tujuan ekspor.</div></div>
+      <div class="proc-step reveal"><div class="proc-n">03</div><div class="proc-t">Packaging</div><div class="proc-d">Pengemasan sesuai regulasi internasional dan kebutuhan klien.</div></div>
+      <div class="proc-step reveal"><div class="proc-n">04</div><div class="proc-t">Shipping</div><div class="proc-d">Pengiriman terjadwal dengan dokumentasi ekspor yang lengkap.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="markets">
+  <div class="container markets-grid">
+    <div class="reveal">
+      <div class="eyebrow">Jangkauan Pasar</div>
+      <h2 class="sec-h">Dipercaya mitra dagang<br><span class="hl">di seluruh dunia.</span></h2>
+      <p class="markets-p">Jaringan distribusi kami menjangkau Asia, Timur Tengah, Eropa, hingga Amerika Utara — didukung mitra logistik terpercaya di setiap pelabuhan tujuan.</p>
+    </div>
+    <div class="reveal">
+      <div class="market-list">
+        <span class="market-chip">Jepang</span><span class="market-chip">Korea Selatan</span><span class="market-chip">Tiongkok</span>
+        <span class="market-chip">Uni Emirat Arab</span><span class="market-chip">Arab Saudi</span><span class="market-chip">Jerman</span>
+        <span class="market-chip">Belanda</span><span class="market-chip">Amerika Serikat</span><span class="market-chip">Kanada</span>
+        <span class="market-chip">Australia</span><span class="market-chip">India</span><span class="market-chip">+19 negara lainnya</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="container reveal">
+    <div class="eyebrow" style="justify-content:center;display:flex;">Standar &amp; Sertifikasi</div>
+    <h2 class="sec-h">Memenuhi standar <span class="hl">internasional.</span></h2>
+    <div class="cert-row">
+      <div class="cert-item"><div class="ico"><i class="fa-solid fa-certificate"></i></div><div class="t">ISO 9001</div></div>
+      <div class="cert-item"><div class="ico"><i class="fa-solid fa-leaf"></i></div><div class="t">Fair Trade</div></div>
+      <div class="cert-item"><div class="ico"><i class="fa-solid fa-shield-halved"></i></div><div class="t">HACCP</div></div>
+      <div class="cert-item"><div class="ico"><i class="fa-solid fa-tree"></i></div><div class="t">FSC Certified</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container reveal">
+    <div class="cta-h">Siap menjadi mitra<br>dagang berikutnya?</div>
+    <p class="cta-p">Konsultasikan kebutuhan ekspor Anda dan dapatkan penawaran dalam 24 jam.</p>
+    <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Produk%20Ekspor" target="_blank" rel="noopener" class="btn-white2">Hubungi Tim Ekspor</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">Nusantara Export Group</div>
+      <ul class="ft-links">
+        <li><a href="#products">Produk</a></li>
+        <li><a href="#markets">Pasar</a></li>
+        <li><a href="#cta">Kontak</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan perusahaan sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
