@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anara Resort & Villas — Template Booking & Reservation | Loka Coding</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{ --teal:#0F3D3E; --teal-2:#155457; --gold:#D8B26E; --cream:#FBF8F2; --muted:#6B7A78; --line:#E3E0D6; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--teal);overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'Playfair Display',serif;}
+  a{color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#08201f;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#a9bdb8;display:flex;align-items:center;gap:7px;transition:color .2s;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#5a716c;display:none;}
+  .lc-bar-order{background:var(--gold);color:#1a1a1a;font-weight:700;padding:7px 16px;border-radius:7px;display:flex;align-items:center;gap:6px;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:80px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:transparent;transition:background .3s;}
+  nav.scrolled{background:rgba(251,248,242,.95);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line);}
+  .brand{font-family:'Playfair Display',serif;font-weight:600;letter-spacing:.06em;font-size:1.3rem;color:#fff;text-decoration:none;}
+  nav.scrolled .brand{color:var(--teal);}
+  .nlinks{display:flex;gap:36px;list-style:none;}
+  .nlinks a{font-size:.82rem;font-weight:500;color:rgba(255,255,255,.85);text-decoration:none;}
+  nav.scrolled .nlinks a{color:var(--teal);}
+  .nav-cta{font-size:.78rem;font-weight:700;background:var(--gold);color:#1a1a1a;border:none;padding:11px 22px;border-radius:2px;cursor:pointer;text-decoration:none;}
+  .mob-btn{display:none;background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;}
+  nav.scrolled .mob-btn{color:var(--teal);}
+
+  #hero{position:relative;height:92vh;min-height:560px;}
+  #hero img{width:100%;height:100%;object-fit:cover;}
+  .hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,32,31,.45) 0%,rgba(8,32,31,.15) 45%,rgba(8,32,31,.65) 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 24px;}
+  .hero-eyebrow{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+  .hero-h{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:600;line-height:1.1;margin-bottom:20px;}
+  .hero-h em{font-style:italic;}
+  .hero-p{max-width:480px;color:rgba(255,255,255,.85);font-size:.96rem;line-height:1.7;}
+
+  .booking-card{position:relative;z-index:5;max-width:980px;margin:-46px auto 0;background:#fff;border-radius:6px;
+    box-shadow:0 30px 60px -10px rgba(8,32,31,.25);display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:0;}
+  .bk-field{padding:22px 26px;border-right:1px solid var(--line);}
+  .bk-field:last-child{border-right:none;}
+  .bk-l{font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .bk-v{font-weight:600;font-size:.92rem;color:var(--teal);}
+  .bk-btn{background:var(--teal);color:#fff;border:none;padding:0 34px;font-weight:700;font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:8px;}
+  @media(max-width:860px){ .booking-card{grid-template-columns:1fr 1fr;} .bk-btn{grid-column:1/-1;padding:18px;justify-content:center;} }
+
+  section{padding:110px 0;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+  .sec-h{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:600;line-height:1.2;}
+  .sec-h em{font-style:italic;color:var(--teal-2);}
+
+  /* about */
+  #about .grid2{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  #about img{border-radius:6px;aspect-ratio:4/4.6;object-fit:cover;}
+  .about-p{color:var(--muted);font-size:.94rem;line-height:1.85;margin:20px 0 26px;}
+  .btn-teal{background:var(--teal);color:#fff;font-weight:700;font-size:.85rem;padding:15px 30px;border-radius:2px;text-decoration:none;display:inline-block;}
+  @media(max-width:900px){ #about .grid2{grid-template-columns:1fr;} }
+
+  /* villas */
+  #villas{background:#fff;}
+  .villa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .villa-card{border-radius:6px;overflow:hidden;background:var(--cream);box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .3s,box-shadow .3s;}
+  .villa-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(15,61,62,.12);}
+  .villa-img{position:relative;aspect-ratio:4/3;overflow:hidden;}
+  .villa-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+  .villa-card:hover .villa-img img{transform:scale(1.06);}
+  .villa-price{position:absolute;top:14px;right:14px;background:#fff;color:var(--teal);font-weight:700;font-size:.78rem;padding:7px 13px;border-radius:3px;}
+  .villa-body{padding:24px;}
+  .villa-name{font-family:'Playfair Display',serif;font-weight:600;font-size:1.15rem;margin-bottom:8px;}
+  .villa-meta{font-size:.78rem;color:var(--muted);display:flex;gap:14px;margin-bottom:14px;}
+  .villa-d{font-size:.84rem;color:var(--muted);line-height:1.6;}
+
+  /* amenities */
+  .amen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;}
+  .amen-card{padding:30px 18px;}
+  .amen-ico{width:56px;height:56px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+    color:var(--teal-2);font-size:1.2rem;margin:0 auto 16px;}
+  .amen-t{font-weight:700;font-size:.88rem;margin-bottom:6px;}
+  .amen-d{font-size:.76rem;color:var(--muted);}
+  @media(max-width:900px){ .amen-grid{grid-template-columns:1fr 1fr;} }
+
+  /* gallery */
+  #gallery{background:#fff;}
+  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,160px);gap:10px;}
+  .gal-grid img{width:100%;height:100%;object-fit:cover;border-radius:4px;}
+  .gal-grid > :nth-child(1){grid-row:span 2;grid-column:span 2;}
+  @media(max-width:760px){ .gal-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,140px);} .gal-grid > :nth-child(1){grid-column:span 2;grid-row:span 1;} }
+
+  /* testimonial */
+  #testi{background:var(--teal);color:#fff;text-align:center;}
+  .testi-stars{color:var(--gold);font-size:1.1rem;margin-bottom:20px;}
+  .testi-t{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.3rem,2.4vw,1.8rem);max-width:680px;margin:0 auto 20px;line-height:1.5;}
+  .testi-who{color:rgba(255,255,255,.6);font-size:.85rem;}
+
+  #cta{text-align:center;}
+  .cta-h{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:600;margin-bottom:18px;}
+  .cta-h em{font-style:italic;color:var(--teal-2);}
+  .cta-p{color:var(--muted);max-width:460px;margin:0 auto 32px;}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:48px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .ft-brand{font-family:'Playfair Display',serif;font-weight:600;}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;color:var(--muted);}
+  .ft-note{font-size:.74rem;color:#9CA39F;margin-top:24px;text-align:center;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    .nlinks,.nav-cta{display:none;}
+    .mob-btn{display:block;}
+    .villa-grid{grid-template-columns:1fr;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — Booking &amp; Reservation</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Booking%20%26%20Reservation" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+
+<nav id="mainNav">
+  <a class="brand" href="#">ANARA</a>
+  <ul class="nlinks">
+    <li><a href="#villas">Villa</a></li>
+    <li><a href="#amenities">Fasilitas</a></li>
+    <li><a href="#gallery">Galeri</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Pesan Sekarang</a>
+  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<section id="hero" style="padding:0;">
+  <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1600&auto=format&fit=crop" alt="Anara Resort & Villas"/>
+  <div class="hero-shade">
+    <div class="hero-eyebrow">Ubud, Bali</div>
+    <h1 class="hero-h">Ketenangan yang <em>menyatu</em><br>dengan alam.</h1>
+    <p class="hero-p">Anara Resort &amp; Villas menghadirkan privasi, kolam pribadi, dan pemandangan lembah untuk istirahat yang sesungguhnya.</p>
+  </div>
+</section>
+
+<div class="booking-card reveal">
+  <div class="bk-field"><div class="bk-l">Check-in</div><div class="bk-v">12 Jul 2026</div></div>
+  <div class="bk-field"><div class="bk-l">Check-out</div><div class="bk-v">15 Jul 2026</div></div>
+  <div class="bk-field"><div class="bk-l">Tamu</div><div class="bk-v">2 Dewasa, 1 Anak</div></div>
+  <button class="bk-btn"><i class="fa-solid fa-magnifying-glass"></i> Cek Ketersediaan</button>
+</div>
+
+<section id="about">
+  <div class="container grid2">
+    <img class="reveal" src="https://images.unsplash.com/photo-1455587734955-081b22074882?q=80&w=800&auto=format&fit=crop" alt="Lobby Anara Resort"/>
+    <div class="reveal">
+      <div class="eyebrow">Tentang Anara</div>
+      <h2 class="sec-h">Dirancang untuk <em>memperlambat waktu.</em></h2>
+      <p class="about-p">Tersembunyi di antara perbukitan Ubud, setiap villa di Anara dirancang dengan material lokal dan bukaan udara alami — menghadirkan ketenangan tanpa mengorbankan kenyamanan modern.</p>
+      <a href="#villas" class="btn-teal">Lihat Pilihan Villa</a>
+    </div>
+  </div>
+</section>
+
+<section id="villas">
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto 56px;">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Pilihan Villa</div>
+      <h2 class="sec-h">Setiap villa punya <em>karakternya sendiri.</em></h2>
+    </div>
+    <div class="villa-grid">
+      <div class="villa-card reveal">
+        <div class="villa-img">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=700&auto=format&fit=crop" alt="Garden Villa"/>
+          <span class="villa-price">Rp1.850K/malam</span>
+        </div>
+        <div class="villa-body">
+          <div class="villa-name">Garden Villa</div>
+          <div class="villa-meta"><span><i class="fa-solid fa-user"></i> 2 Tamu</span><span><i class="fa-solid fa-bed"></i> 1 Kamar</span></div>
+          <div class="villa-d">Villa intim dengan taman pribadi, cocok untuk pasangan yang mencari ketenangan.</div>
+        </div>
+      </div>
+      <div class="villa-card reveal">
+        <div class="villa-img">
+          <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=700&auto=format&fit=crop" alt="Ocean Villa"/>
+          <span class="villa-price">Rp2.600K/malam</span>
+        </div>
+        <div class="villa-body">
+          <div class="villa-name">Ocean Villa</div>
+          <div class="villa-meta"><span><i class="fa-solid fa-user"></i> 4 Tamu</span><span><i class="fa-solid fa-bed"></i> 2 Kamar</span></div>
+          <div class="villa-d">Pemandangan terbuka dengan teras luas, ideal untuk keluarga kecil.</div>
+        </div>
+      </div>
+      <div class="villa-card reveal">
+        <div class="villa-img">
+          <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?q=80&w=700&auto=format&fit=crop" alt="Private Pool Villa"/>
+          <span class="villa-price">Rp3.900K/malam</span>
+        </div>
+        <div class="villa-body">
+          <div class="villa-name">Private Pool Villa</div>
+          <div class="villa-meta"><span><i class="fa-solid fa-user"></i> 4 Tamu</span><span><i class="fa-solid fa-bed"></i> 2 Kamar</span></div>
+          <div class="villa-d">Kolam renang pribadi dengan pemandangan lembah, untuk pengalaman paling eksklusif.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="amenities">
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto 40px;">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Fasilitas</div>
+      <h2 class="sec-h">Semua yang Anda butuhkan, <em>tersedia.</em></h2>
+    </div>
+    <div class="amen-grid">
+      <div class="amen-card reveal"><div class="amen-ico"><i class="fa-solid fa-spa"></i></div><div class="amen-t">Spa &amp; Wellness</div><div class="amen-d">Perawatan tradisional Bali</div></div>
+      <div class="amen-card reveal"><div class="amen-ico"><i class="fa-solid fa-utensils"></i></div><div class="amen-t">Restoran Privat</div><div class="amen-d">Menu lokal &amp; internasional</div></div>
+      <div class="amen-card reveal"><div class="amen-ico"><i class="fa-solid fa-water-ladder"></i></div><div class="amen-t">Kolam Renang</div><div class="amen-d">Infinity pool dengan pemandangan</div></div>
+      <div class="amen-card reveal"><div class="amen-ico"><i class="fa-solid fa-car"></i></div><div class="amen-t">Antar Jemput</div><div class="amen-d">Dari &amp; menuju bandara</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto 40px;">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Galeri</div>
+      <h2 class="sec-h">Sekilas suasana <em>Anara.</em></h2>
+    </div>
+    <div class="gal-grid reveal">
+      <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=700&auto=format&fit=crop" alt="Galeri 1"/>
+      <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=500&auto=format&fit=crop" alt="Galeri 2"/>
+      <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=500&auto=format&fit=crop" alt="Galeri 3"/>
+      <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?q=80&w=500&auto=format&fit=crop" alt="Galeri 4"/>
+      <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=500&auto=format&fit=crop" alt="Galeri 5"/>
+    </div>
+  </div>
+</section>
+
+<section id="testi">
+  <div class="container reveal">
+    <div class="testi-stars">★★★★★</div>
+    <p class="testi-t">"Tempat paling tenang yang pernah kami tinggali. Stafnya sangat memperhatikan detail kecil tanpa terasa berlebihan."</p>
+    <div class="testi-who">Tamu Anara, Jakarta</div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container reveal">
+    <div class="cta-h">Siap untuk <em>liburan tenang</em><br>berikutnya?</div>
+    <p class="cta-p">Hubungi tim reservasi kami untuk penawaran terbaik dan ketersediaan terbaru.</p>
+    <a href="#" class="btn-teal" id="contact">Hubungi Reservasi</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">ANARA</div>
+      <ul class="ft-links">
+        <li><a href="#villas">Villa</a></li>
+        <li><a href="#gallery">Galeri</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan resort sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

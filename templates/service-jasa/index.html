@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Arah Consulting Group — Template Service/Jasa | Loka Coding</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{ --slate:#334155; --slate-d:#1E293B; --cyan:#06B6D4; --bg:#F8FAFC; --line:#E2E8F0; --muted:#64748B; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--slate-d);overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'Manrope',sans-serif;}
+  a{color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#0F172A;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#94A3B8;display:flex;align-items:center;gap:7px;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#475569;display:none;}
+  .lc-bar-order{background:var(--cyan);color:#0F172A;font-weight:700;padding:7px 16px;border-radius:7px;display:flex;align-items:center;gap:6px;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:rgba(248,250,252,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .brand{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.2rem;color:var(--slate-d);text-decoration:none;display:flex;align-items:center;gap:9px;}
+  .brand .mark{width:32px;height:32px;border-radius:8px;background:var(--slate-d);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;}
+  .nlinks{display:flex;gap:34px;list-style:none;}
+  .nlinks a{font-size:.83rem;font-weight:600;color:var(--slate);text-decoration:none;}
+  .nlinks a:hover{color:var(--cyan);}
+  .nav-cta{font-size:.8rem;font-weight:700;background:var(--slate-d);color:#fff;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;text-decoration:none;}
+  .mob-btn{display:none;background:none;border:none;color:var(--slate-d);font-size:1.2rem;cursor:pointer;}
+
+  #hero{padding:190px 0 0;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:100px;
+    padding:7px 16px;font-size:.76rem;font-weight:700;color:var(--cyan);margin-bottom:24px;}
+  .hero-h{font-size:clamp(2.2rem,4.6vw,3.5rem);font-weight:800;line-height:1.12;margin-bottom:22px;letter-spacing:-.02em;}
+  .hero-h .hl{color:var(--cyan);}
+  .hero-p{color:var(--muted);font-size:.97rem;line-height:1.8;max-width:460px;margin-bottom:32px;}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-cyan{background:var(--cyan);color:#0F172A;font-weight:700;font-size:.85rem;padding:15px 30px;border-radius:9px;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s;}
+  .btn-cyan:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(6,182,212,.3);}
+  .btn-slate-line{color:var(--slate-d);font-weight:700;font-size:.85rem;padding:15px 26px;border:1.5px solid var(--line);border-radius:9px;text-decoration:none;display:inline-block;background:#fff;}
+  .hero-img-wrap img{border-radius:18px;aspect-ratio:4/4.3;object-fit:cover;}
+  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+
+  #logos{padding:60px 0 0;text-align:center;}
+  .logos-l{font-size:.72rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:28px;}
+  .logos-row{display:flex;justify-content:center;gap:50px;flex-wrap:wrap;color:var(--muted);font-weight:700;font-family:'Manrope',sans-serif;opacity:.6;}
+
+  section{padding:108px 0;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:16px;}
+  .sec-hdr{text-align:center;max-width:580px;margin:0 auto 56px;}
+  .sec-h{font-size:clamp(1.7rem,3vw,2.5rem);font-weight:800;line-height:1.2;letter-spacing:-.01em;}
+  .sec-h .hl{color:var(--cyan);}
+
+  /* process */
+  .proc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;}
+  .proc-step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px 24px;}
+  .proc-n{font-family:'Manrope',sans-serif;font-weight:800;font-size:1.6rem;color:var(--cyan);margin-bottom:20px;}
+  .proc-t{font-weight:700;font-size:.94rem;margin-bottom:10px;}
+  .proc-d{font-size:.82rem;color:var(--muted);line-height:1.65;}
+  @media(max-width:760px){ .proc-row{grid-template-columns:1fr 1fr;} }
+
+  /* services */
+  #services{background:#fff;}
+  .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .svc-card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:34px;display:flex;gap:22px;transition:border-color .25s,transform .25s;}
+  .svc-card:hover{border-color:var(--cyan);transform:translateY(-4px);}
+  .svc-ico{width:48px;height:48px;border-radius:12px;background:var(--slate-d);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+  .svc-t{font-weight:700;font-size:1.02rem;margin-bottom:10px;}
+  .svc-d{font-size:.84rem;color:var(--muted);line-height:1.7;}
+  @media(max-width:760px){ .svc-grid{grid-template-columns:1fr;} }
+
+  /* results */
+  #results{background:var(--slate-d);color:#fff;}
+  .res-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;}
+  .res-n{font-family:'Manrope',sans-serif;font-size:2.3rem;font-weight:800;color:var(--cyan);}
+  .res-l{font-size:.76rem;color:rgba(255,255,255,.6);margin-top:6px;}
+  @media(max-width:760px){ .res-grid{grid-template-columns:1fr 1fr;gap:36px;} }
+
+  /* testimonial */
+  #testi{background:var(--bg);text-align:center;}
+  .testi-card{max-width:680px;margin:0 auto;}
+  .testi-stars{color:var(--cyan);margin-bottom:20px;font-size:.95rem;}
+  .testi-t{font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:700;line-height:1.5;margin-bottom:22px;}
+  .testi-who{color:var(--muted);font-size:.85rem;}
+
+  #cta{text-align:center;}
+  .cta-h{font-size:clamp(1.8rem,3.4vw,2.7rem);font-weight:800;margin-bottom:18px;letter-spacing:-.01em;}
+  .cta-h .hl{color:var(--cyan);}
+  .cta-p{color:var(--muted);max-width:460px;margin:0 auto 32px;}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:48px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .ft-brand{font-family:'Manrope',sans-serif;font-weight:800;}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;color:var(--muted);}
+  .ft-note{font-size:.74rem;color:#94A3B8;margin-top:24px;text-align:center;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    .nlinks,.nav-cta{display:none;}
+    .mob-btn{display:block;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — Service/Jasa</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Service%2FJasa" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+
+<nav>
+  <a class="brand" href="#"><span class="mark">A</span>Arah Consulting</a>
+  <ul class="nlinks">
+    <li><a href="#services">Layanan</a></li>
+    <li><a href="#process">Proses</a></li>
+    <li><a href="#results">Hasil</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Konsultasi Gratis</a>
+  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<section id="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge"><i class="fa-solid fa-circle-check"></i> Dipercaya 80+ bisnis sejak 2016</div>
+      <h1 class="hero-h">Tingkatkan bisnis Anda dengan <span class="hl">strategi yang tepat.</span></h1>
+      <p class="hero-p">Arah Consulting Group membantu UKM dan startup merancang strategi pemasaran, operasional, dan branding yang benar-benar sesuai kondisi bisnis Anda.</p>
+      <div class="hero-btns">
+        <a href="#cta" class="btn-cyan">Konsultasi Gratis</a>
+        <a href="#services" class="btn-slate-line">Lihat Layanan</a>
+      </div>
+    </div>
+    <div class="hero-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop" alt="Tim Arah Consulting Group"/>
+    </div>
+  </div>
+</section>
+
+<section id="logos">
+  <div class="container">
+    <div class="logos-l">Telah dipercaya oleh</div>
+    <div class="logos-row">
+      <span>Kopi Selatan</span><span>Ruang Kerja Studio</span><span>Mitra Logistik</span><span>Belaja.id</span><span>Karya Lokal</span>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Cara Kami Bekerja</div>
+      <h2 class="sec-h">Proses yang <span class="hl">transparan</span> dari awal.</h2>
+    </div>
+    <div class="proc-row">
+      <div class="proc-step reveal"><div class="proc-n">01</div><div class="proc-t">Diskusi</div><div class="proc-d">Memahami tujuan dan tantangan bisnis Anda secara langsung.</div></div>
+      <div class="proc-step reveal"><div class="proc-n">02</div><div class="proc-t">Riset</div><div class="proc-d">Menganalisis pasar, kompetitor, dan peluang yang relevan.</div></div>
+      <div class="proc-step reveal"><div class="proc-n">03</div><div class="proc-t">Eksekusi</div><div class="proc-d">Menjalankan strategi bersama tim Anda secara bertahap.</div></div>
+      <div class="proc-step reveal"><div class="proc-n">04</div><div class="proc-t">Laporan</div><div class="proc-d">Hasil dan rekomendasi disampaikan secara rutin dan jelas.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Layanan Kami</div>
+      <h2 class="sec-h">Solusi yang sesuai <span class="hl">kebutuhan Anda.</span></h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal"><div class="svc-ico"><i class="fa-solid fa-bullseye"></i></div><div><div class="svc-t">Strategi Branding</div><div class="svc-d">Membangun identitas merek yang kuat dan konsisten di semua kanal.</div></div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><i class="fa-solid fa-chart-pie"></i></div><div><div class="svc-t">Digital Marketing</div><div class="svc-d">Kampanye berbasis data untuk menjangkau pelanggan yang tepat.</div></div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><i class="fa-solid fa-briefcase"></i></div><div><div class="svc-t">Business Consulting</div><div class="svc-d">Pendampingan operasional dan keuangan untuk pertumbuhan sehat.</div></div></div>
+      <div class="svc-card reveal"><div class="svc-ico"><i class="fa-solid fa-gears"></i></div><div><div class="svc-t">Optimasi Operasional</div><div class="svc-d">Merampingkan proses kerja agar tim lebih efisien dan produktif.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="results">
+  <div class="container res-grid">
+    <div class="reveal"><div class="res-n">80+</div><div class="res-l">Klien Terbantu</div></div>
+    <div class="reveal"><div class="res-n">+64%</div><div class="res-l">Rata-rata Growth</div></div>
+    <div class="reveal"><div class="res-n">9</div><div class="res-l">Tahun Pengalaman</div></div>
+    <div class="reveal"><div class="res-n">4.8/5</div><div class="res-l">Rating Klien</div></div>
+  </div>
+</section>
+
+<section id="testi">
+  <div class="container testi-card reveal">
+    <div class="testi-stars">★★★★★</div>
+    <p class="testi-t">"Arah membantu kami melihat masalah dari sudut yang berbeda. Strategi yang diberikan benar-benar bisa dijalankan, bukan cuma teori."</p>
+    <div class="testi-who">Pemilik, Kopi Selatan</div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container reveal">
+    <div class="cta-h">Mari diskusikan <span class="hl">langkah berikutnya</span><br>untuk bisnis Anda.</div>
+    <p class="cta-p">Sesi konsultasi awal gratis, tanpa komitmen jangka panjang.</p>
+    <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Service%2FJasa" target="_blank" rel="noopener" class="btn-cyan">Jadwalkan Konsultasi</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">Arah Consulting Group</div>
+      <ul class="ft-links">
+        <li><a href="#services">Layanan</a></li>
+        <li><a href="#results">Hasil</a></li>
+        <li><a href="#cta">Kontak</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan perusahaan sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

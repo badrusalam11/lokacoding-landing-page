@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Linen & Co. — Template E-Commerce | Loka Coding</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{
+    --terra:#C1593C; --terra-dark:#9C4530; --ink:#211A16; --cream:#FBF6EF;
+    --line:#E7DCCB; --muted:#83766A;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'DM Serif Display',serif;}
+  a{color:inherit;}
+  .container{max-width:1200px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#1a1410;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#bdab9a;display:flex;align-items:center;gap:7px;transition:color .2s;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#75695e;display:none;}
+  .lc-bar-order{background:var(--terra);color:#fff;font-weight:700;padding:7px 16px;border-radius:7px;display:flex;align-items:center;gap:6px;transition:opacity .2s;}
+  .lc-bar-order:hover{opacity:.85;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  .announce{position:fixed;top:42px;left:0;width:100%;z-index:480;background:var(--terra);color:#fff;
+    text-align:center;font-size:.76rem;font-weight:600;padding:9px 0;letter-spacing:.02em;}
+
+  nav{position:fixed;top:78px;left:0;width:100%;z-index:470;height:80px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:rgba(251,246,239,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .brand{font-family:'DM Serif Display',serif;font-size:1.4rem;letter-spacing:.02em;text-decoration:none;color:var(--ink);}
+  .nlinks{display:flex;gap:36px;list-style:none;}
+  .nlinks a{font-size:.82rem;font-weight:500;color:var(--ink);text-decoration:none;}
+  .nlinks a:hover{color:var(--terra);}
+  .nav-icons{display:flex;gap:20px;align-items:center;font-size:1rem;color:var(--ink);}
+  .mob-btn{display:none;background:none;border:none;color:var(--ink);font-size:1.2rem;cursor:pointer;}
+
+  #hero{position:relative;margin-top:200px;height:78vh;min-height:480px;overflow:hidden;}
+  #hero img{width:100%;height:100%;object-fit:cover;}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(33,26,22,.55) 0%,rgba(33,26,22,.05) 60%);
+    display:flex;align-items:center;}
+  .hero-content{padding:0 60px;max-width:560px;color:#fff;}
+  .hero-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(6px);
+    padding:7px 16px;border-radius:100px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:22px;}
+  .hero-h{font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.08;margin-bottom:20px;font-style:italic;}
+  .hero-p{font-size:.96rem;line-height:1.7;color:rgba(255,255,255,.85);max-width:420px;margin-bottom:30px;}
+  .btn-terra{background:var(--terra);color:#fff;font-weight:700;font-size:.85rem;padding:15px 32px;border-radius:2px;text-decoration:none;
+    display:inline-block;transition:background .2s,transform .2s;}
+  .btn-terra:hover{background:var(--terra-dark);transform:translateY(-2px);}
+  .btn-dark{background:var(--ink);color:#fff;font-weight:700;font-size:.85rem;padding:15px 32px;border-radius:2px;text-decoration:none;display:inline-block;}
+
+  section{padding:100px 0;}
+  .sec-hdr{text-align:center;max-width:560px;margin:0 auto 56px;}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin-bottom:14px;display:block;}
+  .sec-h{font-size:clamp(1.8rem,3.2vw,2.5rem);font-style:italic;line-height:1.2;}
+
+  /* categories */
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .cat-card{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:3/4;cursor:pointer;}
+  .cat-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,.61,.36,1);}
+  .cat-card:hover img{transform:scale(1.06);}
+  .cat-label{position:absolute;bottom:0;left:0;width:100%;padding:26px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.55));}
+  .cat-label .t{font-family:'DM Serif Display',serif;font-style:italic;font-size:1.5rem;color:#fff;}
+  .cat-label .c{font-size:.74rem;color:rgba(255,255,255,.8);margin-top:4px;}
+
+  /* products */
+  #products{background:#fff;}
+  .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .prod-card{cursor:pointer;}
+  .prod-img-wrap{position:relative;overflow:hidden;border-radius:3px;background:var(--cream);aspect-ratio:3/3.7;margin-bottom:16px;}
+  .prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+  .prod-card:hover .prod-img-wrap img{transform:scale(1.05);}
+  .prod-tag{position:absolute;top:12px;left:12px;background:var(--ink);color:#fff;font-size:.62rem;font-weight:700;padding:5px 10px;border-radius:2px;letter-spacing:.04em;}
+  .prod-add{position:absolute;bottom:12px;right:12px;width:38px;height:38px;border-radius:50%;background:#fff;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;box-shadow:0 4px 14px rgba(0,0,0,.15);}
+  .prod-card:hover .prod-add{opacity:1;transform:none;}
+  .prod-name{font-weight:600;font-size:.9rem;margin-bottom:4px;}
+  .prod-cat{font-size:.74rem;color:var(--muted);margin-bottom:6px;}
+  .prod-price{font-weight:700;color:var(--terra);font-size:.92rem;}
+  .prod-price del{color:var(--muted);font-weight:400;font-size:.78rem;margin-right:8px;}
+
+  /* story */
+  #story .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  #story img{border-radius:4px;aspect-ratio:4/4.6;object-fit:cover;}
+  .story-h{font-size:clamp(1.7rem,3vw,2.3rem);font-style:italic;margin-bottom:20px;line-height:1.25;}
+  .story-p{color:var(--muted);font-size:.92rem;line-height:1.85;margin-bottom:26px;}
+  @media(max-width:900px){ #story .story-grid{grid-template-columns:1fr;} }
+
+  /* rating band */
+  #ratingband{background:var(--ink);color:#fff;text-align:center;}
+  .rating-stars{color:#E8B45A;font-size:1.3rem;margin-bottom:18px;}
+  .rating-h{font-style:italic;font-size:clamp(1.4rem,2.6vw,2rem);max-width:600px;margin:0 auto 18px;line-height:1.4;}
+  .rating-sub{color:rgba(255,255,255,.6);font-size:.85rem;}
+
+  /* newsletter */
+  #newsletter{text-align:center;}
+  .nl-form{display:flex;justify-content:center;gap:10px;margin-top:30px;flex-wrap:wrap;}
+  .nl-form input{padding:15px 20px;border:1.5px solid var(--line);border-radius:2px;background:#fff;font-size:.86rem;width:300px;}
+  .nl-form button{background:var(--ink);color:#fff;border:none;padding:15px 28px;border-radius:2px;font-weight:700;font-size:.85rem;cursor:pointer;}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.7);padding:56px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:30px;}
+  .ft-brand{font-family:'DM Serif Display',serif;color:#fff;font-size:1.2rem;font-style:italic;}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;}
+  .ft-links a{text-decoration:none;color:rgba(255,255,255,.7);}
+  .ft-note{font-size:.74rem;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.1);padding-top:20px;text-align:center;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    .nlinks{display:none;}
+    .mob-btn{display:block;}
+    .cat-grid{grid-template-columns:1fr;}
+    .prod-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+    .hero-content{padding:0 28px;}
+    #hero{margin-top:230px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — E-Commerce</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20E-Commerce" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div class="announce">Gratis ongkir untuk pembelian di atas Rp500.000 — berlaku se-Indonesia</div>
+
+<nav>
+  <a class="brand" href="#">Linen &amp; Co.</a>
+  <ul class="nlinks">
+    <li><a href="#categories">Atasan</a></li>
+    <li><a href="#products">Best Seller</a></li>
+    <li><a href="#story">Tentang</a></li>
+    <li><a href="#newsletter">Kontak</a></li>
+  </ul>
+  <div class="nav-icons"><i class="fa-solid fa-magnifying-glass"></i><i class="fa-solid fa-bag-shopping"></i></div>
+  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<section id="hero" style="padding:0;">
+  <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1600&auto=format&fit=crop" alt="Koleksi Linen & Co."/>
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <span class="hero-badge">Koleksi Musim Ini</span>
+      <h1 class="hero-h">Kesederhanaan yang terasa mewah.</h1>
+      <p class="hero-p">Linen &amp; Co. menghadirkan pakaian sehari-hari dari bahan alami pilihan — dirancang untuk dipakai lama, bukan sekali musim.</p>
+      <a href="#products" class="btn-terra">Belanja Koleksi</a>
+    </div>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <span class="eyebrow">Jelajahi</span>
+      <h2 class="sec-h">Belanja berdasarkan kategori.</h2>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=700&auto=format&fit=crop" alt="Atasan"/>
+        <div class="cat-label"><div class="t">Atasan</div><div class="c">42 produk</div></div>
+      </div>
+      <div class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=700&auto=format&fit=crop" alt="Bawahan"/>
+        <div class="cat-label"><div class="t">Bawahan</div><div class="c">28 produk</div></div>
+      </div>
+      <div class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=700&auto=format&fit=crop" alt="Aksesoris"/>
+        <div class="cat-label"><div class="t">Aksesoris</div><div class="c">16 produk</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="container">
+    <div class="sec-hdr reveal">
+      <span class="eyebrow">Favorit Pelanggan</span>
+      <h2 class="sec-h">Produk terlaris bulan ini.</h2>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card reveal">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=500&auto=format&fit=crop" alt="Linen Shirt Sand"/>
+          <span class="prod-tag">BARU</span>
+          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="prod-cat">Atasan</div>
+        <div class="prod-name">Linen Shirt — Sand</div>
+        <div class="prod-price">Rp389.000</div>
+      </div>
+      <div class="prod-card reveal">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=500&auto=format&fit=crop" alt="Wide Trouser Clay"/>
+          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="prod-cat">Bawahan</div>
+        <div class="prod-name">Wide Trouser — Clay</div>
+        <div class="prod-price"><del>Rp520.000</del>Rp420.000</div>
+      </div>
+      <div class="prod-card reveal">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=500&auto=format&fit=crop" alt="Canvas Slip-on"/>
+          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="prod-cat">Sepatu</div>
+        <div class="prod-name">Canvas Slip-on — Ivory</div>
+        <div class="prod-price">Rp459.000</div>
+      </div>
+      <div class="prod-card reveal">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=500&auto=format&fit=crop" alt="Woven Tote"/>
+          <span class="prod-tag">BARU</span>
+          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="prod-cat">Aksesoris</div>
+        <div class="prod-name">Woven Tote — Natural</div>
+        <div class="prod-price">Rp299.000</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="container story-grid">
+    <img class="reveal" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop" alt="Proses produksi Linen & Co."/>
+    <div class="reveal">
+      <span class="eyebrow">Cerita Kami</span>
+      <h2 class="story-h">Dibuat untuk dipakai bertahun-tahun, bukan semusim.</h2>
+      <p class="story-p">Setiap potongan Linen &amp; Co. melalui proses seleksi bahan alami dan penjahitan kecil yang teliti. Kami percaya pakaian yang baik adalah investasi, bukan konsumsi musiman.</p>
+      <a href="#products" class="btn-dark">Kenali Koleksi Kami</a>
+    </div>
+  </div>
+</section>
+
+<section id="ratingband">
+  <div class="container reveal">
+    <div class="rating-stars">★★★★★</div>
+    <p class="rating-h">"Bahannya benar-benar terasa berbeda — adem, jatuh dengan baik, dan tidak cepat kusut. Worth it."</p>
+    <div class="rating-sub">4.9/5 dari 2.300+ ulasan pelanggan</div>
+  </div>
+</section>
+
+<section id="newsletter">
+  <div class="container reveal" style="text-align:center;">
+    <span class="eyebrow">Tetap Terhubung</span>
+    <h2 class="sec-h">Dapatkan info koleksi terbaru lebih dulu.</h2>
+    <form class="nl-form" onsubmit="return false;">
+      <input type="email" placeholder="Alamat email kamu" required/>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">Linen &amp; Co.</div>
+      <ul class="ft-links">
+        <li><a href="#categories">Atasan</a></li>
+        <li><a href="#products">Best Seller</a></li>
+        <li><a href="#story">Tentang</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan toko sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

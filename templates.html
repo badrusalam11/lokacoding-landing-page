@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Template Premium — Loka Coding</title>
+  <meta name="description" content="11 desain template website premium untuk berbagai industri — company profile, e-commerce, booking, edukasi, dan lainnya. Preview demo dan pesan langsung."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://lokacoding.com/templates.html"/>
+
+  <link rel="icon" href="icon/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <style>
+    :root {
+      --blue:       #3B82F6;
+      --blue-dark:  #2563EB;
+      --blue-light: #EFF6FF;
+      --white:      #FFFFFF;
+      --bg:         #F8FAFF;
+      --text:       #0F172A;
+      --muted:      #64748B;
+      --border:     #E2E8F0;
+      --border-b:   rgba(59,130,246,0.2);
+    }
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── CURSOR FOLLOWER (fine-pointer devices only) ── */
+    body.fine-pointer { cursor:none; }
+    body.fine-pointer a, body.fine-pointer button { cursor:none; }
+    .cursor-dot, .cursor-ring {
+      position:fixed; top:0; left:0; z-index:9999;
+      pointer-events:none; border-radius:50%;
+      transform:translate(-50%,-50%);
+      will-change:transform;
+    }
+    .cursor-dot { width:6px; height:6px; background:var(--blue); transition:opacity .2s; }
+    .cursor-ring {
+      width:36px; height:36px; border:1.5px solid rgba(59,130,246,.5);
+      transition:width .25s, height .25s, border-color .25s, opacity .2s;
+    }
+    .cursor-ring.cursor-hover { width:64px; height:64px; border-color:var(--blue); background:rgba(59,130,246,.08); }
+    @media(max-width:960px){ .cursor-dot,.cursor-ring{display:none;} body.fine-pointer{cursor:auto;} }
+
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:#F1F5F9; }
+    ::-webkit-scrollbar-thumb { background:var(--blue); border-radius:4px; }
+
+    /* ══════════════════════════════════════
+       NAVBAR
+    ══════════════════════════════════════ */
+    nav {
+      position:fixed; top:0; left:0; width:100%; z-index:500;
+      height:66px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 48px;
+      background:rgba(248,250,255,0.92);
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+    }
+    .nav-logo {
+      display:flex; align-items:center; gap:10px;
+      font-size:.95rem; font-weight:700;
+      letter-spacing:-.02em; color:var(--text);
+      text-decoration:none;
+    }
+    .nav-logo img { width:34px; height:34px; border-radius:8px; object-fit:cover; }
+    .nav-logo-fb {
+      display:none; width:34px; height:34px; border-radius:8px;
+      background:var(--blue); color:#fff;
+      align-items:center; justify-content:center;
+      font-size:.7rem; font-weight:800;
+    }
+    .nav-links { display:flex; align-items:center; gap:32px; list-style:none; }
+    .nav-links a {
+      font-size:.83rem; font-weight:500; color:var(--muted);
+      text-decoration:none; transition:color .2s;
+      position:relative;
+    }
+    .nav-links a.active { color:var(--blue); }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-3px; left:0;
+      width:0; height:2px; background:var(--blue);
+      border-radius:2px; transition:width .25s;
+    }
+    .nav-links a:hover { color:var(--blue); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    .nav-cta {
+      font-size:.8rem; font-weight:600; letter-spacing:-.01em;
+      background:var(--blue); color:#fff;
+      border:none; cursor:pointer;
+      padding:10px 22px; border-radius:8px;
+      transition:background .2s, transform .15s, box-shadow .2s;
+    }
+    .nav-cta:hover { background:var(--blue-dark); transform:translateY(-1px); box-shadow:0 4px 16px rgba(59,130,246,.35); }
+    .mob-btn { display:none; background:none; border:none; color:var(--text); font-size:1.15rem; cursor:pointer; }
+    .mob-menu {
+      display:none; position:fixed; top:66px; left:0; width:100%;
+      background:rgba(248,250,255,.98); border-bottom:1px solid var(--border);
+      padding:24px 40px; flex-direction:column; gap:18px; z-index:499;
+    }
+    .mob-menu.open { display:flex; }
+    .mob-menu a { font-size:.93rem; font-weight:500; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .mob-menu a:hover { color:var(--blue); }
+
+    /* ══════════════════════════════════════
+       SHARED
+    ══════════════════════════════════════ */
+    section { padding:96px 48px; max-width:1200px; margin:0 auto; }
+    .lbl {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:.7rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--blue);
+      margin-bottom:18px;
+    }
+    .lbl::before { content:''; width:20px; height:2px; background:var(--blue); border-radius:2px; display:inline-block; }
+    .sec-h {
+      font-size:clamp(1.8rem,3.2vw,2.8rem);
+      font-weight:800; line-height:1.1;
+      letter-spacing:-.04em; color:var(--text);
+    }
+    .sec-h em { font-style:normal; color:var(--blue); }
+    .see-all {
+      font-size:.78rem; font-weight:600; color:var(--blue);
+      text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+      transition:gap .2s;
+    }
+    .see-all:hover { gap:10px; }
+
+    /* ══════════════════════════════════════
+       TEMPLATE CATALOG
+    ══════════════════════════════════════ */
+    #catalog { background:var(--white); max-width:none; }
+    #catalog > .inner { max-width:1200px; margin:0 auto; padding:96px 48px; }
+
+    .tpl-hdr { margin-bottom:48px; }
+    .tpl-intro { font-size:.93rem; color:var(--muted); line-height:1.8; max-width:560px; margin-top:18px; }
+    .tpl-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+
+    .tpl-card {
+      position:relative;
+      border-radius:18px; border:1.5px solid var(--border);
+      overflow:hidden; background:var(--white);
+      transition:transform .45s cubic-bezier(.22,.61,.36,1), border-color .4s, box-shadow .45s;
+      cursor:pointer;
+      box-shadow:0 1px 4px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.04);
+    }
+    .tpl-card:hover {
+      border-color:var(--blue);
+      box-shadow:0 0 0 1px rgba(59,130,246,.22), 0 30px 60px -12px rgba(59,130,246,.28), 0 12px 24px rgba(15,23,42,.08);
+    }
+    .tpl-media { position:relative; overflow:hidden; background:var(--blue-light); }
+    .tpl-img {
+      width:100%; height:240px; object-fit:cover; display:block;
+      transition:transform .6s cubic-bezier(.22,.61,.36,1);
+    }
+    .tpl-card:hover .tpl-img { transform:scale(1.08); }
+    .tpl-quickview {
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(180deg, transparent 45%, rgba(5,7,13,.6) 100%);
+      opacity:0; transition:opacity .4s;
+      text-decoration:none;
+    }
+    .tpl-card:hover .tpl-quickview { opacity:1; }
+    @media (hover:none) { .tpl-quickview { opacity:.85; } }
+    .tpl-quickview i {
+      width:52px; height:52px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.4);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      color:#fff; font-size:.95rem;
+      transform:scale(.7); transition:transform .4s cubic-bezier(.22,.61,.36,1);
+    }
+    .tpl-card:hover .tpl-quickview i { transform:scale(1); }
+    .tpl-body { padding:24px 24px 26px; }
+    .tpl-name { font-size:1.1rem; font-weight:700; color:var(--text); letter-spacing:-.02em; margin-bottom:6px; }
+    .tpl-target { font-size:.72rem; color:var(--muted); font-weight:500; margin-bottom:14px; }
+    .tpl-desc { font-size:.82rem; color:var(--muted); line-height:1.68; margin-bottom:22px; }
+    .tpl-actions { display:flex; gap:10px; }
+    .tpl-btn {
+      flex:1; display:inline-flex; align-items:center; justify-content:center; gap:7px;
+      font-size:.76rem; font-weight:600; text-decoration:none; white-space:nowrap;
+      padding:11px 14px; border-radius:9px;
+      transition:background .25s, border-color .25s, color .25s, box-shadow .25s, transform .25s;
+    }
+    .tpl-btn i { font-size:.68rem; transition:transform .25s; }
+    .tpl-btn-preview { background:transparent; color:var(--text); border:1.5px solid var(--border); }
+    .tpl-btn-preview:hover { border-color:var(--blue); color:var(--blue); background:var(--blue-light); }
+    .tpl-btn-preview:hover i { transform:scale(1.2); }
+    .tpl-btn-order { background:var(--blue); color:#fff; border:1.5px solid var(--blue); }
+    .tpl-btn-order:hover { background:var(--blue-dark); box-shadow:0 8px 20px rgba(59,130,246,.35); transform:translateY(-1px); }
+    .tpl-btn-order:hover i { transform:translateX(3px); }
+
+    /* ══════════════════════════════════════
+       CTA BAND
+    ══════════════════════════════════════ */
+    #cta-section { max-width:none; }
+    .cta-outer { padding:0 48px 96px; max-width:1200px; margin:0 auto; }
+    .cta-box {
+      background:var(--blue);
+      border-radius:20px; padding:72px 64px;
+      display:grid; grid-template-columns:1fr auto;
+      gap:40px; align-items:center;
+      position:relative; overflow:hidden;
+    }
+    .cta-box::before {
+      content:''; position:absolute;
+      width:360px; height:360px; border-radius:50%;
+      border:60px solid rgba(255,255,255,.07);
+      top:-100px; right:-60px;
+    }
+    .cta-box::after {
+      content:''; position:absolute;
+      width:220px; height:220px; border-radius:50%;
+      border:40px solid rgba(255,255,255,.05);
+      bottom:-80px; right:120px;
+    }
+    .cta-lbl { font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.7); margin-bottom:12px; }
+    .cta-t { font-size:clamp(1.7rem,3vw,2.6rem); font-weight:800; letter-spacing:-.04em; line-height:1.1; color:#fff; margin-bottom:12px; }
+    .cta-sub { color:rgba(255,255,255,.75); font-size:.9rem; }
+    .cta-r { position:relative; z-index:1; }
+    .btn-white {
+      font-size:.85rem; font-weight:700;
+      background:#fff; color:var(--blue);
+      border:none; cursor:pointer;
+      padding:16px 32px; border-radius:10px;
+      white-space:nowrap;
+      transition:transform .2s, box-shadow .2s;
+      box-shadow:0 4px 16px rgba(0,0,0,.12);
+    }
+    .btn-white:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.18); }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer { background:var(--text); color:#fff; padding:64px 48px 36px; }
+    .ft-inner { max-width:1200px; margin:0 auto; }
+    .ft-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:56px; margin-bottom:52px; }
+    .ft-logo { display:flex; align-items:center; gap:10px; font-size:.95rem; font-weight:700; text-decoration:none; color:#fff; margin-bottom:16px; }
+    .ft-logo img { width:32px; height:32px; border-radius:7px; object-fit:cover; }
+    .ft-logo-fb { display:none; width:32px; height:32px; border-radius:7px; background:var(--blue); align-items:center; justify-content:center; font-size:.65rem; font-weight:800; color:#fff; }
+    .ft-desc { font-size:.82rem; color:#94A3B8; line-height:1.78; max-width:270px; margin-bottom:24px; }
+    .ft-soc { display:flex; gap:8px; }
+    .soc {
+      width:34px; height:34px;
+      border:1px solid rgba(255,255,255,.1); border-radius:8px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.8rem; color:#94A3B8; text-decoration:none;
+      transition:border-color .2s, color .2s, background .2s;
+    }
+    .soc:hover { border-color:var(--blue); color:var(--blue); background:rgba(59,130,246,.1); }
+    .ft-col-t { font-size:.8rem; font-weight:700; color:#fff; margin-bottom:18px; }
+    .ft-links { list-style:none; display:flex; flex-direction:column; gap:11px; }
+    .ft-links a { font-size:.8rem; color:#94A3B8; text-decoration:none; transition:color .2s; }
+    .ft-links a:hover { color:#fff; }
+    .ft-bot { border-top:1px solid rgba(255,255,255,.07); padding-top:24px; display:flex; justify-content:space-between; align-items:center; }
+    .ft-copy { font-size:.72rem; color:#475569; }
+
+    /* ══════════════════════════════════════
+       REVEAL
+    ══════════════════════════════════════ */
+    .reveal {
+      opacity:0; transform:translateY(34px) scale(.96); filter:blur(6px);
+      transition:opacity .8s cubic-bezier(.22,.61,.36,1),
+                 transform .8s cubic-bezier(.22,.61,.36,1),
+                 filter .8s cubic-bezier(.22,.61,.36,1);
+    }
+    .reveal.visible { opacity:1; transform:none; filter:blur(0); }
+    .d1{transition-delay:.08s} .d2{transition-delay:.18s} .d3{transition-delay:.28s}
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media(max-width:960px){
+      nav{padding:0 24px;}
+      .nav-links,.nav-cta{display:none;}
+      .mob-btn{display:block;}
+      #catalog > .inner { padding:140px 24px 64px; }
+      .cta-outer{padding:0 24px 64px;}
+      footer{padding:48px 24px 32px;}
+      .tpl-grid{grid-template-columns:1fr 1fr;gap:20px;}
+      .cta-box{grid-template-columns:1fr;padding:44px 32px;}
+      .ft-top{grid-template-columns:1fr 1fr;gap:32px;}
+    }
+    @media(max-width:580px){
+      .tpl-grid{grid-template-columns:1fr;}
+      .ft-top{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="icon/locakoding.png" alt="Loka Coding"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <span class="nav-logo-fb">LC</span>
+    Loka Coding
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="index.html#about">Profil</a></li>
+    <li><a href="index.html#products">Produk</a></li>
+    <li><a href="templates.html" class="active">Portofolio</a></li>
+    <li><a href="index.html#cta-section">Kontak</a></li>
+  </ul>
+  <button class="nav-cta" id="navCtaBtn">Hubungi Kami</button>
+  <button class="mob-btn" id="mobBtn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html">Beranda</a>
+  <a href="index.html#about">Profil</a>
+  <a href="index.html#products">Produk</a>
+  <a href="templates.html">Portofolio</a>
+  <a href="index.html#cta-section">Kontak</a>
+  <button class="nav-cta" id="mobCtaBtn" style="align-self:flex-start;margin-top:6px;">Hubungi Kami</button>
+</div>
+
+<!-- ════ TEMPLATE CATALOG ════ -->
+<section id="catalog" style="padding:0;max-width:none;">
+  <div class="inner">
+    <a href="index.html" class="see-all" style="margin-bottom:28px;"><i class="fa-solid fa-arrow-left" style="font-size:.65rem"></i> Kembali ke Beranda</a>
+
+    <div class="tpl-hdr reveal">
+      <div class="lbl">Template Premium</div>
+      <h2 class="sec-h">11 desain eksklusif untuk<br><em>berbagai industri.</em></h2>
+      <p class="tpl-intro">Setiap template dirancang khusus untuk karakter industrinya masing-masing — pilih yang paling sesuai dengan bisnis Anda, lihat demonya, lalu pesan langsung lewat WhatsApp.</p>
+    </div>
+
+    <div class="tpl-grid">
+
+      <div class="tpl-card reveal d1">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Company Profile" loading="lazy"/>
+          <a href="/templates/company-profile/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Company Profile"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Company Profile</div>
+          <div class="tpl-target">Corporate · Consulting · B2B</div>
+          <p class="tpl-desc">Tampilan korporat yang elegan dan tepercaya, dirancang untuk membangun kredibilitas instan di mata klien B2B.</p>
+          <div class="tpl-actions">
+            <a href="/templates/company-profile/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Company%20Profile" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d2">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Landing Page" loading="lazy"/>
+          <a href="/templates/landing-page/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Landing Page"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Landing Page</div>
+          <div class="tpl-target">Startup · SaaS · Digital Product</div>
+          <p class="tpl-desc">Landing page berkonversi tinggi dengan storytelling visual yang tajam untuk peluncuran produk digital Anda.</p>
+          <div class="tpl-actions">
+            <a href="/templates/landing-page/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Landing%20Page" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d3">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template E-Commerce" loading="lazy"/>
+          <a href="/templates/e-commerce/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview E-Commerce"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">E-Commerce</div>
+          <div class="tpl-target">Online Store · Brand</div>
+          <p class="tpl-desc">Etalase belanja modern dengan tampilan produk premium yang mendorong pengunjung untuk segera membeli.</p>
+          <div class="tpl-actions">
+            <a href="/templates/e-commerce/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20E-Commerce" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d1">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Booking & Reservation" loading="lazy"/>
+          <a href="/templates/booking-reservation/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Booking & Reservation"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Booking &amp; Reservation</div>
+          <div class="tpl-target">Hotel · Villa · Restaurant</div>
+          <p class="tpl-desc">Pengalaman reservasi yang mulus dan mewah, menghadirkan kesan pertama yang tak terlupakan bagi tamu Anda.</p>
+          <div class="tpl-actions">
+            <a href="/templates/booking-reservation/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Booking%20%26%20Reservation" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d2">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Website Sekolah/Kursus" loading="lazy"/>
+          <a href="/templates/sekolah-kursus/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Website Sekolah/Kursus"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Website Sekolah/Kursus</div>
+          <div class="tpl-target">Education Business</div>
+          <p class="tpl-desc">Desain edukatif yang hangat dan terstruktur, membantu lembaga pendidikan menarik lebih banyak siswa.</p>
+          <div class="tpl-actions">
+            <a href="/templates/sekolah-kursus/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Website%20Sekolah%2FKursus" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d3">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Produk Ekspor" loading="lazy"/>
+          <a href="/templates/produk-ekspor/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Produk Ekspor"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Produk Ekspor</div>
+          <div class="tpl-target">Manufacturer · Exporter</div>
+          <p class="tpl-desc">Profil bisnis ekspor yang meyakinkan, dibangun untuk menumbuhkan kepercayaan mitra dagang internasional.</p>
+          <div class="tpl-actions">
+            <a href="/templates/produk-ekspor/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Produk%20Ekspor" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d1">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Agrikultur" loading="lazy"/>
+          <a href="/templates/agrikultur/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Agrikultur"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Agrikultur</div>
+          <div class="tpl-target">Farming &amp; Agribusiness</div>
+          <p class="tpl-desc">Citra agribisnis yang segar dan modern, menonjolkan keberlanjutan serta skala operasional pertanian Anda.</p>
+          <div class="tpl-actions">
+            <a href="/templates/agrikultur/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Agrikultur" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d2">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Craft" loading="lazy"/>
+          <a href="/templates/craft/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Craft"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Craft</div>
+          <div class="tpl-target">Creative Business</div>
+          <p class="tpl-desc">Galeri karya yang hangat dan personal, dirancang untuk merayakan keunikan setiap produk buatan tangan.</p>
+          <div class="tpl-actions">
+            <a href="/templates/craft/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Craft" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d3">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Otomotif" loading="lazy"/>
+          <a href="/templates/otomotif/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Otomotif"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Otomotif</div>
+          <div class="tpl-target">Workshop &amp; Automotive Industry</div>
+          <p class="tpl-desc">Tampilan tangguh dan presisi yang mencerminkan keahlian teknis bengkel serta industri otomotif Anda.</p>
+          <div class="tpl-actions">
+            <a href="/templates/otomotif/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Otomotif" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d1">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Service/Jasa" loading="lazy"/>
+          <a href="/templates/service-jasa/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Service/Jasa"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Service/Jasa</div>
+          <div class="tpl-target">Agency · Consultant · Service Provider</div>
+          <p class="tpl-desc">Lapisan profesional yang bersih dan persuasif, membantu agensi dan konsultan menutup lebih banyak klien.</p>
+          <div class="tpl-actions">
+            <a href="/templates/service-jasa/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Service%2FJasa" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tpl-card reveal d2">
+        <div class="tpl-media">
+          <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop" class="tpl-img" alt="Template Properti" loading="lazy"/>
+          <a href="/templates/properti/" target="_blank" rel="noopener" class="tpl-quickview" aria-label="Preview Properti"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="tpl-body">
+          <div class="tpl-name">Properti</div>
+          <div class="tpl-target">Real Estate &amp; Developer</div>
+          <p class="tpl-desc">Presentasi properti kelas atas dengan galeri visual mewah yang menonjolkan setiap detail hunian impian.</p>
+          <div class="tpl-actions">
+            <a href="/templates/properti/" target="_blank" rel="noopener" class="tpl-btn tpl-btn-preview"><i class="fa-regular fa-eye"></i> Preview Demo</a>
+            <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Properti" target="_blank" rel="noopener" class="tpl-btn tpl-btn-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA ════ -->
+<div id="cta-section" style="scroll-margin-top: 80px;">
+  <div class="cta-outer">
+    <div class="cta-box">
+      <div style="position:relative;z-index:1;">
+        <div class="cta-lbl">// Tidak Menemukan yang Cocok?</div>
+        <div class="cta-t">Mari diskusikan<br>desain khusus Anda.</div>
+        <div class="cta-sub">Ceritakan kebutuhan bisnis Anda, tim kami siap membantu menyesuaikan template terbaik.</div>
+      </div>
+      <div class="cta-r">
+        <a
+          class="btn-white"
+          href="https://wa.me/6285121533661?text=Halo%20Admin,%20saya%20tertarik%20untuk%20menggunakan%20jasa%20pembuatan%20software.%20Mohon%20informasinya."
+          target="_blank"
+          style="text-decoration: none;">
+            Hubungi Kami →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div>
+        <a class="ft-logo" href="index.html">
+          <img src="icon/locakoding.png" alt="Loka Coding"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <span class="ft-logo-fb">LC</span>
+          Loka Coding
+        </a>
+        <p class="ft-desc">Kami membangun produk dan solusi digital yang memberdayakan bisnis untuk berkembang di dunia modern.</p>
+        <div class="ft-soc">
+          <a href="https://wa.me/6285121533661" target="_blank" class="soc"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/lokacoding" target="_blank" class="soc"><i class="fa-brands fa-instagram"></i></a>
+          <a href="mailto:lokacoding@gmail.com" class="soc"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-col-t">Navigasi</div>
+        <ul class="ft-links">
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="index.html#about">Profil</a></li>
+          <li><a href="index.html#products">Produk</a></li>
+          <li><a href="templates.html">Portofolio</a></li>
+          <li><a href="index.html#cta-section">Kontak</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-t">Layanan</div>
+        <ul class="ft-links">
+          <li><a href="index.html#">Web Development</a></li>
+          <li><a href="index.html#">Mobile Development</a></li>
+          <li><a href="index.html#">Desain UI/UX</a></li>
+          <li><a href="index.html#">Otomasi</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-t">Perusahaan</div>
+        <ul class="ft-links">
+          <li><a href="index.html#">Tentang Kami</a></li>
+          <li><a href="index.html#">Karier</a></li>
+          <li><a href="index.html#">Blog</a></li>
+          <li><a href="index.html#cta-section">Kontak</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span class="ft-copy">© 2026 LokaCoding. Semua hak dilindungi.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* Mobile menu */
+  const mobBtn = document.getElementById('mobBtn');
+  const mobMenu = document.getElementById('mobMenu');
+  mobBtn.addEventListener('click', () => {
+    mobMenu.classList.toggle('open');
+    mobBtn.querySelector('i').className = mobMenu.classList.contains('open')
+      ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+  });
+  mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobMenu.classList.remove('open');
+    mobBtn.querySelector('i').className = 'fa-solid fa-bars';
+  }));
+
+  /* Nav CTA buttons scroll to on-page contact band */
+  function scrollToCta() {
+    const dest = document.getElementById('cta-section');
+    if (dest) dest.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  document.getElementById('navCtaBtn').addEventListener('click', scrollToCta);
+  document.getElementById('mobCtaBtn').addEventListener('click', () => {
+    mobMenu.classList.remove('open');
+    scrollToCta();
+  });
+
+  /* Scroll reveal */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* 3D tilt on cards (mouse-tracked) */
+  document.querySelectorAll('.tpl-card').forEach(card => {
+    const max = 7, lift = 7;
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      const rx = (py - 0.5) * -max;
+      const ry = (px - 0.5) * max;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-${lift}px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+
+  /* ══════════════════════════════════════
+     CURSOR FOLLOWER (fine-pointer only)
+  ══════════════════════════════════════ */
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.body.classList.add('fine-pointer');
+    const dot = document.createElement('div');
+    dot.className = 'cursor-dot';
+    const ring = document.createElement('div');
+    ring.className = 'cursor-ring';
+    document.body.append(dot, ring);
+    let rx = 0, ry = 0, tx = 0, ty = 0;
+    window.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
+    });
+    (function loop() {
+      rx += (tx - rx) * 0.18; ry += (ty - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a, button, .tpl-card').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('cursor-hover'));
+    });
+  }
+</script>
+</body>
+</html>
