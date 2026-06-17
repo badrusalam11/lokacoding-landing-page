@@ -26,7 +26,9 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html _site/index.html
+          cp templates.html _site/templates.html
           cp -r icon _site/icon
+          cp -r templates _site/templates
           cp robots.txt _site/robots.txt
           cp sitemap.xml _site/sitemap.xml
 
