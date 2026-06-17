@@ -155,6 +155,57 @@
     .mob-menu a:hover { color:var(--blue); }
 
     /* ══════════════════════════════════════
+       INTRO 3D
+    ══════════════════════════════════════ */
+    #intro3d-wrap {
+      position:relative; height:150vh; width:100%;
+    }
+    #intro3d {
+      position:sticky; top:0; height:100vh; width:100%;
+      overflow:hidden;
+      background:linear-gradient(180deg,#FFFFFF 0%,#F8FAFF 55%,#EFF6FF 100%);
+      display:flex; align-items:center; justify-content:center;
+    }
+    #intro3d-canvas {
+      position:absolute; inset:0; width:100%; height:100%; display:block;
+    }
+    .intro3d-fade {
+      position:absolute; inset:0; z-index:1;
+      background:#FFFFFF; opacity:0;
+      pointer-events:none;
+    }
+    .intro3d-overlay {
+      position:relative; z-index:2;
+      text-align:center; padding:0 24px;
+      pointer-events:none;
+      will-change:opacity, transform;
+    }
+    .intro3d-title {
+      font-size:clamp(2.6rem,7.5vw,5.6rem);
+      font-weight:800; letter-spacing:-.04em; line-height:1.05;
+      color:var(--text); margin:22px 0 16px;
+    }
+    .intro3d-title em { font-style:normal; color:var(--blue); }
+    .intro3d-sub {
+      font-size:.95rem; color:var(--muted);
+      max-width:460px; margin:0 auto; line-height:1.75;
+    }
+    .intro3d-scroll {
+      position:absolute; bottom:38px; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:9px;
+      font-size:.68rem; font-weight:600; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--muted);
+      animation:intro3dBounce 2.2s ease-in-out infinite;
+    }
+    @keyframes intro3dBounce {
+      0%,100% { transform:translate(-50%,0); opacity:.7; }
+      50%     { transform:translate(-50%,8px); opacity:1; }
+    }
+    @media(max-width:580px){
+      .intro3d-sub { max-width:320px; }
+    }
+
+    /* ══════════════════════════════════════
        HERO
     ══════════════════════════════════════ */
     #hero {
@@ -313,7 +364,7 @@
       border:1.5px solid var(--border);
       border-radius:12px; padding:18px 16px;
       box-shadow:0 1px 4px rgba(0,0,0,.04);
-      transition:border-color .2s, box-shadow .2s;
+      transition:border-color .2s, box-shadow .2s, transform .2s;
     }
     .stat-card:hover {
       border-color:var(--border-b);
@@ -329,7 +380,12 @@
     /* ══════════════════════════════════════
        SHARED
     ══════════════════════════════════════ */
-    .divider { width:100%; height:1px; background:var(--border); max-width:none; }
+    .divider {
+      width:100%; height:1px; background:var(--border); max-width:none;
+      transform:scaleX(0); transform-origin:center;
+      transition:transform 1s cubic-bezier(.22,.61,.36,1);
+    }
+    .divider.visible { transform:scaleX(1); }
 
     section { padding:96px 48px; max-width:1200px; margin:0 auto; }
 
@@ -373,7 +429,6 @@
     .val:hover {
       border-color:var(--border-b);
       box-shadow:0 4px 20px rgba(59,130,246,.1);
-      transform:translateY(-2px);
     }
     .val-ico {
       width:38px; height:38px;
@@ -413,7 +468,6 @@
     }
     .prod-card:hover {
       border-color:var(--border-b);
-      transform:translateY(-5px);
       box-shadow:0 12px 36px rgba(59,130,246,.12);
     }
     .prod-card:hover::after { opacity:1; }
@@ -453,7 +507,6 @@
       box-shadow:0 1px 4px rgba(0,0,0,.04);
     }
     .port-card:hover {
-      transform:translateY(-6px);
       border-color:var(--border-b);
       box-shadow:0 16px 40px rgba(59,130,246,.12);
     }
@@ -583,9 +636,24 @@
     /* ══════════════════════════════════════
        REVEAL
     ══════════════════════════════════════ */
-    .reveal { opacity:0; transform:translateY(26px); transition:opacity .65s ease, transform .65s ease; }
-    .reveal.visible { opacity:1; transform:none; }
+    .reveal {
+      opacity:0; transform:translateY(34px) scale(.96); filter:blur(6px);
+      transition:opacity .8s cubic-bezier(.22,.61,.36,1),
+                 transform .8s cubic-bezier(.22,.61,.36,1),
+                 filter .8s cubic-bezier(.22,.61,.36,1);
+    }
+    .reveal.visible { opacity:1; transform:none; filter:blur(0); }
+    .reveal-left  { opacity:0; transform:translateX(-56px) scale(.97); filter:blur(6px); transition:opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1), filter .8s cubic-bezier(.22,.61,.36,1); }
+    .reveal-left.visible  { opacity:1; transform:none; filter:blur(0); }
+    .reveal-right { opacity:0; transform:translateX(56px) scale(.97); filter:blur(6px); transition:opacity .8s cubic-bezier(.22,.61,.36,1), transform .8s cubic-bezier(.22,.61,.36,1), filter .8s cubic-bezier(.22,.61,.36,1); }
+    .reveal-right.visible { opacity:1; transform:none; filter:blur(0); }
     .d1{transition-delay:.08s} .d2{transition-delay:.18s} .d3{transition-delay:.28s}
+
+    /* continuous scroll "breathing" — keeps every section reactive while scrolling */
+    #hero, #about, #products, #portfolio, .cta-box {
+      transition:transform .12s linear, opacity .12s linear;
+      will-change:transform, opacity;
+    }
 
     /* ══════════════════════════════════════
        RESPONSIVE
@@ -644,6 +712,26 @@
   <button class="nav-cta" style="align-self:flex-start;margin-top:6px;">Hubungi Kami</button>
 </div>
 
+<!-- ════ INTRO 3D ════ -->
+<div id="intro3d-wrap">
+  <section id="intro3d" style="padding:0;max-width:none;">
+    <canvas id="intro3d-canvas"></canvas>
+    <div class="intro3d-fade"></div>
+    <div class="intro3d-overlay">
+      <div class="hero-badge">
+        <div class="pulse"></div>
+        Software House &amp; Solusi Digital
+      </div>
+      <h1 class="intro3d-title">Loka<em>Coding</em></h1>
+      <p class="intro3d-sub">Membangun masa depan digital, dari ide menjadi produk yang nyata.</p>
+    </div>
+    <div class="intro3d-scroll">
+      <span>Scroll</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </section>
+</div>
+
 <!-- ════ HERO ════ -->
 <section id="hero" style="padding:0;max-width:none;">
   <div class="hero-glow"></div>
@@ -683,15 +771,15 @@
 
       <div class="stat-row">
         <div class="stat-card">
-          <div class="stat-n">50<span>+</span></div>
+          <div class="stat-n" data-count="50">0<span>+</span></div>
           <div class="stat-l">Proyek Selesai</div>
         </div>
         <div class="stat-card">
-          <div class="stat-n">98<span>%</span></div>
+          <div class="stat-n" data-count="98">0<span>%</span></div>
           <div class="stat-l">Klien Puas</div>
         </div>
         <div class="stat-card">
-          <div class="stat-n">3<span>th</span></div>
+          <div class="stat-n" data-count="3">0<span>th</span></div>
           <div class="stat-l">Pengalaman</div>
         </div>
       </div>
@@ -706,7 +794,7 @@
 <section id="about" style="padding:0;max-width:none;">
   <div class="inner" style="padding-top:96px;padding-bottom:96px;">
     <div class="about-grid">
-      <div class="reveal">
+      <div class="reveal-left">
         <div class="lbl">Profil Perusahaan</div>
         <h2 class="sec-h">Membangun solusi digital<br>dengan <em>semangat</em><br>& tujuan nyata.</h2>
         <p class="about-p">
@@ -715,7 +803,7 @@
         <button class="btn-outline">Kenali Kami Lebih Lanjut</button>
       </div>
 
-      <div class="vals reveal d2">
+      <div class="vals reveal-right d2">
         <div class="val">
           <div class="val-ico"><i class="fa-solid fa-users"></i></div>
           <div class="val-t">Klien Utama</div>
@@ -835,7 +923,7 @@
 <!-- ════ CTA ════ -->
 <div id="cta-section" style="scroll-margin-top: 80px;">
   <div class="cta-outer">
-    <div class="cta-box reveal">
+    <div class="cta-box">
       <div style="position:relative;z-index:1;">
         <div class="cta-lbl">// Mulai Proyek</div>
         <div class="cta-t">Siap membangun<br>sesuatu yang luar biasa?</div>
@@ -907,6 +995,7 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script>
   /* Mobile menu */
   const mobBtn = document.getElementById('mobBtn');
@@ -932,7 +1021,71 @@
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .divider').forEach(el => io.observe(el));
+
+  /* 3D tilt on cards (mouse-tracked) */
+  document.querySelectorAll('.prod-card, .port-card, .val, .stat-card').forEach(card => {
+    const max = 7, lift = 7;
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      const rx = (py - 0.5) * -max;
+      const ry = (px - 0.5) * max;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-${lift}px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+
+  /* Count-up stats */
+  function animateCount(el, target, duration) {
+    const suffixEl = el.querySelector('span');
+    const suffix = suffixEl ? suffixEl.outerHTML : '';
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.innerHTML = Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  document.querySelectorAll('.stat-n[data-count]').forEach(el => {
+    setTimeout(() => animateCount(el, parseInt(el.dataset.count, 10), 1300), 700);
+  });
+
+  /* Parallax glow + continuous section "breathing" on scroll */
+  const glow1 = document.querySelector('.hero-glow');
+  const glow2 = document.querySelector('.hero-glow2');
+  const reduceMotionGlobal = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const breatheTargets = Array.from(document.querySelectorAll('#hero, #about, #products, #portfolio, .cta-box'));
+
+  function updateScrollFx() {
+    const y = window.scrollY;
+    if (glow1) glow1.style.transform = `translate3d(0, ${y * 0.1}px, 0)`;
+    if (glow2) glow2.style.transform = `translate3d(0, ${-y * 0.06}px, 0)`;
+
+    if (reduceMotionGlobal) return;
+    const vh = window.innerHeight;
+    const vCenter = vh / 2;
+    breatheTargets.forEach(el => {
+      const r = el.getBoundingClientRect();
+      const elCenter = r.top + r.height / 2;
+      const raw = (elCenter - vCenter) / (vh * 0.8);
+      const p = Math.max(-1, Math.min(1, raw));
+      const abs = Math.abs(p);
+      el.style.opacity = String(1 - 0.55 * abs);
+      el.style.transform = `translateY(${p * 32}px) scale(${1 - 0.09 * abs})`;
+    });
+  }
+
+  let scrollFxRAF = null;
+  window.addEventListener('scroll', () => {
+    if (scrollFxRAF) return;
+    scrollFxRAF = requestAnimationFrame(() => { updateScrollFx(); scrollFxRAF = null; });
+  }, { passive: true });
+  window.addEventListener('resize', updateScrollFx);
+  updateScrollFx();
 
   /* ── Typing animation ── */
   const codeLines = [
@@ -1059,6 +1212,161 @@
     el.style.transition = `opacity .75s ease ${i * .13}s, transform .75s ease ${i * .13}s`;
     setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, 60 + i * 130);
   });
+
+  /* ── Intro 3D (network sphere + floating code blocks) ── */
+  (function initIntro3D() {
+    const canvas = document.getElementById('intro3d-canvas');
+    const section = document.getElementById('intro3d');
+    const wrap = document.getElementById('intro3d-wrap');
+    const overlayEl = section ? section.querySelector('.intro3d-overlay') : null;
+    const scrollHintEl = section ? section.querySelector('.intro3d-scroll') : null;
+    const fadeEl = section ? section.querySelector('.intro3d-fade') : null;
+    if (!canvas || !section || !wrap || typeof THREE === 'undefined') return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth < 768;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, section.clientWidth / section.clientHeight, 0.1, 1000);
+    camera.position.z = 22;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(section.clientWidth, section.clientHeight);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    /* Particle network sphere */
+    const PARTICLE_COUNT = isMobile ? 160 : 380;
+    const radius = 9;
+    const positions = new Float32Array(PARTICLE_COUNT * 3);
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      const r = radius * (0.85 + Math.random() * 0.3);
+      positions[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = r * Math.cos(phi);
+    }
+    const particleGeo = new THREE.BufferGeometry();
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particleMat = new THREE.PointsMaterial({
+      color: 0x3B82F6, size: 0.12, transparent: true, opacity: 0.85, sizeAttenuation: true,
+    });
+    const points = new THREE.Points(particleGeo, particleMat);
+    group.add(points);
+
+    /* connecting lines between nearby particles */
+    const maxDist = isMobile ? 2.1 : 2.4;
+    const linePositions = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      for (let j = i + 1; j < PARTICLE_COUNT; j++) {
+        const dx = positions[i * 3] - positions[j * 3];
+        const dy = positions[i * 3 + 1] - positions[j * 3 + 1];
+        const dz = positions[i * 3 + 2] - positions[j * 3 + 2];
+        if (Math.sqrt(dx * dx + dy * dy + dz * dz) < maxDist) {
+          linePositions.push(positions[i*3], positions[i*3+1], positions[i*3+2]);
+          linePositions.push(positions[j*3], positions[j*3+1], positions[j*3+2]);
+        }
+      }
+    }
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(linePositions), 3));
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x93C5FD, transparent: true, opacity: 0.25 });
+    const lines = new THREE.LineSegments(lineGeo, lineMat);
+    group.add(lines);
+
+    /* floating wireframe cubes ("code blocks") */
+    const cubes = [];
+    const cubeCount = isMobile ? 4 : 7;
+    for (let i = 0; i < cubeCount; i++) {
+      const size = 0.8 + Math.random() * 1.3;
+      const edges = new THREE.EdgesGeometry(new THREE.BoxGeometry(size, size, size));
+      const mat = new THREE.LineBasicMaterial({ color: 0x2563EB, transparent: true, opacity: 0.55 });
+      const cube = new THREE.LineSegments(edges, mat);
+      cube.position.set((Math.random()-0.5)*16, (Math.random()-0.5)*10, (Math.random()-0.5)*8 + 2);
+      cube.userData.speed = 0.2 + Math.random() * 0.3;
+      cube.userData.offset = Math.random() * Math.PI * 2;
+      cube.userData.rotSpeed = (Math.random() - 0.5) * 0.01;
+      group.add(cube);
+      cubes.push(cube);
+    }
+
+    /* mouse parallax */
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth) - 0.5;
+      mouseY = (e.clientY / window.innerHeight) - 0.5;
+    }, { passive: true });
+
+    function onResize() {
+      const w = section.clientWidth, h = section.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
+    window.addEventListener('resize', onResize);
+
+    let visible = true;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { visible = e.isIntersecting; });
+    }, { threshold: 0 });
+    io.observe(wrap);
+
+    /* scroll-driven "opening" progress (0 = pinned start, 1 = fully open) */
+    let progress = 0;
+    function getProgress() {
+      const rect = wrap.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      if (total <= 0) return 1;
+      return Math.min(1, Math.max(0, -rect.top / total));
+    }
+    function onScroll() {
+      progress = getProgress();
+      const textP = Math.min(1, progress / 0.35);
+      if (overlayEl) {
+        overlayEl.style.opacity = String(1 - textP);
+        overlayEl.style.transform = `translateY(${-40 * textP}px) scale(${1 - 0.08 * textP})`;
+      }
+      if (scrollHintEl) scrollHintEl.style.opacity = String(1 - Math.min(1, progress / 0.12));
+      if (fadeEl) fadeEl.style.opacity = String(Math.max(0, (progress - 0.6) / 0.4));
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      if (!visible) return;
+
+      if (!reduceMotion) {
+        const t = clock.getElapsedTime();
+        points.rotation.y = t * 0.05 + progress * 1.2;
+        lines.rotation.y = points.rotation.y;
+        cubes.forEach(c => {
+          c.position.y += Math.sin(t * c.userData.speed + c.userData.offset) * 0.003;
+          c.rotation.x += c.userData.rotSpeed + progress * 0.02;
+          c.rotation.y += c.userData.rotSpeed * 1.3 + progress * 0.02;
+        });
+        group.rotation.y += (mouseX * 0.4 * (1 - progress) - group.rotation.y) * 0.02;
+        group.rotation.x += (-mouseY * 0.3 * (1 - progress) - group.rotation.x) * 0.02;
+      } else {
+        points.rotation.y = progress * 1.2;
+        lines.rotation.y = points.rotation.y;
+      }
+
+      /* "opening" transition driven purely by scroll progress */
+      group.scale.setScalar(1 + progress * 2.4);
+      camera.position.z = 22 - progress * 16;
+      particleMat.opacity = 0.85 * (1 - progress * 0.9);
+      lineMat.opacity = 0.25 * (1 - progress * 0.9);
+      cubes.forEach(c => { c.material.opacity = 0.55 * (1 - progress * 0.9); });
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  })();
 </script>
 </body>
 </html>
