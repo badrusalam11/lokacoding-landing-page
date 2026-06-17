@@ -280,12 +280,14 @@
     #process {
       position:relative; height:100vh; width:100%;
       overflow:hidden; background:var(--dark-bg);
+      transition:background-color .4s ease;
     }
     .process-panel {
       position:absolute; inset:0;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
       text-align:center; padding:0 24px;
       opacity:0; color:var(--dark-text);
+      transition:color .4s ease;
     }
     .process-num {
       font-size:.74rem; font-weight:700; letter-spacing:.16em;
@@ -526,21 +528,6 @@
       box-shadow:0 12px 36px rgba(59,130,246,.12);
     }
     .prod-card:hover::after { opacity:1; }
-
-    .prod-card-cta { background:var(--blue) !important; border-color:var(--blue) !important; }
-    .prod-card-cta::after { display:none; }
-    .prod-card-cta .prod-ico { background:rgba(255,255,255,.18); color:#fff; }
-    .prod-card-cta .prod-t, .prod-card-cta .prod-lnk { color:#fff; }
-    .prod-card-cta .prod-d { color:rgba(255,255,255,.85); }
-
-    @media(min-width:961px){
-      .prod-grid.is-horizontal {
-        display:flex; flex-wrap:nowrap; gap:28px;
-        width:max-content; padding-right:48px;
-      }
-      .prod-grid.is-horizontal .prod-card { width:440px; flex-shrink:0; }
-      .prod-grid.is-horizontal .prod-card-cta { width:320px; display:flex; flex-direction:column; justify-content:center; }
-    }
 
     .prod-ico {
       width:46px; height:46px;
@@ -982,7 +969,6 @@
       <div class="lbl">Produk Kami</div>
       <h2 class="sec-h">Produk yang kami bangun untuk<br><em>memberdayakan</em> bisnis Anda.</h2>
     </div>
-    <a href="#" class="see-all">Lihat semua <i class="fa-solid fa-arrow-right" style="font-size:.65rem"></i></a>
   </div>
 
   <div class="prod-grid">
@@ -1006,12 +992,6 @@
       <div class="prod-t">Lokasee</div>
       <div class="prod-d">Lokasee membantu sales, UMKM, dan agency menemukan kontak bisnis dari area tertentu, mengelola leads, dan menjangkau prospek lebih cepat melalui WhatsApp.</div>
       <a href="https://lokasee.id" target="_blank" class="prod-lnk">Pergi ke Lokasee<i class="fa-solid fa-arrow-right" style="font-size:.6rem"></i></a>
-    </div>
-    <div class="prod-card prod-card-cta reveal">
-      <div class="prod-ico"><i class="fa-solid fa-arrow-right"></i></div>
-      <div class="prod-t">Punya kebutuhan lain?</div>
-      <div class="prod-d">Diskusikan ide proyek Anda bersama tim kami — kami siap membantu mewujudkannya.</div>
-      <a href="#cta-section" class="prod-lnk">Hubungi Kami <i class="fa-solid fa-arrow-right" style="font-size:.6rem"></i></a>
     </div>
   </div>
 </section>
@@ -1407,7 +1387,7 @@
     });
     if (processEl) {
       const r = processEl.getBoundingClientRect();
-      if (r.top <= navH && r.bottom > navH) dark = processProgress < 0.55;
+      if (r.top <= navH && r.bottom > navH) dark = processProgress <= 0.46;
     }
     document.body.classList.toggle('nav-on-dark', dark);
   }
@@ -1427,6 +1407,11 @@
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
+    /* Pinned sections (cinema/process/products) change the page's scrollable
+       height at runtime — Lenis must re-measure on every ScrollTrigger refresh,
+       otherwise its scroll bounds go stale and fight with the pin right at the
+       boundary where a pinned section hands scrolling back to the page. */
+    ScrollTrigger.addEventListener('refresh', () => lenis.resize());
   }
 
   function scrollToTarget(target) {
@@ -1526,7 +1511,7 @@
       const particleGeo = new THREE.BufferGeometry();
       particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
       const particleMat = new THREE.PointsMaterial({
-        color: 0x3B82F6, size: 0.12, transparent: true, opacity: 0.85, sizeAttenuation: true,
+        color: 0x3B82F6, size: 0.12, transparent: true, opacity: 0.4, sizeAttenuation: true,
       });
       const points = new THREE.Points(particleGeo, particleMat);
       group.add(points);
@@ -1547,7 +1532,7 @@
       }
       const lineGeo = new THREE.BufferGeometry();
       lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(linePositions), 3));
-      const lineMat = new THREE.LineBasicMaterial({ color: 0x93C5FD, transparent: true, opacity: 0.25 });
+      const lineMat = new THREE.LineBasicMaterial({ color: 0x93C5FD, transparent: true, opacity: 0.11 });
       const networkLines = new THREE.LineSegments(lineGeo, lineMat);
       group.add(networkLines);
 
@@ -1557,7 +1542,7 @@
       for (let i = 0; i < cubeCount; i++) {
         const size = 0.8 + Math.random() * 1.3;
         const edges = new THREE.EdgesGeometry(new THREE.BoxGeometry(size, size, size));
-        const mat = new THREE.LineBasicMaterial({ color: 0x60A5FA, transparent: true, opacity: 0.6 });
+        const mat = new THREE.LineBasicMaterial({ color: 0x60A5FA, transparent: true, opacity: 0.28 });
         const cube = new THREE.LineSegments(edges, mat);
         cube.position.set((Math.random()-0.5)*16, (Math.random()-0.5)*10, (Math.random()-0.5)*8 + 2);
         cube.userData.speed = 0.2 + Math.random() * 0.3;
@@ -1608,9 +1593,9 @@
 
         group.scale.setScalar(1 + progress * 2.4);
         camera.position.z = 22 - progress * 16;
-        particleMat.opacity = 0.85 * (1 - progress * 0.9);
-        lineMat.opacity = 0.25 * (1 - progress * 0.9);
-        cubes.forEach(c => { c.material.opacity = 0.6 * (1 - progress * 0.9); });
+        particleMat.opacity = 0.4 * (1 - progress * 0.9);
+        lineMat.opacity = 0.11 * (1 - progress * 0.9);
+        cubes.forEach(c => { c.material.opacity = 0.28 * (1 - progress * 0.9); });
 
         renderer.render(scene, camera);
       }
@@ -1644,6 +1629,7 @@
     const stepLabels = gsap.utils.toArray('[data-step-label]', processEl);
     const progressBar = processEl.querySelector('.process-progress-bar');
     const n = panels.length;
+    let processIsLight = false;
 
     ScrollTrigger.create({
       trigger: processEl,
@@ -1659,10 +1645,11 @@
 
         panels.forEach((panel, i) => {
           const d = pos - i;
+          const isLast = i === n - 1;
           let op;
           if (d < -0.3) op = 0;
           else if (d < 0) op = 1 + d / 0.3;
-          else if (d < 0.7) op = 1;
+          else if (isLast || d < 0.7) op = 1;
           else if (d < 1) op = 1 - (d - 0.7) / 0.3;
           else op = 0;
           op = Math.max(0, Math.min(1, op));
@@ -1672,51 +1659,24 @@
         const activeIndex = Math.max(0, Math.min(n - 1, Math.round(pos - 0.5)));
         stepLabels.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
 
-        /* dark → light storytelling wash across the whole journey */
-        const t = Math.min(1, p * 1.15);
-        const bg = gsap.utils.interpolate('#05070D', '#F8FAFF', t);
-        const fg = gsap.utils.interpolate('#F8FAFF', '#0F172A', t);
-        processEl.style.background = bg;
-        panels.forEach(panel => { panel.style.color = fg; });
+        /* dark → light storytelling: binary swap (not a linear blend) so text/bg
+           never pass through a low-contrast gray-on-gray middle. The swap lands
+           in the gap between "Desain" and "Pengembangan" (CSS transition smooths it). */
+        const lightPhase = p > 0.46;
+        if (lightPhase !== processIsLight) {
+          processIsLight = lightPhase;
+          processEl.style.background = lightPhase ? '#F8FAFF' : '#05070D';
+          panels.forEach(panel => { panel.style.color = lightPhase ? '#0F172A' : '#FFFFFF'; });
+        }
 
         if (progressBar) gsap.set(progressBar, { scaleX: p });
       }
     });
   })();
 
-  /* ══════════════════════════════════════
-     PRODUCTS — pinned horizontal scroll (desktop only)
-  ══════════════════════════════════════ */
-  (function initProductsScroll() {
-    const section = document.getElementById('products');
-    const grid = section ? section.querySelector('.prod-grid') : null;
-    if (!section || !grid) return;
-
-    const mm = gsap.matchMedia();
-    mm.add('(min-width: 961px)', () => {
-      grid.classList.add('is-horizontal');
-
-      const getMaxScroll = () => Math.max(300, grid.scrollWidth - window.innerWidth + 96);
-      const tween = gsap.to(grid, { x: () => -getMaxScroll(), ease: 'none' });
-
-      const st = ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: () => '+=' + getMaxScroll(),
-        pin: true,
-        scrub: 1,
-        animation: tween,
-        invalidateOnRefresh: true,
-      });
-
-      return () => {
-        grid.classList.remove('is-horizontal');
-        st.kill();
-        tween.kill();
-        gsap.set(grid, { clearProps: 'x' });
-      };
-    });
-  })();
+  /* Final measurement pass once every pinned section above has registered,
+     so Lenis and ScrollTrigger agree on the page's true scrollable height. */
+  ScrollTrigger.refresh();
 </script>
 </body>
 </html>
