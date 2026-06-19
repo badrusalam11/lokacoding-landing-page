@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>INKLINE — Template E-Commerce Printer | Loka Coding</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{
+    --ink:#15130F; --panel:#1D1A15; --paper:#F3EFE6; --paper-soft:#ECE4D2;
+    --copper:#BD7B3E; --copper-dark:#9C5F2C; --line:#DDD3BD; --muted:#7C7263;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;}
+  h1,h2,h3,.disp{font-family:'Fraunces',serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+  .container{max-width:1200px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#0E0C09;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#a89c8a;display:flex;align-items:center;gap:7px;transition:color .2s;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#5f5648;display:none;}
+  .lc-bar-order{background:var(--copper);color:#15130F;font-weight:700;padding:7px 16px;border-radius:3px;display:flex;align-items:center;gap:6px;transition:opacity .2s;}
+  .lc-bar-order:hover{opacity:.85;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  .announce{position:fixed;top:42px;left:0;width:100%;z-index:480;background:var(--ink);color:#D8CDB8;
+    text-align:center;font-size:.76rem;font-weight:500;padding:9px 0;letter-spacing:.01em;border-bottom:1px solid rgba(255,255,255,.08);}
+
+  nav{position:fixed;top:78px;left:0;width:100%;z-index:470;height:80px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:rgba(243,239,230,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .brand{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:1.5rem;letter-spacing:.01em;text-decoration:none;color:var(--ink);}
+  .nlinks{display:flex;gap:34px;list-style:none;}
+  .nlinks a{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s;}
+  .nlinks a:hover{color:var(--copper-dark);}
+  .nav-icons{display:flex;gap:20px;align-items:center;font-size:1rem;color:var(--ink);}
+  .mob-btn{display:none;background:none;border:none;color:var(--ink);font-size:1.2rem;cursor:pointer;}
+  .mob-menu{display:none;position:fixed;top:158px;left:0;width:100%;z-index:469;background:var(--paper);border-bottom:1px solid var(--line);
+    padding:22px 40px;flex-direction:column;gap:18px;}
+  .mob-menu.open{display:flex;}
+  .mob-menu a{font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);text-decoration:none;}
+
+  section{padding:110px 0;}
+  .eyebrow-mono{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--copper-dark);margin-bottom:14px;display:block;}
+  .sec-hdr-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:54px;}
+  .sec-h{font-style:italic;font-weight:500;font-size:clamp(1.9rem,3.2vw,2.7rem);line-height:1.18;}
+  .sec-h em{color:var(--copper-dark);font-style:italic;}
+  .btn-copper{background:var(--copper);color:#15130F;font-weight:700;font-size:.84rem;padding:15px 30px;border-radius:3px;text-decoration:none;
+    display:inline-block;transition:background .2s,transform .2s;border:none;cursor:pointer;}
+  .btn-copper:hover{background:#D49654;transform:translateY(-2px);}
+  .btn-ghost{border:1.5px solid rgba(255,255,255,.35);color:#fff;font-weight:600;font-size:.84rem;padding:14px 28px;border-radius:3px;text-decoration:none;display:inline-block;transition:border-color .2s,background .2s;}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06);}
+  .btn-dark{background:var(--ink);color:#fff;font-weight:700;font-size:.84rem;padding:15px 30px;border-radius:3px;text-decoration:none;display:inline-block;}
+
+  /* ── HERO ── */
+  #hero{margin-top:158px;background:var(--panel);color:#fff;position:relative;overflow:hidden;padding:100px 0 0;}
+  .hero-giant{position:absolute;top:-4%;left:50%;transform:translateX(-50%);font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+    font-size:13vw;color:rgba(255,255,255,.035);white-space:nowrap;pointer-events:none;letter-spacing:-.02em;}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;}
+  .hero-h{font-style:italic;font-weight:500;font-size:clamp(2.5rem,5vw,4rem);line-height:1.08;margin-bottom:22px;}
+  .hero-h em{color:var(--copper);font-style:italic;}
+  .hero-p{font-size:.95rem;line-height:1.75;color:rgba(255,255,255,.65);max-width:440px;margin-bottom:32px;}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:38px;}
+  .hero-specs-strip{display:flex;gap:22px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12);padding-top:24px;}
+  .hero-specs-strip span{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:8px;}
+  .hero-specs-strip span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--copper);flex-shrink:0;}
+
+  .hero-right{position:relative;padding:0 30px 60px;}
+  .hero-frame{border:1px solid rgba(255,255,255,.14);padding:16px;border-radius:2px;position:relative;background:rgba(255,255,255,.02);}
+  .hero-frame img{width:100%;border-radius:1px;filter:contrast(1.05);aspect-ratio:4/3.2;object-fit:cover;}
+  .hero-tag{position:absolute;top:-12px;left:30px;background:var(--ink);border:1px solid rgba(255,255,255,.14);color:#fff;font-family:'JetBrains Mono',monospace;
+    font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:2px;}
+  .hero-price-card{position:absolute;bottom:18px;left:-14px;background:var(--paper);color:var(--ink);padding:18px 22px;border-radius:2px;box-shadow:0 24px 50px rgba(0,0,0,.4);min-width:160px;}
+  .hero-price-card .l{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .hero-price-card .v{font-style:italic;font-weight:600;font-size:1.3rem;}
+
+  /* ── TRUST ── */
+  #trust{background:var(--panel);color:rgba(255,255,255,.85);padding:38px 0 84px;}
+  .trust-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:22px;border-top:1px solid rgba(255,255,255,.1);padding-top:32px;}
+  .trust-item{display:flex;gap:10px;align-items:center;font-size:.8rem;color:rgba(255,255,255,.75);}
+  .trust-item i{color:var(--copper);font-size:.95rem;}
+
+  /* ── CATEGORIES ── */
+  #categories{background:var(--paper);}
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .cat-card{background:var(--paper);position:relative;padding:32px 28px;min-height:400px;overflow:hidden;transition:background .3s;text-decoration:none;display:block;}
+  .cat-card:hover{background:#fff;}
+  .cat-idx{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.05em;}
+  .cat-card img{position:absolute;right:-8%;bottom:-4%;width:75%;opacity:.96;transition:transform .5s cubic-bezier(.22,.61,.36,1);}
+  .cat-card:hover img{transform:translateY(-8px) scale(1.04);}
+  .cat-t{font-style:italic;font-weight:500;font-size:1.5rem;margin-top:18px;position:relative;z-index:1;}
+  .cat-c{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--muted);margin-top:8px;letter-spacing:.03em;}
+  .cat-arrow{position:absolute;bottom:28px;left:28px;width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:flex;
+    align-items:center;justify-content:center;transition:all .3s;font-size:.75rem;}
+  .cat-card:hover .cat-arrow{background:var(--copper);border-color:var(--copper);color:#fff;transform:translateX(4px);}
+
+  /* ── FEATURE / SPEC SHEET ── */
+  #feature{background:var(--ink);color:#fff;}
+  .feature-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:72px;align-items:center;}
+  .feature-img-wrap{position:relative;}
+  .feature-img-wrap img{width:100%;border-radius:2px;aspect-ratio:4/4.6;object-fit:cover;}
+  .feature-badge{position:absolute;top:-14px;left:-14px;background:var(--copper);color:#15130F;font-family:'JetBrains Mono',monospace;
+    font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;padding:8px 14px;border-radius:2px;font-weight:700;}
+  .feature-name{font-style:italic;font-weight:500;font-size:clamp(1.6rem,2.6vw,2.1rem);margin-bottom:14px;line-height:1.25;}
+  .feature-p{color:rgba(255,255,255,.6);font-size:.92rem;line-height:1.75;margin-bottom:30px;max-width:480px;}
+  .spec-table{display:flex;flex-direction:column;margin-bottom:32px;}
+  .spec-row{display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:.88rem;}
+  .spec-row .k{font-family:'JetBrains Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.45);white-space:nowrap;}
+  .spec-row .v{font-weight:600;text-align:right;}
+  .feature-price-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .feature-price{font-style:italic;font-weight:600;font-size:1.7rem;color:var(--copper);}
+
+  /* ── PRODUCTS ── */
+  #products{background:#fff;}
+  .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .prod-card{cursor:pointer;}
+  .prod-img-wrap{position:relative;overflow:hidden;border-radius:2px;background:var(--paper-soft);aspect-ratio:3/3.5;margin-bottom:16px;}
+  .prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+  .prod-card:hover .prod-img-wrap img{transform:scale(1.05);}
+  .prod-tag{position:absolute;top:12px;left:12px;background:var(--ink);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.6rem;font-weight:700;
+    padding:5px 10px;border-radius:2px;letter-spacing:.04em;text-transform:uppercase;}
+  .prod-add{position:absolute;bottom:12px;right:12px;width:38px;height:38px;border-radius:50%;background:#fff;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;box-shadow:0 4px 14px rgba(0,0,0,.15);}
+  .prod-card:hover .prod-add{opacity:1;transform:none;}
+  .prod-name{font-weight:600;font-size:.9rem;margin-bottom:4px;}
+  .prod-cat{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--muted);margin-bottom:7px;letter-spacing:.03em;text-transform:uppercase;}
+  .prod-price{font-weight:700;color:var(--copper-dark);font-size:.92rem;}
+  .prod-price del{color:var(--muted);font-weight:400;font-size:.78rem;margin-right:8px;}
+
+  /* ── STORY ── */
+  #story{background:var(--paper);}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+  #story img{border-radius:2px;aspect-ratio:4/4.4;object-fit:cover;}
+  .story-h{font-style:italic;font-weight:500;font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:20px;line-height:1.25;}
+  .story-p{color:var(--muted);font-size:.92rem;line-height:1.85;margin-bottom:26px;}
+  .story-checks{list-style:none;margin-bottom:30px;display:flex;flex-direction:column;gap:13px;}
+  .story-checks li{display:flex;gap:12px;align-items:flex-start;font-size:.86rem;color:var(--ink);}
+  .story-checks i{color:var(--copper-dark);margin-top:3px;font-size:.78rem;}
+
+  /* ── RATING ── */
+  #ratingband{background:var(--panel);color:#fff;text-align:center;}
+  .rating-stars{color:var(--copper);font-size:1.3rem;margin-bottom:18px;}
+  .rating-h{font-style:italic;font-weight:500;font-size:clamp(1.4rem,2.6vw,2rem);max-width:620px;margin:0 auto 18px;line-height:1.4;}
+  .rating-sub{font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.5);font-size:.78rem;letter-spacing:.03em;}
+
+  /* ── BULK CTA ── */
+  #bulk{background:var(--paper-soft);}
+  .bulk-box{background:var(--ink);color:#fff;border-radius:4px;padding:64px 60px;display:grid;grid-template-columns:1fr auto;gap:40px;
+    align-items:center;position:relative;overflow:hidden;}
+  .bulk-box::before{content:'02';position:absolute;font-family:'Fraunces',serif;font-style:italic;font-size:11rem;font-weight:600;
+    color:rgba(255,255,255,.035);top:-30px;right:20px;line-height:1;}
+  .bulk-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--copper);margin-bottom:12px;display:block;position:relative;z-index:1;}
+  .bulk-h{font-style:italic;font-weight:500;font-size:clamp(1.6rem,2.8vw,2.3rem);line-height:1.2;margin-bottom:12px;position:relative;z-index:1;}
+  .bulk-p{color:rgba(255,255,255,.6);font-size:.88rem;max-width:440px;position:relative;z-index:1;}
+  .bulk-r{position:relative;z-index:1;}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.65);padding:56px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:30px;}
+  .ft-brand{font-style:italic;font-weight:600;color:#fff;font-size:1.2rem;}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;}
+  .ft-links a{text-decoration:none;color:rgba(255,255,255,.65);}
+  .ft-note{font-size:.74rem;color:rgba(255,255,255,.35);border-top:1px solid rgba(255,255,255,.1);padding-top:20px;text-align:center;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+  .d1{transition-delay:.08s} .d2{transition-delay:.18s} .d3{transition-delay:.28s} .d4{transition-delay:.38s} .d5{transition-delay:.48s}
+
+  .hero-giant{will-change:transform;}
+  .hero-frame{transition:transform .35s cubic-bezier(.22,.61,.36,1);}
+  .prod-card{transition:transform .35s cubic-bezier(.22,.61,.36,1);}
+
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-right{padding:40px 30px 60px;}
+    .feature-grid{grid-template-columns:1fr;}
+    .story-grid{grid-template-columns:1fr;}
+    .cat-grid{grid-template-columns:1fr;}
+    .prod-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:900px){
+    .nlinks{display:none;}
+    .mob-btn{display:block;}
+    .bulk-box{grid-template-columns:1fr;text-align:left;padding:44px 36px;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+    #hero{margin-top:190px;}
+    .hero-giant{font-size:22vw;}
+    .trust-row{flex-direction:column;align-items:flex-start;}
+    .prod-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — E-Commerce Printer</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20E-Commerce%20Printer" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div class="announce">Konsultasi gratis pemilihan printer untuk kebutuhan kantor &amp; bisnis Anda — chat admin kami</div>
+
+<nav>
+  <a class="brand" href="#">INKLINE</a>
+  <ul class="nlinks">
+    <li><a href="#categories">Printer</a></li>
+    <li><a href="#products">Tinta &amp; Toner</a></li>
+    <li><a href="#story">Kenapa Kami</a></li>
+    <li><a href="#bulk">Kontak</a></li>
+  </ul>
+  <div class="nav-icons"><i class="fa-solid fa-magnifying-glass"></i><i class="fa-solid fa-bag-shopping"></i></div>
+  <button class="mob-btn" id="mobBtn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="#categories">Printer</a>
+  <a href="#products">Tinta &amp; Toner</a>
+  <a href="#story">Kenapa Kami</a>
+  <a href="#bulk">Kontak</a>
+</div>
+
+<section id="hero">
+  <div class="hero-giant">PRESISI</div>
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow-mono reveal d1">Inkline — Printer &amp; Tinta</span>
+      <h1 class="hero-h reveal d2">Presisi cetak,<br><em>tanpa kompromi.</em></h1>
+      <p class="hero-p reveal d3">Kami memilih lini printer dan tinta yang benar-benar tahan dipakai harian — bukan sekadar murah di rak, tapi hemat dalam jangka panjang.</p>
+      <div class="hero-btns reveal d4">
+        <a href="#products" class="btn-copper">Lihat Katalog</a>
+        <a href="https://wa.me/6285121533661?text=Halo%20Inkline,%20saya%20mau%20konsultasi%20pilih%20printer" target="_blank" rel="noopener" class="btn-ghost">Konsultasi Gratis</a>
+      </div>
+      <div class="hero-specs-strip reveal d5">
+        <span>Kecepatan hingga 32&nbsp;ppm</span>
+        <span>Wi-Fi Direct</span>
+        <span>Duplex Otomatis</span>
+        <span>Garansi Resmi 1 Tahun</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-frame reveal d3">
+        <span class="hero-tag">Edisi Terbaru</span>
+        <img src="https://images.unsplash.com/photo-1650094980833-7373de26feb6?q=80&w=900&auto=format&fit=crop" alt="Printer all-in-one Inkline"/>
+        <div class="hero-price-card">
+          <div class="l">Mulai dari</div>
+          <div class="v"><span class="count-num" data-target="1890000" data-prefix="Rp">Rp0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trust" style="padding-top:0;">
+  <div class="container">
+    <div class="trust-row">
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> Garansi Resmi 1 Tahun</div>
+      <div class="trust-item"><i class="fa-solid fa-truck-fast"></i> Kirim Cepat se-Indonesia</div>
+      <div class="trust-item"><i class="fa-solid fa-droplet"></i> Tinta 100% Original</div>
+      <div class="trust-item"><i class="fa-solid fa-headset"></i> Konsultasi Sebelum Beli</div>
+    </div>
+  </div>
+</section>
+
+<section id="categories">
+  <div class="container">
+    <div class="sec-hdr-row reveal">
+      <div>
+        <span class="eyebrow-mono">Jelajahi</span>
+        <h2 class="sec-h">Belanja berdasarkan <em>kebutuhan.</em></h2>
+      </div>
+    </div>
+    <div class="cat-grid">
+      <a href="#products" class="cat-card reveal d1">
+        <div class="cat-idx">01</div>
+        <img src="https://images.unsplash.com/photo-1706212714593-c071d6d95ebf?q=80&w=700&auto=format&fit=crop" alt="Printer"/>
+        <div class="cat-t">Printer</div>
+        <div class="cat-c"><span class="count-num" data-target="24">0</span> PRODUK</div>
+        <div class="cat-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+      <a href="#products" class="cat-card reveal d2">
+        <div class="cat-idx">02</div>
+        <img src="https://images.unsplash.com/photo-1706895040634-62055892cbbb?q=80&w=700&auto=format&fit=crop" alt="Tinta & Toner"/>
+        <div class="cat-t">Tinta &amp; Toner</div>
+        <div class="cat-c"><span class="count-num" data-target="38">0</span> PRODUK</div>
+        <div class="cat-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+      <a href="#products" class="cat-card reveal d3">
+        <div class="cat-idx">03</div>
+        <img src="https://images.unsplash.com/photo-1516409590654-e8d51fc2d25c?q=80&w=700&auto=format&fit=crop" alt="Kertas & Aksesoris"/>
+        <div class="cat-t">Kertas &amp; Aksesoris</div>
+        <div class="cat-c"><span class="count-num" data-target="16">0</span> PRODUK</div>
+        <div class="cat-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="feature">
+  <div class="container feature-grid">
+    <div class="feature-img-wrap reveal">
+      <span class="feature-badge">Pilihan Editor</span>
+      <img src="https://images.unsplash.com/photo-1650094980833-7373de26feb6?q=80&w=800&auto=format&fit=crop" alt="Inkline Pro X2"/>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow-mono">Printer Paling Dicari</span>
+      <h3 class="feature-name">Inkline Pro X2 — All-in-One Refill Tank</h3>
+      <p class="feature-p">Dirancang untuk pemakaian volume tinggi tanpa boros biaya cetak. Sistem refill tank menggantikan cartridge sekali pakai, cocok untuk kantor maupun usaha cetak rumahan.</p>
+      <div class="spec-table">
+        <div class="spec-row"><span class="k">Kecepatan Cetak</span><span class="v">15 ipm hitam · 8 ipm warna</span></div>
+        <div class="spec-row"><span class="k">Resolusi</span><span class="v">4800 x 1200 dpi</span></div>
+        <div class="spec-row"><span class="k">Konektivitas</span><span class="v">Wi-Fi, Wi-Fi Direct, USB 2.0</span></div>
+        <div class="spec-row"><span class="k">Sistem Tinta</span><span class="v">Refill Tank — hemat hingga 70%</span></div>
+        <div class="spec-row"><span class="k">Kapasitas Kertas</span><span class="v">250 lembar A4</span></div>
+      </div>
+      <div class="feature-price-row">
+        <span class="feature-price"><span class="count-num" data-target="2190000" data-prefix="Rp">Rp0</span></span>
+        <a href="https://wa.me/6285121533661?text=Saya%20mau%20tanya%20ketersediaan%20Inkline%20Pro%20X2" target="_blank" rel="noopener" class="btn-copper">Tanya Ketersediaan</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="container">
+    <div class="sec-hdr-row reveal">
+      <div>
+        <span class="eyebrow-mono">Favorit Pelanggan</span>
+        <h2 class="sec-h">Terlaris <em>bulan ini.</em></h2>
+      </div>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card reveal d1">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1706212714593-c071d6d95ebf?q=80&w=500&auto=format&fit=crop" alt="Inkjet All-in-One WiFi Duplex"/>
+          <span class="prod-tag">Baru</span>
+          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="prod-cat">Printer</div>
+        <div class="prod-name">Inkjet All-in-One WiFi Duplex</div>
+        <div class="prod-price"><span class="count-num" data-target="1890000" data-prefix="Rp">Rp0</span></div>
+      </div>
+      <div class="prod-card reveal d2">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1706895040634-62055892cbbb?q=80&w=500&auto=format&fit=crop" alt="Toner Cartridge CMYK Set Original"/>
+          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="prod-cat">Tinta &amp; Toner</div>
+        <div class="prod-name">Toner Cartridge CMYK Set Original</div>
+        <div class="prod-price"><span class="count-num" data-target="1450000" data-prefix="Rp">Rp0</span></div>
+      </div>
+      <div class="prod-card reveal d3">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1516409590654-e8d51fc2d25c?q=80&w=500&auto=format&fit=crop" alt="Kertas Foto Glossy A4"/>
+          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="prod-cat">Kertas &amp; Aksesoris</div>
+        <div class="prod-name">Kertas Foto Glossy A4 (100 lembar)</div>
+        <div class="prod-price"><del>Rp110.000</del><span class="count-num" data-target="89000" data-prefix="Rp">Rp0</span></div>
+      </div>
+      <div class="prod-card reveal d4">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1650094980833-7373de26feb6?q=80&w=500&auto=format&fit=crop" alt="Laser Monokrom Hemat Toner"/>
+          <span class="prod-tag">Favorit</span>
+          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+        </div>
+        <div class="prod-cat">Printer</div>
+        <div class="prod-name">Laser Monokrom Hemat Toner</div>
+        <div class="prod-price"><span class="count-num" data-target="2350000" data-prefix="Rp">Rp0</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="story">
+  <div class="container story-grid">
+    <img class="reveal" src="https://images.unsplash.com/photo-1503694978374-8a2fa686963a?q=80&w=800&auto=format&fit=crop" alt="Proses pengecekan unit Inkline"/>
+    <div class="reveal">
+      <span class="eyebrow-mono">Kenapa Inkline</span>
+      <h2 class="story-h">Kami jual printer, bukan sekadar kardus.</h2>
+      <p class="story-p">Setiap unit yang kami kirim sudah melalui pengecekan fungsi dan kualitas cetak. Tim kami juga membantu instalasi driver dari jarak jauh, supaya printer Anda siap pakai sejak hari pertama.</p>
+      <ul class="story-checks">
+        <li class="reveal d1"><i class="fa-solid fa-circle-check"></i> Semua unit dicek &amp; dites sebelum dikirim</li>
+        <li class="reveal d2"><i class="fa-solid fa-circle-check"></i> Tinta &amp; toner bergaransi keaslian</li>
+        <li class="reveal d3"><i class="fa-solid fa-circle-check"></i> Tim teknis siap bantu setting &amp; driver</li>
+      </ul>
+      <a href="https://wa.me/6285121533661?text=Saya%20mau%20tanya-tanya%20soal%20printer%20Inkline" target="_blank" rel="noopener" class="btn-dark">Hubungi Tim Kami</a>
+    </div>
+  </div>
+</section>
+
+<section id="ratingband">
+  <div class="container reveal">
+    <div class="rating-stars">★★★★★</div>
+    <p class="rating-h">"Toner-nya awet, dan waktu ada masalah driver langsung dibantu lewat WhatsApp. Servis kayak gini jarang ditemui di toko online lain."</p>
+    <div class="rating-sub mono"><span class="count-num" data-target="4.9" data-decimals="1">0,0</span>/5 DARI <span class="count-num" data-target="1800" data-suffix="+">0</span> PELANGGAN</div>
+  </div>
+</section>
+
+<section id="bulk">
+  <div class="container">
+    <div class="bulk-box reveal">
+      <div>
+        <span class="bulk-eyebrow">Untuk Kebutuhan Kantor</span>
+        <h2 class="bulk-h">Butuh banyak unit untuk kantor atau sekolah?</h2>
+        <p class="bulk-p">Dapatkan harga khusus dan konsultasi gratis untuk pembelian printer, tinta, atau toner dalam jumlah besar.</p>
+      </div>
+      <div class="bulk-r">
+        <a href="https://wa.me/6285121533661?text=Saya%20mau%20konsultasi%20pembelian%20partai%20printer" target="_blank" rel="noopener" class="btn-copper">Konsultasi Pembelian Partai</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">INKLINE</div>
+      <ul class="ft-links">
+        <li><a href="#categories">Printer</a></li>
+        <li><a href="#products">Tinta &amp; Toner</a></li>
+        <li><a href="#story">Kenapa Kami</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan toko sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  const mobBtn = document.getElementById('mobBtn');
+  const mobMenu = document.getElementById('mobMenu');
+  mobBtn.addEventListener('click', () => {
+    mobMenu.classList.toggle('open');
+    mobBtn.querySelector('i').className = mobMenu.classList.contains('open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+  });
+  mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobMenu.classList.remove('open');
+    mobBtn.querySelector('i').className = 'fa-solid fa-bars';
+  }));
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* Count-up numbers (prices, stats) */
+  function animateCount(el) {
+    const target = parseFloat(el.dataset.target);
+    const decimals = el.dataset.decimals ? parseInt(el.dataset.decimals, 10) : 0;
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1300;
+    const start = performance.now();
+    function frame(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      el.textContent = prefix + val.toLocaleString('id-ID', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  const countIO = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); countIO.unobserve(e.target); } });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.count-num').forEach(el => countIO.observe(el));
+
+  /* Parallax on the giant background word */
+  const heroGiant = document.querySelector('.hero-giant');
+  if (heroGiant) {
+    const updateParallax = () => { heroGiant.style.transform = `translate(-50%, ${window.scrollY * 0.18}px)`; };
+    updateParallax();
+    window.addEventListener('scroll', updateParallax, { passive: true });
+  }
+
+  /* 3D tilt on the hero shot and product cards */
+  document.querySelectorAll('.hero-frame, .prod-card').forEach(card => {
+    const max = 6, lift = 4;
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      const rx = (py - 0.5) * -max;
+      const ry = (px - 0.5) * max;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-${lift}px)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+</script>
+</body>
+</html>
