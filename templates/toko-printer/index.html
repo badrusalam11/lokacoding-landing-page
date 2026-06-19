@@ -73,11 +73,22 @@
   .hero-specs-strip span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--copper);flex-shrink:0;}
 
   .hero-right{position:relative;padding:0 30px 60px;}
-  .hero-frame{border:1px solid rgba(255,255,255,.14);padding:16px;border-radius:2px;position:relative;background:rgba(255,255,255,.02);}
-  .hero-frame img{width:100%;border-radius:1px;filter:contrast(1.05);aspect-ratio:4/3.2;object-fit:cover;}
+  .hero-frame{border:1px solid rgba(255,255,255,.14);padding:16px;border-radius:2px;position:relative;background:rgba(255,255,255,.02);
+    box-shadow:0 30px 60px -25px rgba(0,0,0,0);transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .45s;}
+  .hero-frame:hover{box-shadow:0 45px 80px -20px rgba(0,0,0,.6);}
+  .hero-img-wrap{position:relative;overflow:hidden;border-radius:1px;aspect-ratio:4/3.2;}
+  .hero-img-wrap img{width:100%;height:100%;border-radius:1px;filter:contrast(1.05);object-fit:cover;}
+  .hero-img-wrap::after{
+    content:'';position:absolute;top:0;left:-60%;width:32%;height:100%;
+    background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,.25) 45%,transparent 90%);
+    transform:skewX(-12deg);animation:glareSweep 7s ease-in-out infinite;pointer-events:none;
+  }
+  @keyframes glareSweep{ 0%{left:-60%;opacity:0;} 4%{opacity:.9;} 22%{left:140%;opacity:0;} 100%{left:140%;opacity:0;} }
+  @keyframes floatBob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-7px);} }
   .hero-tag{position:absolute;top:-12px;left:30px;background:var(--ink);border:1px solid rgba(255,255,255,.14);color:#fff;font-family:'JetBrains Mono',monospace;
-    font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:2px;}
-  .hero-price-card{position:absolute;bottom:18px;left:-14px;background:var(--paper);color:var(--ink);padding:18px 22px;border-radius:2px;box-shadow:0 24px 50px rgba(0,0,0,.4);min-width:160px;}
+    font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:2px;z-index:2;animation:floatBob 4s ease-in-out infinite;}
+  .hero-price-card{position:absolute;bottom:18px;left:-14px;background:var(--paper);color:var(--ink);padding:18px 22px;border-radius:2px;box-shadow:0 24px 50px rgba(0,0,0,.4);min-width:160px;
+    z-index:2;animation:floatBob 4.6s ease-in-out infinite .3s;}
   .hero-price-card .l{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
   .hero-price-card .v{font-style:italic;font-weight:600;font-size:1.3rem;}
 
@@ -90,15 +101,35 @@
   /* ── CATEGORIES ── */
   #categories{background:var(--paper);}
   .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-  .cat-card{background:var(--paper);position:relative;padding:32px 28px;min-height:400px;overflow:hidden;transition:background .3s;text-decoration:none;display:block;}
-  .cat-card:hover{background:#fff;}
+  .cat-card{
+    background:var(--paper);position:relative;padding:32px 28px;min-height:400px;overflow:hidden;
+    text-decoration:none;display:block;z-index:1;
+    transform:scale(1) translateY(0);
+    box-shadow:0 0 0 rgba(21,19,15,0);
+    transition:background .35s ease,
+               transform .5s cubic-bezier(.22,1,.36,1),
+               box-shadow .5s cubic-bezier(.22,1,.36,1),
+               opacity .5s cubic-bezier(.22,1,.36,1);
+  }
+  .cat-card:hover{
+    background:#fff;
+    transform:scale(1.04) translateY(-8px);
+    z-index:5;
+    box-shadow:0 36px 64px -18px rgba(21,19,15,.3);
+  }
+  /* gently recede the other cards so the hovered one reads as dominant */
+  .cat-grid:has(.cat-card:hover) .cat-card:not(:hover){
+    opacity:.8;
+    transform:scale(.98);
+  }
   .cat-idx{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.05em;}
-  .cat-card img{position:absolute;right:-8%;bottom:-4%;width:75%;opacity:.96;transition:transform .5s cubic-bezier(.22,.61,.36,1);}
-  .cat-card:hover img{transform:translateY(-8px) scale(1.04);}
-  .cat-t{font-style:italic;font-weight:500;font-size:1.5rem;margin-top:18px;position:relative;z-index:1;}
+  .cat-card img{position:absolute;right:-8%;bottom:-4%;width:75%;opacity:.96;transition:transform .5s cubic-bezier(.22,1,.36,1);}
+  .cat-card:hover img{transform:translateY(-8px) scale(1.08);}
+  .cat-t{font-style:italic;font-weight:500;font-size:1.5rem;margin-top:18px;position:relative;z-index:1;transition:color .35s ease;}
+  .cat-card:hover .cat-t{color:var(--copper-dark);}
   .cat-c{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--muted);margin-top:8px;letter-spacing:.03em;}
   .cat-arrow{position:absolute;bottom:28px;left:28px;width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:flex;
-    align-items:center;justify-content:center;transition:all .3s;font-size:.75rem;}
+    align-items:center;justify-content:center;transition:all .35s cubic-bezier(.22,1,.36,1);font-size:.75rem;}
   .cat-card:hover .cat-arrow{background:var(--copper);border-color:var(--copper);color:#fff;transform:translateX(4px);}
 
   /* ── FEATURE / SPEC SHEET ── */
@@ -137,7 +168,21 @@
   /* ── STORY ── */
   #story{background:var(--paper);}
   .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
-  #story img{border-radius:2px;aspect-ratio:4/4.4;object-fit:cover;}
+  .story-img-wrap{
+    position:relative;overflow:hidden;border-radius:2px;aspect-ratio:4/4.4;cursor:pointer;z-index:1;
+    box-shadow:0 8px 20px -10px rgba(21,19,15,.15);
+    transition:transform .42s cubic-bezier(.22,1,.36,1), box-shadow .42s cubic-bezier(.22,1,.36,1), z-index .42s;
+    will-change:transform;
+  }
+  .story-img-wrap img{position:absolute;inset:0;width:100%;height:100%;border-radius:2px;object-fit:cover;transition:opacity .5s ease;}
+  .story-img-gif{opacity:0;}
+  .story-img-wrap:hover{
+    transform:scale(1.05) translateY(-6px);
+    box-shadow:0 30px 60px -15px rgba(21,19,15,.4);
+    z-index:5;
+  }
+  .story-img-wrap:hover .story-img-static{opacity:0;}
+  .story-img-wrap:hover .story-img-gif{opacity:1;}
   .story-h{font-style:italic;font-weight:500;font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:20px;line-height:1.25;}
   .story-p{color:var(--muted);font-size:.92rem;line-height:1.85;margin-bottom:26px;}
   .story-checks{list-style:none;margin-bottom:30px;display:flex;flex-direction:column;gap:13px;}
@@ -247,7 +292,9 @@
     <div class="hero-right">
       <div class="hero-frame reveal d3">
         <span class="hero-tag">Edisi Terbaru</span>
-        <img src="https://images.unsplash.com/photo-1650094980833-7373de26feb6?q=80&w=900&auto=format&fit=crop" alt="Printer all-in-one Inkline"/>
+        <div class="hero-img-wrap">
+          <img src="printer-anime.gif" alt="Printer all-in-one Inkline"/>
+        </div>
         <div class="hero-price-card">
           <div class="l">Mulai dari</div>
           <div class="v"><span class="count-num" data-target="1890000" data-prefix="Rp">Rp0</span></div>
@@ -380,7 +427,10 @@
 
 <section id="story">
   <div class="container story-grid">
-    <img class="reveal" src="https://images.unsplash.com/photo-1503694978374-8a2fa686963a?q=80&w=800&auto=format&fit=crop" alt="Proses pengecekan unit Inkline"/>
+    <div class="story-img-wrap reveal">
+      <img class="story-img-static" src="https://images.unsplash.com/photo-1503694978374-8a2fa686963a?q=80&w=800&auto=format&fit=crop" alt="Proses pengecekan unit Inkline"/>
+      <img class="story-img-gif" data-src="printer.gif" alt="" aria-hidden="true"/>
+    </div>
     <div class="reveal">
       <span class="eyebrow-mono">Kenapa Inkline</span>
       <h2 class="story-h">Kami jual printer, bukan sekadar kardus.</h2>
@@ -471,27 +521,43 @@
   }, { threshold: 0.4 });
   document.querySelectorAll('.count-num').forEach(el => countIO.observe(el));
 
-  /* Parallax on the giant background word */
+  /* Parallax on the giant background word + hero image depth drift */
   const heroGiant = document.querySelector('.hero-giant');
-  if (heroGiant) {
-    const updateParallax = () => { heroGiant.style.transform = `translate(-50%, ${window.scrollY * 0.18}px)`; };
-    updateParallax();
-    window.addEventListener('scroll', updateParallax, { passive: true });
-  }
+  const heroImgWrap = document.querySelector('.hero-img-wrap');
+  const updateParallax = () => {
+    const y = Math.min(window.scrollY, 500);
+    if (heroGiant) heroGiant.style.transform = `translate(-50%, ${y * 0.18}px)`;
+    if (heroImgWrap) heroImgWrap.style.transform = `translateY(${y * -0.05}px)`;
+  };
+  updateParallax();
+  window.addEventListener('scroll', updateParallax, { passive: true });
 
-  /* 3D tilt on the hero shot and product cards */
+  /* 3D tilt on the hero shot and product cards, with a depth-tracking shadow on the hero */
   document.querySelectorAll('.hero-frame, .prod-card').forEach(card => {
-    const max = 6, lift = 4;
+    const isHero = card.classList.contains('hero-frame');
+    const max = isHero ? 10 : 7, lift = isHero ? 14 : 6;
     card.addEventListener('mousemove', (e) => {
       const r = card.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width;
       const py = (e.clientY - r.top) / r.height;
       const rx = (py - 0.5) * -max;
       const ry = (px - 0.5) * max;
-      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-${lift}px)`;
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-${lift}px) scale(1.015)`;
+      if (isHero) card.style.boxShadow = `${-ry * 2.2}px ${28 - rx}px 70px -20px rgba(0,0,0,.55)`;
     });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; card.style.boxShadow = ''; });
   });
+
+  /* Load the story preview GIF only on first hover of its frame (it's a large file — no need to fetch upfront) */
+  function lazyLoadGifOnHover(frameSelector, gifSelector) {
+    const frame = document.querySelector(frameSelector);
+    const gif = document.querySelector(gifSelector);
+    if (!frame || !gif) return;
+    frame.addEventListener('mouseenter', () => {
+      if (!gif.src) gif.src = gif.dataset.src;
+    }, { once: true });
+  }
+  lazyLoadGifOnHover('.story-img-wrap', '.story-img-gif');
 </script>
 </body>
 </html>
