@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Nova — Template Landing Page SaaS | Loka Coding</title>
 <meta name="robots" content="noindex, follow"/>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
@@ -33,7 +34,8 @@
   nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:74px;display:flex;align-items:center;justify-content:space-between;
     padding:0 40px;background:rgba(10,10,18,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
   .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;}
-  .brand .dot{width:10px;height:10px;border-radius:3px;background:var(--lime);}
+  .brand-logo{width:32px;height:32px;flex-shrink:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+  .brand:hover .brand-logo{transform:scale(1.1) rotate(-5deg);}
   .nlinks{display:flex;gap:34px;list-style:none;}
   .nlinks a{font-size:.83rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;}
   .nlinks a:hover{color:#fff;}
@@ -184,7 +186,10 @@
 </div>
 
 <nav>
-  <a class="brand" href="#"><span class="dot"></span>Nova</a>
+  <a class="brand" href="#">
+    <img src="assets/logo.svg" alt="Nova Logo" width="32" height="32" class="brand-logo">
+    Nova
+  </a>
   <ul class="nlinks">
     <li><a href="#features">Fitur</a></li>
     <li><a href="#how">Cara Kerja</a></li>
@@ -370,7 +375,10 @@
 <footer>
   <div class="container">
     <div class="ft-row">
-      <div class="ft-brand">Nova</div>
+      <div class="ft-brand">
+        <img src="assets/logo.svg" alt="Nova Logo" width="28" height="28" style="display:inline-block;vertical-align:middle;margin-right:8px;">
+        Nova
+      </div>
       <ul class="ft-links">
         <li><a href="#features">Fitur</a></li>
         <li><a href="#pricing">Harga</a></li>
