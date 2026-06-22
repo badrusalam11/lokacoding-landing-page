@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/templates/e-commerce/assets/svg/icon.svg">
 <title>STRIDE — Langkah yang Berarti</title>
 <meta name="description" content="Sepatu handcrafted untuk setiap langkah yang berarti. Gratis ongkir, garansi 30 hari.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -402,13 +403,16 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
 .form-group textarea{resize:vertical;min-height:70px;}
 .pay-options{display:flex;flex-direction:column;gap:10px;}
 .pay-option{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+  position:relative;display:block;
   border:1.5px solid var(--border);border-radius:10px;
-  padding:12px 14px;cursor:pointer;font-size:.88rem;transition:border-color .2s,background .2s;
+  padding:14px 46px 14px 14px;cursor:pointer;font-size:.88rem;line-height:1.3;
+  transition:border-color .2s,background .2s;
 }
 .pay-option:has(input:checked){border-color:var(--ink);background:var(--highlight);}
-.pay-option span{flex:1;}
-.pay-option input{accent-color:var(--accent);width:18px;height:18px;margin:0 0 0 auto;flex-shrink:0;}
+.pay-option input{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);margin:0;
+  accent-color:var(--accent);width:18px;height:18px;
+}
 
 /* success view */
 .cart-success{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 28px;gap:16px;}
@@ -454,11 +458,12 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
-    <svg class="logo-mark" width="28" height="28" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+    <!-- <svg class="logo-mark" width="28" height="28" viewBox="0 0 36 36" fill="none" aria-hidden="true">
       <rect class="bar" x="3" y="21" width="7" height="12" rx="3"/>
       <rect class="bar" x="14.5" y="14" width="7" height="19" rx="3"/>
       <rect class="bar accent" x="26" y="7" width="7" height="26" rx="3"/>
-    </svg>
+    </svg> -->
+    <img src="/templates/e-commerce/assets/svg/icon.svg" alt="Logo STRIDE" width="28" height="28" class="logo-mark">
     STRIDE
   </a>
   <ul class="nav-links">
