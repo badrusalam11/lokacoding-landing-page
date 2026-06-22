@@ -1,289 +1,964 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Linen & Co. — Template E-Commerce | Loka Coding</title>
-<meta name="robots" content="noindex, follow"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STRIDE — Langkah yang Berarti</title>
+<meta name="description" content="Sepatu handcrafted untuk setiap langkah yang berarti. Gratis ongkir, garansi 30 hari.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --terra:#C1593C; --terra-dark:#9C4530; --ink:#211A16; --cream:#FBF6EF;
-    --line:#E7DCCB; --muted:#83766A;
-  }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
-  h1,h2,h3,.disp{font-family:'DM Serif Display',serif;}
-  a{color:inherit;}
-  .container{max-width:1200px;margin:0 auto;padding:0 40px;}
-  img{max-width:100%;display:block;}
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --canvas:#F8F8F6;
+  --surface:#FFFFFF;
+  --ink:#1A1A18;
+  --stone:#7D7A75;
+  --soft:#EFECE6;
+  --accent:#FF4D00;
+  --accent-hover:#E64500;
+  --highlight:#FFF3EB;
+  --border:rgba(26,26,24,0.08);
+  --ease:cubic-bezier(.22,.9,.36,1);
+}
+html{scroll-behavior:auto;}
+body{
+  background:var(--canvas);color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent);color:#fff;}
 
-  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#1a1410;color:#fff;
-    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;}
-  .lc-bar a{text-decoration:none;}
-  .lc-bar-back{color:#bdab9a;display:flex;align-items:center;gap:7px;transition:color .2s;}
-  .lc-bar-back:hover{color:#fff;}
-  .lc-bar-mid{color:#75695e;display:none;}
-  .lc-bar-order{background:var(--terra);color:#fff;font-weight:700;padding:7px 16px;border-radius:7px;display:flex;align-items:center;gap:6px;transition:opacity .2s;}
-  .lc-bar-order:hover{opacity:.85;}
-  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+h1,h2,h3,h4{font-family:'Outfit',sans-serif;font-weight:700;letter-spacing:-0.025em;line-height:1.08;}
+a{color:inherit;text-decoration:none;}
+img,video{display:block;max-width:100%;}
+button{font-family:inherit;cursor:pointer;border:none;}
 
-  .announce{position:fixed;top:42px;left:0;width:100%;z-index:480;background:var(--terra);color:#fff;
-    text-align:center;font-size:.76rem;font-weight:600;padding:9px 0;letter-spacing:.02em;}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:clamp(20px,5vw,48px);}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
 
-  nav{position:fixed;top:78px;left:0;width:100%;z-index:470;height:80px;display:flex;align-items:center;justify-content:space-between;
-    padding:0 40px;background:rgba(251,246,239,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-  .brand{font-family:'DM Serif Display',serif;font-size:1.4rem;letter-spacing:.02em;text-decoration:none;color:var(--ink);}
-  .nlinks{display:flex;gap:36px;list-style:none;}
-  .nlinks a{font-size:.82rem;font-weight:500;color:var(--ink);text-decoration:none;}
-  .nlinks a:hover{color:var(--terra);}
-  .nav-icons{display:flex;gap:20px;align-items:center;font-size:1rem;color:var(--ink);}
-  .mob-btn{display:none;background:none;border:none;color:var(--ink);font-size:1.2rem;cursor:pointer;}
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(20px,5vw,48px);
+  transition:background .4s var(--ease),backdrop-filter .4s var(--ease),box-shadow .4s var(--ease);
+}
+nav.scrolled{
+  background:rgba(248,248,246,0.85);
+  backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 var(--border);
+}
+.nav-logo{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:.06em;}
+.nav-links{display:flex;gap:32px;list-style:none;}
+.nav-links a{font-size:.88rem;font-weight:600;color:var(--ink);opacity:.68;transition:opacity .25s;}
+.nav-links a:hover{opacity:1;}
+.nav-right{display:flex;align-items:center;gap:22px;}
+.nav-cart{
+  position:relative;font-size:.88rem;font-weight:500;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-cart .badge{
+  background:var(--accent);color:#fff;font-size:.62rem;font-weight:600;
+  width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;
+  font-family:'Outfit',sans-serif;font-weight:600;font-size:.88rem;
+  padding:13px 26px;border-radius:100px;
+  transition:background .25s,transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,77,0,0.25);}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--ink);
+  font-family:'Outfit',sans-serif;font-weight:600;font-size:.88rem;
+  padding:13px 26px;border-radius:100px;border:1.5px solid var(--ink);
+  transition:background .25s,color .25s;
+}
+.btn-outline:hover{background:var(--ink);color:var(--canvas);}
+@media(max-width:768px){.nav-links{display:none;}}
 
-  #hero{position:relative;margin-top:200px;height:78vh;min-height:480px;overflow:hidden;}
-  #hero img{width:100%;height:100%;object-fit:cover;}
-  .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(33,26,22,.55) 0%,rgba(33,26,22,.05) 60%);
-    display:flex;align-items:center;}
-  .hero-content{padding:0 60px;max-width:560px;color:#fff;}
-  .hero-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(6px);
-    padding:7px 16px;border-radius:100px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:22px;}
-  .hero-h{font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.08;margin-bottom:20px;font-style:italic;}
-  .hero-p{font-size:.96rem;line-height:1.7;color:rgba(255,255,255,.85);max-width:420px;margin-bottom:30px;}
-  .btn-terra{background:var(--terra);color:#fff;font-weight:700;font-size:.85rem;padding:15px 32px;border-radius:2px;text-decoration:none;
-    display:inline-block;transition:background .2s,transform .2s;}
-  .btn-terra:hover{background:var(--terra-dark);transform:translateY(-2px);}
-  .btn-dark{background:var(--ink);color:#fff;font-weight:700;font-size:.85rem;padding:15px 32px;border-radius:2px;text-decoration:none;display:inline-block;}
+/* ─── HERO ─── */
+.hero{position:relative;height:90vh;min-height:600px;overflow:hidden;display:flex;align-items:center;}
+.hero video,.hero .hero-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-fallback{
+  background:linear-gradient(135deg,#E8E4DD 0%,#D4CFC6 40%,#C7C0B5 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-fallback span{
+  font-family:'Outfit',sans-serif;font-size:1rem;color:var(--stone);letter-spacing:.1em;text-transform:uppercase;
+}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(248,248,246,0.15) 0%,rgba(248,248,246,0.4) 45%,rgba(248,248,246,0.92) 100%);}
+.hero-content{position:relative;z-index:3;width:100%;}
+.hero-content .wrap{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;height:100vh;min-height:600px;padding-bottom:clamp(60px,10vh,100px);}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--accent);color:#fff;
+  font-family:'Outfit',sans-serif;font-weight:600;font-size:.72rem;
+  padding:6px 14px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:18px;opacity:0;transform:translateY(12px);
+}
+.hero h1{
+  font-size:clamp(2.8rem,7.5vw,6rem);
+  max-width:12ch;margin-bottom:18px;
+  line-height:1;
+}
+.hero h1 .line{display:block;overflow:hidden;padding-bottom:.15em;margin-bottom:-.15em;}
+.hero h1 .line span{display:inline-block;transform:translateY(110%);}
+.hero-sub{font-size:clamp(1rem,1.8vw,1.2rem);color:var(--stone);max-width:34ch;margin-bottom:32px;opacity:0;transform:translateY(14px);}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;opacity:0;transform:translateY(14px);}
 
-  section{padding:100px 0;}
-  .sec-hdr{text-align:center;max-width:560px;margin:0 auto 56px;}
-  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin-bottom:14px;display:block;}
-  .sec-h{font-size:clamp(1.8rem,3.2vw,2.5rem);font-style:italic;line-height:1.2;}
+/* ─── MARQUEE ─── */
+.marquee{
+  padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  overflow:hidden;white-space:nowrap;background:var(--canvas);
+}
+.marquee-track{
+  display:inline-flex;gap:0;
+  animation:marqueeScroll 28s linear infinite;
+}
+.marquee-track span{
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(.82rem,1.2vw,.95rem);
+  text-transform:uppercase;letter-spacing:.12em;color:var(--ink);padding:0 28px;
+}
+.marquee-track .dot{color:var(--accent);}
+@keyframes marqueeScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
-  /* categories */
-  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-  .cat-card{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:3/4;cursor:pointer;}
-  .cat-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,.61,.36,1);}
-  .cat-card:hover img{transform:scale(1.06);}
-  .cat-label{position:absolute;bottom:0;left:0;width:100%;padding:26px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.55));}
-  .cat-label .t{font-family:'DM Serif Display',serif;font-style:italic;font-size:1.5rem;color:#fff;}
-  .cat-label .c{font-size:.74rem;color:rgba(255,255,255,.8);margin-top:4px;}
+/* ─── PRODUCTS ─── */
+.products{padding:clamp(80px,12vw,130px) 0;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:50px;flex-wrap:wrap;}
+.section-head h2{font-size:clamp(1.8rem,3.5vw,2.6rem);}
+.section-head a{font-weight:600;font-size:.92rem;color:var(--accent);display:flex;align-items:center;gap:6px;transition:gap .25s var(--ease);}
+.section-head a:hover{gap:12px;}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:860px){.product-grid{grid-template-columns:repeat(2,1fr);} .product-grid .product-card:nth-child(3){display:none;}}
+@media(max-width:520px){.product-grid{grid-template-columns:1fr;} .product-grid .product-card:nth-child(3){display:block;}}
 
-  /* products */
-  #products{background:#fff;}
-  .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
-  .prod-card{cursor:pointer;}
-  .prod-img-wrap{position:relative;overflow:hidden;border-radius:3px;background:var(--cream);aspect-ratio:3/3.7;margin-bottom:16px;}
-  .prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
-  .prod-card:hover .prod-img-wrap img{transform:scale(1.05);}
-  .prod-tag{position:absolute;top:12px;left:12px;background:var(--ink);color:#fff;font-size:.62rem;font-weight:700;padding:5px 10px;border-radius:2px;letter-spacing:.04em;}
-  .prod-add{position:absolute;bottom:12px;right:12px;width:38px;height:38px;border-radius:50%;background:#fff;color:var(--ink);
-    display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;box-shadow:0 4px 14px rgba(0,0,0,.15);}
-  .prod-card:hover .prod-add{opacity:1;transform:none;}
-  .prod-name{font-weight:600;font-size:.9rem;margin-bottom:4px;}
-  .prod-cat{font-size:.74rem;color:var(--muted);margin-bottom:6px;}
-  .prod-price{font-weight:700;color:var(--terra);font-size:.92rem;}
-  .prod-price del{color:var(--muted);font-weight:400;font-size:.78rem;margin-right:8px;}
+.product-card{position:relative;cursor:pointer;}
+.product-img{
+  aspect-ratio:4/5;border-radius:16px;overflow:hidden;position:relative;
+  margin-bottom:16px;background:var(--soft);
+}
+.product-img .img-inner{
+  width:100%;height:100%;
+  transition:transform .6s var(--ease);
+  display:flex;align-items:center;justify-content:center;
+}
+.product-img .img-inner img{width:100%;height:100%;object-fit:cover;}
+.product-card:hover .img-inner{transform:scale(1.06);}
+.product-img{box-shadow:0 1px 2px rgba(26,26,24,0.04);transition:box-shadow .4s var(--ease);}
+.product-card:hover .product-img{box-shadow:0 24px 48px -12px rgba(26,26,24,0.22);}
+.product-badge{
+  position:absolute;top:14px;left:14px;z-index:2;
+  background:var(--accent);color:#fff;
+  font-family:'Outfit',sans-serif;font-weight:600;font-size:.66rem;
+  padding:5px 12px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;
+}
+.product-quick{
+  position:absolute;bottom:14px;left:14px;right:14px;z-index:2;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .35s var(--ease),transform .35s var(--ease);
+}
+.product-card:hover .product-quick{opacity:1;transform:translateY(0);}
+.product-quick button{
+  width:100%;background:var(--ink);color:#fff;
+  font-family:'Outfit',sans-serif;font-weight:600;font-size:.84rem;
+  padding:14px;border-radius:12px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:background .2s,transform .25s var(--ease);
+}
+.product-quick button:hover{background:var(--accent);}
+.product-quick button:active{transform:scale(.97);}
+.product-info{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.product-name{font-family:'Outfit',sans-serif;font-weight:600;font-size:1.02rem;}
+.product-cat{font-size:.82rem;color:var(--stone);margin-top:2px;}
+.product-rating{display:flex;align-items:center;gap:5px;font-size:.78rem;color:var(--stone);margin-top:6px;}
+.product-rating .stars{color:var(--accent);letter-spacing:1px;}
+.product-price{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.05rem;white-space:nowrap;}
+.product-price .old{color:var(--stone);text-decoration:line-through;font-weight:400;font-size:.88rem;margin-right:4px;}
 
-  /* story */
-  #story .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
-  #story img{border-radius:4px;aspect-ratio:4/4.6;object-fit:cover;}
-  .story-h{font-size:clamp(1.7rem,3vw,2.3rem);font-style:italic;margin-bottom:20px;line-height:1.25;}
-  .story-p{color:var(--muted);font-size:.92rem;line-height:1.85;margin-bottom:26px;}
-  @media(max-width:900px){ #story .story-grid{grid-template-columns:1fr;} }
+/* ─── IMMERSIVE VIDEO STRIP ─── */
+.video-strip{
+  position:relative;height:70vh;min-height:400px;overflow:hidden;
+}
+.video-strip video,.video-strip .strip-fallback{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.strip-fallback{
+  background:linear-gradient(135deg,#D6D1C9 0%,#C2BBB0 50%,#B5ADA1 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.strip-fallback span{
+  font-family:'Outfit',sans-serif;font-size:.9rem;color:var(--stone);letter-spacing:.1em;text-transform:uppercase;
+}
+.video-strip .strip-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(26,26,24,0.08) 0%,rgba(26,26,24,0.45) 100%);
+}
+.strip-content{
+  position:relative;z-index:2;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  color:#fff;padding:0 24px;
+}
+.strip-content h2{font-size:clamp(2rem,5vw,3.4rem);margin-bottom:14px;text-shadow:0 2px 20px rgba(0,0,0,0.15);}
+.strip-content p{font-size:clamp(.92rem,1.4vw,1.1rem);opacity:.85;max-width:36ch;margin-bottom:28px;}
+.btn-white{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:var(--ink);
+  font-family:'Outfit',sans-serif;font-weight:600;font-size:.88rem;
+  padding:14px 28px;border-radius:100px;
+  transition:transform .3s var(--ease),box-shadow .3s;
+}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,0.2);}
 
-  /* rating band */
-  #ratingband{background:var(--ink);color:#fff;text-align:center;}
-  .rating-stars{color:#E8B45A;font-size:1.3rem;margin-bottom:18px;}
-  .rating-h{font-style:italic;font-size:clamp(1.4rem,2.6vw,2rem);max-width:600px;margin:0 auto 18px;line-height:1.4;}
-  .rating-sub{color:rgba(255,255,255,.6);font-size:.85rem;}
+/* ─── USP ─── */
+.usp{padding:clamp(60px,10vw,100px) 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.usp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center;}
+.usp-icon{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--highlight);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;font-size:1.3rem;
+}
+.usp-item h3{font-size:1.05rem;margin-bottom:6px;}
+.usp-item p{font-size:.88rem;color:var(--stone);line-height:1.55;max-width:28ch;margin:0 auto;}
+@media(max-width:640px){.usp-grid{grid-template-columns:1fr;gap:36px;}}
 
-  /* newsletter */
-  #newsletter{text-align:center;}
-  .nl-form{display:flex;justify-content:center;gap:10px;margin-top:30px;flex-wrap:wrap;}
-  .nl-form input{padding:15px 20px;border:1.5px solid var(--line);border-radius:2px;background:#fff;font-size:.86rem;width:300px;}
-  .nl-form button{background:var(--ink);color:#fff;border:none;padding:15px 28px;border-radius:2px;font-weight:700;font-size:.85rem;cursor:pointer;}
+/* ─── REVIEWS ─── */
+.reviews{padding:clamp(80px,12vw,130px) 0;}
+.reviews .section-head{margin-bottom:40px;}
+.review-scroll{
+  display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;padding-bottom:10px;
+  scrollbar-width:none;
+}
+.review-scroll::-webkit-scrollbar{display:none;}
+.review-card{
+  flex:0 0 340px;scroll-snap-align:start;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:28px;
+}
+.review-stars{color:var(--accent);font-size:.9rem;margin-bottom:14px;letter-spacing:2px;}
+.review-text{font-size:.94rem;line-height:1.6;margin-bottom:18px;color:var(--ink);}
+.review-text em{font-style:italic;}
+.review-author{font-family:'Outfit',sans-serif;font-weight:600;font-size:.88rem;}
+.review-author span{font-weight:400;color:var(--stone);font-family:'DM Sans',sans-serif;}
 
-  footer{background:var(--ink);color:rgba(255,255,255,.7);padding:56px 0 28px;}
-  .ft-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:30px;}
-  .ft-brand{font-family:'DM Serif Display',serif;color:#fff;font-size:1.2rem;font-style:italic;}
-  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;}
-  .ft-links a{text-decoration:none;color:rgba(255,255,255,.7);}
-  .ft-note{font-size:.74rem;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.1);padding-top:20px;text-align:center;}
+/* ─── FINAL CTA ─── */
+.final-cta{
+  margin:0 clamp(20px,5vw,48px);
+  background:var(--ink);color:var(--canvas);
+  border-radius:24px;
+  padding:clamp(60px,10vw,100px) clamp(30px,6vw,80px);
+  text-align:center;position:relative;overflow:hidden;
+}
+.final-cta::before{
+  content:'';position:absolute;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,77,0,0.2),transparent 70%);
+  top:-100px;right:-80px;pointer-events:none;
+}
+.final-cta .eyebrow{
+  font-family:'Outfit',sans-serif;font-weight:600;font-size:.72rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+  margin-bottom:18px;display:block;
+}
+.final-cta h2{font-size:clamp(2rem,5vw,3.2rem);max-width:16ch;margin:0 auto 16px;}
+.final-cta p{color:var(--stone);max-width:32ch;margin:0 auto 36px;font-size:1rem;}
+.btn-accent-lg{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--accent);color:#fff;
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;
+  padding:18px 36px;border-radius:100px;
+  transition:transform .3s var(--ease),box-shadow .3s;
+  animation:ctaPulse 2.4s ease-in-out infinite;
+}
+.btn-accent-lg:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 12px 36px rgba(255,77,0,0.35);animation:none;}
+@keyframes ctaPulse{0%,100%{box-shadow:0 4px 16px rgba(255,77,0,0.2);}50%{box-shadow:0 6px 28px rgba(255,77,0,0.35);}}
 
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
-  .reveal.visible{opacity:1;transform:none;}
+/* ─── FOOTER ─── */
+footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(60px,10vw,100px);}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-brand .nav-logo{margin-bottom:12px;}
+.footer-brand p{font-size:.88rem;color:var(--stone);max-width:26ch;line-height:1.55;}
+.footer-col h4{font-family:'Outfit',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;color:var(--ink);}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:10px;}
+.footer-col a{font-size:.88rem;color:var(--stone);transition:color .2s;}
+.footer-col a:hover{color:var(--ink);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:.78rem;color:var(--stone);}
+.footer-pay{display:flex;gap:8px;}
+.footer-pay span{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:26px;border-radius:4px;border:1px solid var(--border);
+  font-size:.6rem;font-weight:600;color:var(--stone);
+}
+@media(max-width:768px){.footer-top{grid-template-columns:1fr 1fr;} .footer-brand{grid-column:span 2;}}
+@media(max-width:480px){.footer-top{grid-template-columns:1fr;} .footer-brand{grid-column:span 1;}}
 
-  @media(max-width:900px){
-    .nlinks{display:none;}
-    .mob-btn{display:block;}
-    .cat-grid{grid-template-columns:1fr;}
-    .prod-grid{grid-template-columns:1fr 1fr;}
-  }
-  @media(max-width:640px){
-    .container{padding:0 24px;}
-    nav{padding:0 24px;}
-    .hero-content{padding:0 28px;}
-    #hero{margin-top:230px;}
-  }
+/* ─── CART DRAWER ─── */
+.nav-cart{background:none;padding:0;}
+.cart-overlay{
+  position:fixed;inset:0;background:rgba(26,26,24,0.45);
+  opacity:0;pointer-events:none;transition:opacity .4s var(--ease);z-index:200;
+}
+.cart-overlay.open{opacity:1;pointer-events:auto;}
+.cart-drawer{
+  position:fixed;top:0;right:0;height:100%;width:min(440px,100vw);
+  background:var(--surface);z-index:201;
+  transform:translateX(100%);transition:transform .45s var(--ease);
+  box-shadow:-30px 0 60px rgba(0,0,0,0.12);
+}
+.cart-drawer.open{transform:translateX(0);}
+.cart-panel{height:100%;display:flex;flex-direction:column;}
+
+.cart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:22px 24px;border-bottom:1px solid var(--border);}
+.cart-head h3{font-size:1.1rem;flex:1;}
+.cart-close,.cart-back{
+  width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:var(--soft);color:var(--ink);transition:background .2s;
+}
+.cart-close:hover,.cart-back:hover{background:var(--border);}
+
+.cart-body{flex:1;overflow-y:auto;padding:8px 24px;}
+.cart-empty{
+  height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:14px;color:var(--stone);padding:24px;
+}
+.cart-empty svg{opacity:.35;}
+.cart-empty p{font-size:.9rem;max-width:24ch;}
+
+.cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);}
+.cart-item:last-child{border-bottom:none;}
+.cart-item img{width:72px;height:72px;border-radius:10px;object-fit:cover;flex-shrink:0;background:var(--soft);}
+.cart-item-info{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;}
+.cart-item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.cart-item-name{font-family:'Outfit',sans-serif;font-weight:600;font-size:.92rem;}
+.cart-item-price{font-family:'Outfit',sans-serif;font-weight:700;font-size:.88rem;}
+.cart-item-remove{color:var(--stone);transition:color .2s;flex-shrink:0;background:none;}
+.cart-item-remove:hover{color:var(--accent);}
+.qty-stepper{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:100px;padding:4px 6px;width:fit-content;}
+.qty-stepper button{
+  width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--soft);font-size:.9rem;line-height:1;transition:background .2s;
+}
+.qty-stepper button:hover{background:var(--border);}
+.qty-stepper span{font-size:.85rem;font-weight:600;min-width:14px;text-align:center;}
+
+.cart-foot{padding:18px 24px 24px;border-top:1px solid var(--border);}
+.cart-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.cart-subtotal span:first-child{color:var(--stone);font-size:.9rem;}
+.cart-subtotal span:last-child{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.15rem;}
+.cart-note{font-size:.78rem;color:var(--stone);margin-bottom:16px;}
+.btn-checkout{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--accent);color:#fff;
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;
+  padding:16px;border-radius:100px;
+  transition:background .2s,transform .25s var(--ease);
+}
+.btn-checkout:hover{background:var(--accent-hover);transform:translateY(-1px);}
+.cart-continue{display:block;text-align:center;font-size:.84rem;color:var(--stone);margin-top:14px;transition:color .2s;}
+.cart-continue:hover{color:var(--ink);}
+
+/* checkout form */
+.checkout-summary{
+  background:var(--canvas);border:1px solid var(--border);border-radius:14px;
+  padding:16px;margin:16px 0 22px;font-size:.86rem;
+}
+.checkout-summary-row{display:flex;justify-content:space-between;padding:5px 0;color:var(--stone);gap:10px;}
+.checkout-summary-row.total{color:var(--ink);font-weight:700;font-family:'Outfit',sans-serif;border-top:1px solid var(--border);margin-top:6px;padding-top:10px;font-size:.98rem;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:.82rem;font-weight:600;margin-bottom:7px;}
+.form-group input,.form-group textarea{
+  width:100%;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;
+  font-family:inherit;font-size:.9rem;background:var(--canvas);transition:border-color .2s;
+}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--ink);}
+.form-group textarea{resize:vertical;min-height:70px;}
+.pay-options{display:flex;flex-direction:column;gap:10px;}
+.pay-option{
+  display:flex;align-items:center;gap:10px;border:1.5px solid var(--border);border-radius:10px;
+  padding:12px 14px;cursor:pointer;font-size:.88rem;transition:border-color .2s,background .2s;
+}
+.pay-option:has(input:checked){border-color:var(--ink);background:var(--highlight);}
+.pay-option input{accent-color:var(--accent);}
+
+/* success view */
+.cart-success{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 28px;gap:16px;}
+.cart-success-icon{
+  width:64px;height:64px;border-radius:50%;background:#E9F5EC;color:#2E7D45;
+  display:flex;align-items:center;justify-content:center;
+}
+.cart-success h3{font-size:1.3rem;}
+.cart-success p{font-size:.9rem;color:var(--stone);max-width:30ch;}
+.cart-success .order-id{font-family:'Outfit',sans-serif;font-weight:700;color:var(--ink);}
+
+.toast{
+  position:fixed;bottom:28px;left:50%;transform:translate(-50%,16px);
+  background:var(--ink);color:#fff;font-size:.86rem;font-weight:500;
+  padding:14px 22px;border-radius:100px;max-width:90vw;text-align:center;
+  opacity:0;pointer-events:none;transition:opacity .3s var(--ease),transform .3s var(--ease);
+  z-index:250;box-shadow:0 12px 30px rgba(0,0,0,0.25);
+}
+.toast.show{opacity:1;transform:translate(-50%,0);}
+@media(max-width:480px){.cart-drawer{width:100vw;}}
+
+/* ─── FX ─── */
+.fx{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.fx.in{opacity:1;transform:translateY(0);}
+.fx-delay-1{transition-delay:.08s;}
+.fx-delay-2{transition-delay:.16s;}
+.fx-delay-3{transition-delay:.24s;}
+
+/* parallax video */
+.video-strip video,.video-strip .strip-fallback{will-change:transform;}
+
+@media(prefers-reduced-motion:reduce){
+  .marquee-track{animation:none;}
+  .fx{opacity:1;transform:none;}
+  .hero h1 .line span{transform:none;}
+  .btn-accent-lg{animation:none;}
+}
+
 </style>
 </head>
 <body>
 
-<div class="lc-bar">
-  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
-  <span class="lc-bar-mid">Template Preview — E-Commerce</span>
-  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20E-Commerce" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
-</div>
-<div class="announce">Gratis ongkir untuk pembelian di atas Rp500.000 — berlaku se-Indonesia</div>
-
-<nav>
-  <a class="brand" href="#">Linen &amp; Co.</a>
-  <ul class="nlinks">
-    <li><a href="#categories">Atasan</a></li>
-    <li><a href="#products">Best Seller</a></li>
-    <li><a href="#story">Tentang</a></li>
-    <li><a href="#newsletter">Kontak</a></li>
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">STRIDE</a>
+  <ul class="nav-links">
+    <li><a href="#produk" class="text-white">Shop</a></li>
+    <li><a href="#tentang" class="text-white">Tentang</a></li>
+    <li><a href="#ulasan" class="text-white">Ulasan</a></li>
   </ul>
-  <div class="nav-icons"><i class="fa-solid fa-magnifying-glass"></i><i class="fa-solid fa-bag-shopping"></i></div>
-  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+  <div class="nav-right">
+    <button type="button" class="nav-cart" id="cartBtn" aria-label="Buka keranjang belanja">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="badge" id="cartBadge" style="display:none;">0</span>
+    </button>
+    <a href="#produk" class="btn-primary hide-mobile">Belanja</a>
+  </div>
 </nav>
 
-<section id="hero" style="padding:0;">
-  <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1600&auto=format&fit=crop" alt="Koleksi Linen & Co."/>
-  <div class="hero-overlay">
-    <div class="hero-content">
-      <span class="hero-badge">Koleksi Musim Ini</span>
-      <h1 class="hero-h">Kesederhanaan yang terasa mewah.</h1>
-      <p class="hero-p">Linen &amp; Co. menghadirkan pakaian sehari-hari dari bahan alami pilihan — dirancang untuk dipakai lama, bukan sekali musim.</p>
-      <a href="#products" class="btn-terra">Belanja Koleksi</a>
-    </div>
-  </div>
-</section>
+<main>
 
-<section id="categories">
-  <div class="container">
-    <div class="sec-hdr reveal">
-      <span class="eyebrow">Jelajahi</span>
-      <h2 class="sec-h">Belanja berdasarkan kategori.</h2>
-    </div>
-    <div class="cat-grid">
-      <div class="cat-card reveal">
-        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=700&auto=format&fit=crop" alt="Atasan"/>
-        <div class="cat-label"><div class="t">Atasan</div><div class="c">42 produk</div></div>
-      </div>
-      <div class="cat-card reveal">
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=700&auto=format&fit=crop" alt="Bawahan"/>
-        <div class="cat-label"><div class="t">Bawahan</div><div class="c">28 produk</div></div>
-      </div>
-      <div class="cat-card reveal">
-        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=700&auto=format&fit=crop" alt="Aksesoris"/>
-        <div class="cat-label"><div class="t">Aksesoris</div><div class="c">16 produk</div></div>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <!-- Replace stride-walk.mp4 with your video -->
+  <video autoplay muted loop playsinline preload="auto" poster="stride-poster.jpg" id="heroVideo">
+    <source src="stride-walk.mp4" type="video/mp4">
+  </video>
+  <!-- Fallback shown when video hasn't loaded -->
+  <div class="hero-fallback"><span>▶ Video sepatu berjalan akan ditampilkan di sini</span></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="wrap">
+      <div class="hero-tag" id="heroTag">✦ New Collection 2026</div>
+      <h1>
+        <span class="line"><span>Langkah</span></span>
+        <span class="line"><span>pertama</span></span>
+        <span class="line"><span>menentukan</span></span>
+        <span class="line"><span>segalanya.</span></span>
+      </h1>
+      <p class="hero-sub" id="heroSub">Sepatu handcrafted untuk Anda yang menghargai kenyamanan di setiap perjalanan.</p>
+      <div class="hero-actions" id="heroActions">
+        <a href="#produk" class="btn-primary">Belanja Sekarang →</a>
+        <a href="#tentang" class="btn-outline">Lihat Koleksi</a>
       </div>
     </div>
   </div>
 </section>
 
-<section id="products">
-  <div class="container">
-    <div class="sec-hdr reveal">
-      <span class="eyebrow">Favorit Pelanggan</span>
-      <h2 class="sec-h">Produk terlaris bulan ini.</h2>
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Free Ongkir Se-Indonesia</span><span class="dot">●</span>
+    <span>Garansi 30 Hari</span><span class="dot">●</span>
+    <span>Handcrafted Premium</span><span class="dot">●</span>
+    <span>New Collection 2026</span><span class="dot">●</span>
+    <span>Bahan Kulit Asli</span><span class="dot">●</span>
+    <span>Tukar Ukuran Gratis</span><span class="dot">●</span>
+    <span>Free Ongkir Se-Indonesia</span><span class="dot">●</span>
+    <span>Garansi 30 Hari</span><span class="dot">●</span>
+    <span>Handcrafted Premium</span><span class="dot">●</span>
+    <span>New Collection 2026</span><span class="dot">●</span>
+    <span>Bahan Kulit Asli</span><span class="dot">●</span>
+    <span>Tukar Ukuran Gratis</span><span class="dot">●</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products" id="produk">
+  <div class="wrap">
+    <div class="section-head fx">
+      <h2>Best Sellers</h2>
+      <a href="#">Lihat Semua →</a>
     </div>
-    <div class="prod-grid">
-      <div class="prod-card reveal">
-        <div class="prod-img-wrap">
-          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=500&auto=format&fit=crop" alt="Linen Shirt Sand"/>
-          <span class="prod-tag">BARU</span>
-          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+    <div class="product-grid">
+
+      <div class="product-card fx fx-delay-1">
+        <div class="product-img" style="background:#E8E3DA;">
+          <span class="product-badge">Best Seller</span>
+          <div class="img-inner">
+            <img src="product-1.jpg" alt="STRIDE Urban Walker — sneakers kasual pria warna hitam" loading="lazy" width="1000" height="667">
+          </div>
+          <div class="product-quick"><button type="button" data-add-cart="urban-walker"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0"/></svg> Tambah ke Keranjang</button></div>
         </div>
-        <div class="prod-cat">Atasan</div>
-        <div class="prod-name">Linen Shirt — Sand</div>
-        <div class="prod-price">Rp389.000</div>
-      </div>
-      <div class="prod-card reveal">
-        <div class="prod-img-wrap">
-          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=500&auto=format&fit=crop" alt="Wide Trouser Clay"/>
-          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+        <div class="product-info">
+          <div>
+            <div class="product-name">Urban Walker</div>
+            <div class="product-cat">Sneakers · Pria</div>
+            <div class="product-rating"><span class="stars">★★★★★</span><span>4.9 (312 terjual)</span></div>
+          </div>
+          <div class="product-price">Rp 849.000</div>
         </div>
-        <div class="prod-cat">Bawahan</div>
-        <div class="prod-name">Wide Trouser — Clay</div>
-        <div class="prod-price"><del>Rp520.000</del>Rp420.000</div>
       </div>
-      <div class="prod-card reveal">
-        <div class="prod-img-wrap">
-          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=500&auto=format&fit=crop" alt="Canvas Slip-on"/>
-          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+
+      <div class="product-card fx fx-delay-2">
+        <div class="product-img" style="background:#DDE3E8;">
+          <span class="product-badge" style="background:var(--ink);">New</span>
+          <div class="img-inner">
+            <img src="product-2.jpg" alt="STRIDE Classic Derby — sepatu formal kulit coklat unisex" loading="lazy" width="1000" height="667">
+          </div>
+          <div class="product-quick"><button type="button" data-add-cart="classic-derby"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0"/></svg> Tambah ke Keranjang</button></div>
         </div>
-        <div class="prod-cat">Sepatu</div>
-        <div class="prod-name">Canvas Slip-on — Ivory</div>
-        <div class="prod-price">Rp459.000</div>
+        <div class="product-info">
+          <div>
+            <div class="product-name">Classic Derby</div>
+            <div class="product-cat">Formal · Unisex</div>
+            <div class="product-rating"><span class="stars">★★★★★</span><span>4.8 (187 terjual)</span></div>
+          </div>
+          <div class="product-price"><span class="old">Rp 1.299.000</span>Rp 999.000</div>
+        </div>
       </div>
-      <div class="prod-card reveal">
-        <div class="prod-img-wrap">
-          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=500&auto=format&fit=crop" alt="Woven Tote"/>
-          <span class="prod-tag">BARU</span>
-          <div class="prod-add"><i class="fa-solid fa-plus"></i></div>
+
+      <div class="product-card fx fx-delay-3">
+        <div class="product-img" style="background:#E5E0D5;">
+          <span class="product-badge" style="background:#4A5D43;">Stok Terbatas</span>
+          <div class="img-inner">
+            <img src="product-3.jpg" alt="STRIDE Trail Blazer — sepatu boots outdoor sol tebal" loading="lazy" width="1000" height="1000">
+          </div>
+          <div class="product-quick"><button type="button" data-add-cart="trail-blazer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0"/></svg> Tambah ke Keranjang</button></div>
         </div>
-        <div class="prod-cat">Aksesoris</div>
-        <div class="prod-name">Woven Tote — Natural</div>
-        <div class="prod-price">Rp299.000</div>
+        <div class="product-info">
+          <div>
+            <div class="product-name">Trail Blazer</div>
+            <div class="product-cat">Outdoor · Pria & Wanita</div>
+            <div class="product-rating"><span class="stars">★★★★★</span><span>4.9 (245 terjual)</span></div>
+          </div>
+          <div class="product-price">Rp 1.149.000</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- IMMERSIVE VIDEO STRIP -->
+<section class="video-strip" id="tentang">
+  <video autoplay muted loop playsinline preload="metadata" id="stripVideo">
+    <source src="stride-walk.mp4" type="video/mp4">
+  </video>
+  <div class="strip-fallback"><span>▶ Video close-up sepatu berjalan</span></div>
+  <div class="strip-overlay"></div>
+  <div class="strip-content">
+    <h2 class="fx">Dibuat untuk bergerak.</h2>
+    <p class="fx fx-delay-1">Setiap jahitan dikerjakan tangan. Setiap sol dirancang untuk ribuan langkah. Bukan fast fashion — ini investasi untuk kaki Anda.</p>
+    <a href="#produk" class="btn-white fx fx-delay-2">Jelajahi Koleksi →</a>
+  </div>
+</section>
+
+<!-- USP -->
+<section class="usp">
+  <div class="wrap">
+    <div class="usp-grid">
+      <div class="usp-item fx">
+        <div class="usp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <h3>Gratis Ongkir</h3>
+        <p>Ke seluruh Indonesia, tanpa minimum belanja.</p>
+      </div>
+      <div class="usp-item fx fx-delay-1">
+        <div class="usp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+        <h3>30 Hari Garansi</h3>
+        <p>Tidak cocok? Tukar ukuran atau kembalikan — gratis.</p>
+      </div>
+      <div class="usp-item fx fx-delay-2">
+        <div class="usp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+        <h3>Handcrafted</h3>
+        <p>Setiap pasang dibuat manual oleh pengrajin berpengalaman.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="story">
-  <div class="container story-grid">
-    <img class="reveal" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop" alt="Proses produksi Linen & Co."/>
-    <div class="reveal">
-      <span class="eyebrow">Cerita Kami</span>
-      <h2 class="story-h">Dibuat untuk dipakai bertahun-tahun, bukan semusim.</h2>
-      <p class="story-p">Setiap potongan Linen &amp; Co. melalui proses seleksi bahan alami dan penjahitan kecil yang teliti. Kami percaya pakaian yang baik adalah investasi, bukan konsumsi musiman.</p>
-      <a href="#products" class="btn-dark">Kenali Koleksi Kami</a>
+<!-- REVIEWS -->
+<section class="reviews" id="ulasan">
+  <div class="wrap">
+    <div class="section-head fx">
+      <h2>Kata mereka</h2>
+      <a href="#">4.9 / 5 dari 2.847 ulasan →</a>
+    </div>
+  </div>
+  <div class="review-scroll" style="padding-left:clamp(20px,5vw,48px);">
+    <div class="review-card fx">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Ini sepatu paling nyaman yang pernah saya pakai. Sudah 6 bulan dipakai tiap hari, <em>masih seperti baru</em>."</p>
+      <div class="review-author">Andi R. <span>· Urban Walker</span></div>
+    </div>
+    <div class="review-card fx fx-delay-1">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Awalnya ragu beli sepatu online. Tapi packaging-nya rapi, bahan premium, dan ukurannya <em>pas banget</em>."</p>
+      <div class="review-author">Sinta M. <span>· Classic Derby</span></div>
+    </div>
+    <div class="review-card fx fx-delay-2">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Sudah coba hiking 3x, sol-nya kuat dan grip-nya luar biasa. <em>Worth every rupiah.</em>"</p>
+      <div class="review-author">Fajar P. <span>· Trail Blazer</span></div>
+    </div>
+    <div class="review-card fx">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">"Design-nya clean dan versatile — bisa buat kerja, bisa buat weekend jalan-jalan. <em>Recommended!</em>"</p>
+      <div class="review-author">Diana K. <span>· Urban Walker</span></div>
     </div>
   </div>
 </section>
 
-<section id="ratingband">
-  <div class="container reveal">
-    <div class="rating-stars">★★★★★</div>
-    <p class="rating-h">"Bahannya benar-benar terasa berbeda — adem, jatuh dengan baik, dan tidak cepat kusut. Worth it."</p>
-    <div class="rating-sub">4.9/5 dari 2.300+ ulasan pelanggan</div>
-  </div>
+<!-- FINAL CTA -->
+<section class="final-cta fx" id="cta">
+  <span class="eyebrow">Jangan tunggu besok</span>
+  <h2>Temukan langkah<br>terbaik Anda.</h2>
+  <p>Koleksi terbatas — setelah habis, belum tentu di-restock.</p>
+  <a href="#produk" class="btn-accent-lg">Belanja Sekarang →</a>
 </section>
 
-<section id="newsletter">
-  <div class="container reveal" style="text-align:center;">
-    <span class="eyebrow">Tetap Terhubung</span>
-    <h2 class="sec-h">Dapatkan info koleksi terbaru lebih dulu.</h2>
-    <form class="nl-form" onsubmit="return false;">
-      <input type="email" placeholder="Alamat email kamu" required/>
-      <button type="submit">Subscribe</button>
-    </form>
-  </div>
-</section>
-
+<!-- FOOTER -->
 <footer>
-  <div class="container">
-    <div class="ft-row">
-      <div class="ft-brand">Linen &amp; Co.</div>
-      <ul class="ft-links">
-        <li><a href="#categories">Atasan</a></li>
-        <li><a href="#products">Best Seller</a></li>
-        <li><a href="#story">Tentang</a></li>
-      </ul>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:12px;">STRIDE</div>
+        <p>Sepatu handcrafted Indonesia untuk langkah yang berarti.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">Sneakers</a></li>
+          <li><a href="#">Formal</a></li>
+          <li><a href="#">Outdoor</a></li>
+          <li><a href="#">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="#">Tentang Kami</a></li>
+          <li><a href="#">Ukuran & Fit</a></li>
+          <li><a href="#">Kebijakan Retur</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hubungi</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Email</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan toko sungguhan.</div>
+    <div class="footer-bottom">
+      <p>© 2026 STRIDE. Semua hak dilindungi.</p>
+      <div class="footer-pay">
+        <span>VISA</span><span>MC</span><span>BCA</span><span>OVO</span><span>DANA</span>
+      </div>
+    </div>
   </div>
 </footer>
 
+</main>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+  <div class="cart-panel" id="cartPanel"></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+const rmq = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// NAV scroll style
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40),{passive:true});
+
+// Hide hero fallback once video loads
+const heroVid = document.getElementById('heroVideo');
+function hideHeroFallback(){ const fb = document.querySelector('.hero-fallback'); if(fb) fb.style.display='none'; }
+if(heroVid && heroVid.readyState >= 2) hideHeroFallback();
+else if(heroVid) heroVid.addEventListener('loadeddata', hideHeroFallback);
+
+// Same for strip video
+const stripVid = document.getElementById('stripVideo');
+function hideStripFallback(){ const fb = document.querySelector('.strip-fallback'); if(fb) fb.style.display='none'; }
+if(stripVid && stripVid.readyState >= 2) hideStripFallback();
+else if(stripVid) stripVid.addEventListener('loadeddata', hideStripFallback);
+
+if(!rmq && window.gsap && window.ScrollTrigger){
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero entrance animation
+  const heroTL = gsap.timeline({delay:.3});
+  heroTL
+    .to('#heroTag',{opacity:1,y:0,duration:.6,ease:'power3.out'})
+    .to('.hero h1 .line span',{y:0,duration:.75,stagger:.1,ease:'power3.out'},'-=.3')
+    .to('#heroSub',{opacity:1,y:0,duration:.6,ease:'power3.out'},'-=.4')
+    .to('#heroActions',{opacity:1,y:0,duration:.6,ease:'power3.out'},'-=.3');
+
+  // Generic scroll reveals
+  gsap.utils.toArray('.fx').forEach(el=>{
+    if(el.closest('.hero')) return; // hero handled separately
+    gsap.to(el,{
+      opacity:1,y:0,duration:.7,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 88%'}
+    });
+  });
+
+  // Parallax on video strip
+  gsap.to('.video-strip video, .video-strip .strip-fallback',{
+    yPercent:-12,ease:'none',
+    scrollTrigger:{trigger:'.video-strip',start:'top bottom',end:'bottom top',scrub:true}
+  });
+
+  // Product cards stagger
+  ScrollTrigger.batch('.product-card',{
+    onEnter: batch => gsap.to(batch,{opacity:1,y:0,stagger:.12,duration:.7,ease:'power3.out'}),
+    start:'top 88%'
+  });
+
+  // Review cards stagger
+  ScrollTrigger.batch('.review-card',{
+    onEnter: batch => gsap.to(batch,{opacity:1,y:0,stagger:.1,duration:.6,ease:'power3.out'}),
+    start:'top 90%'
+  });
+
+  // Final CTA entrance
+  gsap.to('.final-cta',{
+    opacity:1,y:0,duration:.8,ease:'power3.out',
+    scrollTrigger:{trigger:'.final-cta',start:'top 85%'}
+  });
+
+} else {
+  // Reduced motion: show everything
+  document.querySelectorAll('.fx, .hero h1 .line span, #heroTag, #heroSub, #heroActions').forEach(el=>{
+    el.style.opacity='1';el.style.transform='none';
+  });
+}
+</script>
+<script>
+/* ─── CART ─── */
+const PRODUCTS = {
+  'urban-walker':  {id:'urban-walker',  name:'Urban Walker',  price:849000,  img:'product-1.jpg'},
+  'classic-derby': {id:'classic-derby', name:'Classic Derby', price:999000,  img:'product-2.jpg'},
+  'trail-blazer':  {id:'trail-blazer',  name:'Trail Blazer',  price:1149000, img:'product-3.jpg'}
+};
+
+let cart = [];
+try{ cart = JSON.parse(localStorage.getItem('stride_cart')) || []; }catch(e){ cart = []; }
+
+const cartOverlay = document.getElementById('cartOverlay');
+const cartDrawer  = document.getElementById('cartDrawer');
+const cartPanel   = document.getElementById('cartPanel');
+const cartBadge   = document.getElementById('cartBadge');
+const toastEl     = document.getElementById('toast');
+
+const formatRp   = n => 'Rp ' + n.toLocaleString('id-ID');
+const cartCount  = () => cart.reduce((s,i)=>s+i.qty,0);
+const cartTotal  = () => cart.reduce((s,i)=>s+i.price*i.qty,0);
+
+function syncBadge(){
+  const count = cartCount();
+  cartBadge.textContent = count;
+  cartBadge.style.display = count > 0 ? 'flex' : 'none';
+}
+function saveCart(){
+  localStorage.setItem('stride_cart', JSON.stringify(cart));
+  syncBadge();
+}
+
+function showToast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastEl._t);
+  toastEl._t = setTimeout(()=>toastEl.classList.remove('show'), 2200);
+}
+
+function openCart(){
+  cartOverlay.classList.add('open');
+  cartDrawer.classList.add('open');
+  cartDrawer.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart(){
+  cartOverlay.classList.remove('open');
+  cartDrawer.classList.remove('open');
+  cartDrawer.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+
+function addToCart(id){
+  const product = PRODUCTS[id];
+  if(!product) return;
+  const existing = cart.find(i=>i.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...product, qty:1});
+  saveCart();
+  showToast(`${product.name} ditambahkan ke keranjang`);
+  renderCart();
+  openCart();
+}
+function changeQty(id, delta){
+  const item = cart.find(i=>i.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) cart = cart.filter(i=>i.id!==id);
+  saveCart();
+  renderCart();
+}
+function removeItem(id){
+  cart = cart.filter(i=>i.id!==id);
+  saveCart();
+  renderCart();
+}
+
+const iconClose = () => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+const iconBack  = () => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>`;
+const iconTrash = () => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>`;
+const iconCheck = () => `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>`;
+const iconCartOutline = () => `<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>`;
+
+function bindCommon(){
+  const closeBtn = document.getElementById('cartCloseBtn');
+  if(closeBtn) closeBtn.addEventListener('click', closeCart);
+}
+
+function renderCart(){
+  if(cart.length === 0){
+    cartPanel.innerHTML = `
+      <div class="cart-head"><h3>Keranjang Anda</h3><button type="button" class="cart-close" id="cartCloseBtn" aria-label="Tutup">${iconClose()}</button></div>
+      <div class="cart-empty">
+        ${iconCartOutline()}
+        <p>Keranjang Anda masih kosong. Yuk mulai belanja sepatu favoritmu!</p>
+        <a href="#produk" class="btn-primary" id="cartShopBtn">Mulai Belanja</a>
+      </div>`;
+    bindCommon();
+    document.getElementById('cartShopBtn').addEventListener('click', closeCart);
+    return;
+  }
+
+  const itemsHtml = cart.map(i => `
+    <div class="cart-item">
+      <img src="${i.img}" alt="${i.name}">
+      <div class="cart-item-info">
+        <div class="cart-item-top">
+          <div class="cart-item-name">${i.name}</div>
+          <button type="button" class="cart-item-remove" data-remove="${i.id}" aria-label="Hapus ${i.name}">${iconTrash()}</button>
+        </div>
+        <div class="cart-item-price">${formatRp(i.price)}</div>
+        <div class="qty-stepper">
+          <button type="button" data-qty-down="${i.id}" aria-label="Kurangi jumlah">−</button>
+          <span>${i.qty}</span>
+          <button type="button" data-qty-up="${i.id}" aria-label="Tambah jumlah">+</button>
+        </div>
+      </div>
+    </div>`).join('');
+
+  cartPanel.innerHTML = `
+    <div class="cart-head"><h3>Keranjang Anda (${cartCount()})</h3><button type="button" class="cart-close" id="cartCloseBtn" aria-label="Tutup">${iconClose()}</button></div>
+    <div class="cart-body">${itemsHtml}</div>
+    <div class="cart-foot">
+      <div class="cart-subtotal"><span>Subtotal</span><span>${formatRp(cartTotal())}</span></div>
+      <div class="cart-note">Ongkos kirim gratis ke seluruh Indonesia.</div>
+      <button type="button" class="btn-checkout" id="goCheckoutBtn">Checkout →</button>
+      <a href="#produk" class="cart-continue" id="cartContinueBtn">Lanjut belanja</a>
+    </div>`;
+
+  bindCommon();
+  cartPanel.querySelectorAll('[data-qty-up]').forEach(b=>b.addEventListener('click',()=>changeQty(b.dataset.qtyUp,1)));
+  cartPanel.querySelectorAll('[data-qty-down]').forEach(b=>b.addEventListener('click',()=>changeQty(b.dataset.qtyDown,-1)));
+  cartPanel.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>removeItem(b.dataset.remove)));
+  document.getElementById('goCheckoutBtn').addEventListener('click', renderCheckout);
+  document.getElementById('cartContinueBtn').addEventListener('click', closeCart);
+}
+
+function renderCheckout(){
+  const itemsHtml = cart.map(i=>`<div class="checkout-summary-row"><span>${i.qty}× ${i.name}</span><span>${formatRp(i.price*i.qty)}</span></div>`).join('');
+  cartPanel.innerHTML = `
+    <div class="cart-head">
+      <button type="button" class="cart-back" id="cartBackBtn" aria-label="Kembali">${iconBack()}</button>
+      <h3>Checkout</h3>
+      <button type="button" class="cart-close" id="cartCloseBtn" aria-label="Tutup">${iconClose()}</button>
+    </div>
+    <div class="cart-body">
+      <div class="checkout-summary">
+        ${itemsHtml}
+        <div class="checkout-summary-row total"><span>Total</span><span>${formatRp(cartTotal())}</span></div>
+      </div>
+      <form id="checkoutForm">
+        <div class="form-group"><label for="ckName">Nama Lengkap</label><input id="ckName" required placeholder="Nama Anda"></div>
+        <div class="form-group"><label for="ckPhone">No. WhatsApp</label><input id="ckPhone" type="tel" required placeholder="08xxxxxxxxxx"></div>
+        <div class="form-group"><label for="ckAddress">Alamat Pengiriman</label><textarea id="ckAddress" required placeholder="Alamat lengkap, kota, kode pos"></textarea></div>
+        <div class="form-group">
+          <label>Metode Pembayaran</label>
+          <div class="pay-options">
+            <label class="pay-option"><input type="radio" name="pay" value="Transfer Bank" checked> Transfer Bank (BCA/Mandiri)</label>
+            <label class="pay-option"><input type="radio" name="pay" value="E-Wallet"> E-Wallet (OVO/DANA/GoPay)</label>
+            <label class="pay-option"><input type="radio" name="pay" value="COD"> Bayar di Tempat (COD)</label>
+          </div>
+        </div>
+        <button type="submit" class="btn-checkout">Buat Pesanan — ${formatRp(cartTotal())}</button>
+      </form>
+    </div>`;
+  bindCommon();
+  document.getElementById('cartBackBtn').addEventListener('click', renderCart);
+  document.getElementById('checkoutForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    renderSuccess();
+  });
+}
+
+function renderSuccess(){
+  const orderId = 'STR' + Date.now().toString().slice(-6);
+  cartPanel.innerHTML = `
+    <div class="cart-head"><h3></h3><button type="button" class="cart-close" id="cartCloseBtn" aria-label="Tutup">${iconClose()}</button></div>
+    <div class="cart-success">
+      <div class="cart-success-icon">${iconCheck()}</div>
+      <h3>Pesanan Berhasil Dibuat!</h3>
+      <p>Nomor pesanan Anda <span class="order-id">#${orderId}</span>. Tim kami akan menghubungi Anda via WhatsApp untuk konfirmasi pengiriman.</p>
+      <a href="#produk" class="btn-primary" id="cartDoneBtn">Lanjut Belanja</a>
+    </div>`;
+  cart = [];
+  saveCart();
+  bindCommon();
+  document.getElementById('cartDoneBtn').addEventListener('click', ()=>{ closeCart(); setTimeout(renderCart, 400); });
+}
+
+document.querySelectorAll('[data-add-cart]').forEach(btn=>{
+  btn.addEventListener('click', () => addToCart(btn.dataset.addCart));
+});
+document.getElementById('cartBtn').addEventListener('click', () => { renderCart(); openCart(); });
+cartOverlay.addEventListener('click', closeCart);
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeCart(); });
+
+syncBadge();
+renderCart();
 </script>
 </body>
 </html>
