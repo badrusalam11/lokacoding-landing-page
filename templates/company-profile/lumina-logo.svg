@@ -1,0 +1,20 @@
+<svg width="512" height="512" viewBox="120 80 260 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <linearGradient id="lumina" x1="96" y1="96" x2="416" y2="416">
+      <stop offset="0%" stop-color="#6E7FE0"/>
+      <stop offset="100%" stop-color="#4F6BFF"/>
+    </linearGradient>
+  </defs>
+
+  <path
+    d="M160 96
+       V340
+       C160 390 190 416 240 416
+       H352"
+    stroke="url(#lumina)"
+    stroke-width="42"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+</svg>

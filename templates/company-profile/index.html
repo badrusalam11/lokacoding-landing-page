@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lumina — Strategic Business Consulting</title>
+<link rel="icon" type="image/svg+xml" href="/templates/company-profile/lumina-logo.svg">
 <meta name="description" content="Lumina membantu perusahaan merangkai strategi menjadi hasil yang nyata, lewat pendekatan konsultasi yang terukur dan terpercaya.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,8 +75,14 @@
     font-weight:500;
     font-size:.95rem;
     letter-spacing:.02em;
+    display:flex;
+    align-items:flex-end;
+    gap:0px;
   }
-  .logo span{color:var(--thread-blue);}
+  .logo img{
+    display:inline-block;
+  }
+  /* .logo span{color:var(--thread-blue);} */
   .nav-links{display:flex;gap:36px;list-style:none;}
   .nav-links a{
     font-size:.88rem;color:var(--muted);position:relative;transition:color .3s;
@@ -273,7 +280,9 @@
 <body>
 
 <nav id="nav">
-  <a href="#top" class="logo">LUMINA<span>.</span></a>
+  <a href="#top" class="logo">
+    <img src="lumina-logo.svg" alt="Lumina Logo" width="40" height="40"><span>umina<span style="color:var(--thread-blue)">.</span></span>
+  </a>
   <ul class="nav-links">
     <li><a href="#layanan">Layanan</a></li>
     <li><a href="#proses">Proses</a></li>
