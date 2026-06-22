@@ -120,7 +120,7 @@
     position:relative; z-index:2; width:100%;
   }
   .hero-content .wrap{ padding-bottom:9vh; }
-  .hero-content .eyebrow{ display:block; margin-bottom:22px; opacity:0; }
+  .hero-content .eyebrow{ display:block; margin-bottom:22px; opacity:.85; }
   .hero-title{
     font-size:clamp(2.4rem,6.4vw,5.4rem);
     max-width:14ch;
@@ -128,7 +128,7 @@
   }
   .hero-title .word{ display:inline-block; overflow:hidden; }
   .hero-title .word span{
-    display:inline-block; transform:translateY(110%);
+    display:inline-block; transform:translateY(0);
     background:linear-gradient(180deg,var(--paper),var(--mist));
     -webkit-background-clip:text; background-clip:text; color:transparent;
   }
@@ -136,12 +136,12 @@
     font-size:clamp(1rem,1.6vw,1.18rem);
     color:var(--muted);
     max-width:38ch;
-    opacity:0; transform:translateY(14px);
+    opacity:1; transform:translateY(0);
   }
   .scroll-cue{
     position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
     z-index:2; display:flex; flex-direction:column; align-items:center; gap:10px;
-    opacity:0; transition:opacity .3s;
+    opacity:1; transition:opacity .3s;
   }
   .scroll-cue span{
     font-family:'JetBrains Mono',monospace; font-size:.68rem; color:var(--muted);
@@ -434,6 +434,20 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
   function setupHero(){
     const dur = video.duration || 4;
 
+    // Set initial hidden state for animations
+    gsap.set('#heroEyebrow', { opacity: 0 });
+    gsap.set('.hero-title .word span', { y: '110%' });
+    gsap.set('#heroSub', { opacity: 0, y: 14 });
+    gsap.set('#scrollCue', { opacity: 0 });
+
+    // AUTO-PLAY: Animate hero content on page load
+    const heroTL = gsap.timeline({ delay: 0.3 });
+    heroTL
+      .to('#heroEyebrow', { opacity: .85, duration: 0.6, ease: 'power2.out' })
+      .to('.hero-title .word span', { y: 0, duration: 0.8, stagger: 0.08, ease: 'power3.out' }, 0.2)
+      .to('#heroSub', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.6)
+      .to('#scrollCue', { opacity: 1, duration: 0.5, ease: 'power2.out' }, 1.0);
+
     // Pin the hero + scrub video as user scrolls
     const st = ScrollTrigger.create({
       trigger: heroPin,
@@ -445,19 +459,15 @@ if (!reduceMotion && window.gsap && window.ScrollTrigger) {
       }
     });
 
-    // Headline word-by-word reveal, tied to early scroll progress
-    gsap.timeline({
-      scrollTrigger: { trigger: heroPin, start: 'top top', end: '35% top', scrub: true }
-    })
-    .to('#heroEyebrow', { opacity: .85, duration: .2 })
-    .to('.hero-title .word span', { y: 0, duration: .3, stagger: .12, ease:'power3.out' }, 0.05)
-    .to('#heroSub', { opacity: 1, y: 0, duration: .3 }, 0.4);
-
-    // Scroll cue fades in then out
-    gsap.timeline({ scrollTrigger:{ trigger: heroPin, start:'top top', end:'bottom top', scrub:true }})
-      .to('#scrollCue', { opacity:1, duration:.08 })
-      .to('#scrollCue', { opacity:0, duration:.1 }, .12)
-      .to('#scrollCue', { opacity:0, duration:.1 }, .85);
+    // Fade out scroll cue when scrolling
+    gsap.timeline({ 
+      scrollTrigger: { 
+        trigger: heroPin, 
+        start: '10% top', 
+        end: '30% top', 
+        scrub: true 
+      }
+    }).to('#scrollCue', { opacity: 0, duration: 0.3 });
   }
 
   if (video.readyState >= 1) setupHero();
