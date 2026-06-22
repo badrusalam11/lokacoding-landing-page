@@ -71,11 +71,15 @@
   .c2{width:64px;height:24px;top:130px;right:90px;animation-delay:2.4s;}
   .c2::before{width:30px;height:30px;top:-15px;left:6px;}
   .c2::after{width:24px;height:24px;top:-10px;left:32px;}
+  .c3{width:50px;height:20px;bottom:140px;left:54px;animation-delay:4.8s;}
+  .c3::before{width:22px;height:22px;top:-11px;left:5px;}
+  .c3::after{width:18px;height:18px;top:-8px;left:24px;}
   @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(14px)}}
   .scene-torii{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);font-size:4.6rem;color:var(--forest-d);opacity:.92;}
   .scene-leaf{position:absolute;color:var(--forest);opacity:.8;animation:bob 4s ease-in-out infinite;}
   .l1{font-size:1.3rem;top:42%;left:14%;animation-delay:.4s;}
   .l2{font-size:1.05rem;top:60%;right:16%;animation-delay:1.6s;}
+  .l3{font-size:.85rem;top:27%;right:32%;animation-delay:2.8s;}
   @keyframes bob{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(12deg)}}
   .hill-back{position:absolute;left:-25%;bottom:-90px;width:150%;height:220px;border-radius:50%;background:var(--sage);opacity:.9;}
   .hill-front{position:absolute;left:-15%;bottom:-120px;width:135%;height:200px;border-radius:50%;background:var(--forest);}
@@ -86,40 +90,36 @@
   .float-card .l{font-size:.72rem;color:var(--muted);}
   @media(max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
 
+  /* placeholder badge: tampil di atas tiap fallback video, hilang otomatis saat video asli ditemukan */
+  .video-ph-badge{position:absolute;top:16px;left:16px;z-index:3;background:rgba(70,64,47,.82);color:var(--cream2);
+    font-size:.66rem;font-weight:700;padding:7px 13px;border-radius:100px;display:flex;align-items:center;gap:7px;
+    letter-spacing:.01em;backdrop-filter:blur(4px);}
+  .has-video .video-ph-badge{display:none;}
+
   section{padding:110px 0;}
   .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--forest-d);margin-bottom:16px;}
   .sec-h{font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:800;line-height:1.3;}
   .sec-h .hl{color:var(--forest-d);}
 
-  /* immersive video strip */
-  .video-strip{position:relative;height:80vh;min-height:480px;overflow:hidden;padding:0;}
-  .video-strip video{position:absolute;inset:0;width:100%;height:130%;top:-15%;object-fit:cover;will-change:transform;}
-  .strip-fallback{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;
-    background:linear-gradient(180deg,var(--sky) 0%,#E4EFE0 55%,var(--cream2) 100%);}
-  .strip-fallback .f-sun{position:absolute;top:8%;right:10%;width:180px;height:180px;border-radius:50%;
-    background:radial-gradient(circle,var(--sun) 0%,rgba(240,206,134,0) 72%);}
-  .strip-fallback .f-cloud{position:absolute;background:#fff;border-radius:60px;opacity:.85;animation:drift 10s ease-in-out infinite;}
-  .strip-fallback .f-cloud::before,.strip-fallback .f-cloud::after{content:'';position:absolute;background:#fff;border-radius:50%;}
-  .f-c1{width:110px;height:36px;top:16%;left:12%;}
-  .f-c1::before{width:50px;height:50px;top:-26px;left:10px;}
-  .f-c1::after{width:40px;height:40px;top:-18px;left:55px;}
-  .f-c2{width:80px;height:28px;top:26%;right:20%;animation-delay:2.6s;}
-  .f-c2::before{width:36px;height:36px;top:-18px;left:8px;}
-  .f-c2::after{width:30px;height:30px;top:-13px;left:40px;}
-  .strip-fallback .f-torii{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-size:7rem;color:var(--forest-d);opacity:.9;}
-  .strip-fallback .f-hill{position:absolute;left:-10%;bottom:-160px;width:120%;height:300px;border-radius:50%;background:var(--forest);opacity:.95;}
-  .strip-fallback .f-tag{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:.76rem;font-weight:700;
-    letter-spacing:.06em;text-transform:uppercase;color:var(--forest-d);opacity:.75;white-space:nowrap;}
-  .strip-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(46,42,30,.1) 0%,rgba(46,42,30,.62) 100%);}
-  .strip-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 24px;}
-  .strip-content .eyebrow{color:var(--sun);justify-content:center;display:flex;}
-  .strip-content h2{color:#fff;font-size:clamp(1.8rem,3.6vw,2.8rem);max-width:20ch;margin-bottom:16px;text-shadow:0 2px 24px rgba(0,0,0,.18);}
-  .strip-content h2 .hl{color:var(--sun);}
-  .strip-content p{color:rgba(255,255,255,.85);max-width:40ch;margin:0 auto 30px;font-size:.96rem;line-height:1.7;}
-  .btn-white-soft{background:#fff;color:var(--forest-d);font-weight:700;font-size:.86rem;padding:15px 30px;border-radius:100px;
-    text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s;}
-  .btn-white-soft:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.18);}
-  @media(max-width:640px){ .video-strip{height:64vh;min-height:420px;} .strip-fallback .f-torii{font-size:4.6rem;} }
+  /* video kelas showcase */
+  #video{background:#fff;}
+  .kelas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .kelas-card{background:var(--cream);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .25s,box-shadow .25s;}
+  .kelas-card:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(91,127,94,.14);}
+  .kelas-frame{position:relative;aspect-ratio:4/5;overflow:hidden;}
+  .kelas-frame.v1{background:linear-gradient(160deg,var(--sky) 0%,var(--cream2) 68%);}
+  .kelas-frame.v2{background:linear-gradient(160deg,var(--blush) 0%,var(--cream2) 68%);}
+  .kelas-frame.v3{background:linear-gradient(160deg,var(--sage) 0%,var(--cream2) 68%);}
+  .kelas-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+  .kelas-frame.has-video video{display:block;}
+  .kelas-frame.has-video .kelas-ico{display:none;}
+  .kelas-ico{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:5rem;color:var(--forest-d);opacity:.3;}
+  .kelas-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;
+    background:rgba(255,255,255,.92);color:var(--forest-d);display:flex;align-items:center;justify-content:center;font-size:.95rem;
+    box-shadow:0 8px 22px rgba(70,64,47,.18);z-index:2;}
+  .has-video .kelas-play{display:none;}
+  .kelas-cap{padding:20px 22px 24px;}
+  @media(max-width:900px){ .kelas-grid{grid-template-columns:1fr;} }
 
   /* stats */
   #stats{background:var(--forest);}
@@ -233,16 +233,19 @@
       </div>
     </div>
     <div class="hero-scene reveal" id="heroScene">
-      <!-- Ganti ghibli.mp4 dengan video kelas asli Anda -->
+      <!-- Placeholder: ganti src di bawah dengan hero-loop.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
       <video id="heroVideo" autoplay muted loop playsinline preload="auto">
-        <source src="assets/mp4/ghibli.mp4" type="video/mp4">
+        <source src="assets/mp4/hero-loop.mp4" type="video/mp4">
       </video>
+      <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> hero-loop.mp4</div>
       <div class="scene-sun"></div>
       <div class="scene-cloud c1"></div>
       <div class="scene-cloud c2"></div>
+      <div class="scene-cloud c3"></div>
       <i class="fa-solid fa-torii-gate scene-torii"></i>
       <i class="fa-solid fa-leaf scene-leaf l1"></i>
       <i class="fa-solid fa-leaf scene-leaf l2"></i>
+      <i class="fa-solid fa-leaf scene-leaf l3"></i>
       <div class="hill-back"></div>
       <div class="hill-front"></div>
       <div class="float-card">
@@ -253,25 +256,59 @@
   </div>
 </section>
 
-<section class="video-strip" id="video">
-  <!-- Ganti ambience.mp4 dengan video kelas asli Anda (rasio lanskap, loop halus 10-20 detik) -->
-  <video id="classVideo" autoplay muted loop playsinline preload="auto">
-    <source src="assets/mp4/ambience.mp4" type="video/mp4">
-  </video>
-  <div class="strip-fallback" id="stripFallback">
-    <div class="f-sun"></div>
-    <div class="f-cloud f-c1"></div>
-    <div class="f-cloud f-c2"></div>
-    <i class="fa-solid fa-torii-gate f-torii"></i>
-    <div class="f-hill"></div>
-    <span class="f-tag">✦ Video kelas akan ditampilkan di sini</span>
-  </div>
-  <div class="strip-overlay"></div>
-  <div class="strip-content reveal">
-    <div class="eyebrow">Cuplikan Kelas</div>
-    <h2>Rasakan suasana belajar yang <span class="hl">tenang dan menyenangkan.</span></h2>
-    <p>Setiap sesi kami desain agar terasa seperti menonton cerita favoritmu — pelan, hangat, dan mudah diikuti.</p>
-    <a href="#cta" class="btn-white-soft">Coba Kelas Gratis →</a>
+<section id="video">
+  <div class="container">
+    <div class="prog-hd reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Video Kelas</div>
+      <h2 class="sec-h">Intip suasana <span class="hl">tiap jalur belajar.</span></h2>
+    </div>
+    <div class="kelas-grid">
+      <div class="kelas-card reveal">
+        <div class="kelas-frame v1">
+          <!-- Placeholder: ganti src di bawah dengan kelas-hiragana.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
+          <video autoplay muted loop playsinline preload="auto">
+            <source src="assets/mp4/kelas-hiragana.mp4" type="video/mp4">
+          </video>
+          <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> kelas-hiragana.mp4</div>
+          <i class="fa-solid fa-pen-fancy kelas-ico"></i>
+          <div class="kelas-play"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="kelas-cap">
+          <div class="prog-t">Hiragana &amp; Katakana</div>
+          <div class="prog-d">Cuplikan latihan menulis huruf dasar dengan tempo yang santai.</div>
+        </div>
+      </div>
+      <div class="kelas-card reveal">
+        <div class="kelas-frame v2">
+          <!-- Placeholder: ganti src di bawah dengan kelas-kaiwa.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
+          <video autoplay muted loop playsinline preload="auto">
+            <source src="assets/mp4/kelas-kaiwa.mp4" type="video/mp4">
+          </video>
+          <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> kelas-kaiwa.mp4</div>
+          <i class="fa-solid fa-comments kelas-ico"></i>
+          <div class="kelas-play"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="kelas-cap">
+          <div class="prog-t">Kaiwa (Percakapan)</div>
+          <div class="prog-d">Cuplikan latihan ngobrol santai, biar makin percaya diri bicara.</div>
+        </div>
+      </div>
+      <div class="kelas-card reveal">
+        <div class="kelas-frame v3">
+          <!-- Placeholder: ganti src di bawah dengan kelas-kanji.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
+          <video autoplay muted loop playsinline preload="auto">
+            <source src="assets/mp4/kelas-kanji.mp4" type="video/mp4">
+          </video>
+          <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> kelas-kanji.mp4</div>
+          <i class="fa-solid fa-torii-gate kelas-ico"></i>
+          <div class="kelas-play"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="kelas-cap">
+          <div class="prog-t">Kanji</div>
+          <div class="prog-d">Cuplikan belajar kanji lewat cerita dan ilustrasi yang mudah diingat.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -302,10 +339,11 @@
 <section id="why">
   <div class="container why-grid">
     <div class="nook reveal" id="nookFrame">
-      <!-- Ganti book.mp4 dengan video kelas asli Anda -->
+      <!-- Placeholder: ganti src di bawah dengan nook-study.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
       <video id="nookVideo" autoplay muted loop playsinline preload="auto">
-        <source src="assets/mp4/book.mp4" type="video/mp4">
+        <source src="assets/mp4/nook-study.mp4" type="video/mp4">
       </video>
+      <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> nook-study.mp4</div>
       <i class="fa-solid fa-seedling nook-leaf"></i>
       <i class="fa-solid fa-book-open nook-mid"></i>
       <i class="fa-solid fa-mug-hot nook-cup"></i>
@@ -389,22 +427,13 @@
   const heroVideo = document.getElementById('heroVideo');
   autoRevealVideo(heroVideo, () => heroScene.classList.add('has-video'));
 
-  const stripFallback = document.getElementById('stripFallback');
-  const classVideo = document.getElementById('classVideo');
-  autoRevealVideo(classVideo, () => { stripFallback.style.display = 'none'; });
+  document.querySelectorAll('.kelas-frame').forEach(frame => {
+    autoRevealVideo(frame.querySelector('video'), () => frame.classList.add('has-video'));
+  });
 
   const nookFrame = document.getElementById('nookFrame');
   const nookVideo = document.getElementById('nookVideo');
   autoRevealVideo(nookVideo, () => nookFrame.classList.add('has-video'));
-
-  /* parallax halus pada video saat scroll */
-  const videoStrip = document.querySelector('.video-strip');
-  window.addEventListener('scroll', () => {
-    const rect = videoStrip.getBoundingClientRect();
-    if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-    const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
-    classVideo.style.transform = `translateY(${(progress - 0.5) * 40}px)`;
-  }, { passive: true });
 </script>
 </body>
 </html>
