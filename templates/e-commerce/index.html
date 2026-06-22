@@ -51,7 +51,10 @@ nav.scrolled{
   backdrop-filter:blur(16px);
   box-shadow:0 1px 0 var(--border);
 }
-.nav-logo{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:.06em;}
+.nav-logo{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:.06em;display:inline-flex;align-items:center;gap:8px;}
+.logo-mark{flex-shrink:0;}
+.logo-mark .bar{fill:var(--ink);}
+.logo-mark .bar.accent{fill:var(--accent);}
 .nav-links{display:flex;gap:32px;list-style:none;}
 .nav-links a{font-size:.88rem;font-weight:600;color:var(--ink);opacity:.68;transition:opacity .25s;}
 .nav-links a:hover{opacity:1;}
@@ -217,16 +220,32 @@ nav.scrolled{
 
 /* ─── USP ─── */
 .usp{padding:clamp(60px,10vw,100px) 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.usp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center;}
-.usp-icon{
-  width:52px;height:52px;border-radius:50%;
-  background:var(--highlight);color:var(--accent);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 16px;font-size:1.3rem;
+.usp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.usp-item{
+  position:relative;text-align:center;
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  padding:42px 26px 34px;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease);
 }
-.usp-item h3{font-size:1.05rem;margin-bottom:6px;}
-.usp-item p{font-size:.88rem;color:var(--stone);line-height:1.55;max-width:28ch;margin:0 auto;}
-@media(max-width:640px){.usp-grid{grid-template-columns:1fr;gap:36px;}}
+.usp-item:hover{transform:translateY(-6px);box-shadow:0 24px 48px -18px rgba(26,26,24,0.16);border-color:transparent;}
+.usp-index{
+  position:absolute;top:18px;right:22px;
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:.72rem;
+  color:var(--border);letter-spacing:.05em;
+}
+.usp-icon{
+  width:68px;height:68px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,var(--highlight),var(--soft));
+  color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 22px;
+  box-shadow:0 12px 28px -10px rgba(255,77,0,0.3),inset 0 0 0 1px rgba(255,77,0,0.1);
+  transition:transform .4s var(--ease);
+}
+.usp-item:hover .usp-icon{transform:scale(1.08) rotate(-4deg);}
+.usp-item h3{font-size:1.08rem;margin-bottom:8px;}
+.usp-item p{font-size:.88rem;color:var(--stone);line-height:1.55;max-width:26ch;margin:0 auto;}
+@media(max-width:640px){.usp-grid{grid-template-columns:1fr;gap:18px;}}
 
 /* ─── REVIEWS ─── */
 .reviews{padding:clamp(80px,12vw,130px) 0;}
@@ -383,11 +402,13 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
 .form-group textarea{resize:vertical;min-height:70px;}
 .pay-options{display:flex;flex-direction:column;gap:10px;}
 .pay-option{
-  display:flex;align-items:center;gap:10px;border:1.5px solid var(--border);border-radius:10px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+  border:1.5px solid var(--border);border-radius:10px;
   padding:12px 14px;cursor:pointer;font-size:.88rem;transition:border-color .2s,background .2s;
 }
 .pay-option:has(input:checked){border-color:var(--ink);background:var(--highlight);}
-.pay-option input{accent-color:var(--accent);}
+.pay-option span{flex:1;}
+.pay-option input{accent-color:var(--accent);width:18px;height:18px;margin:0 0 0 auto;flex-shrink:0;}
 
 /* success view */
 .cart-success{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 28px;gap:16px;}
@@ -432,7 +453,14 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="nav-logo">STRIDE</a>
+  <a href="#" class="nav-logo">
+    <svg class="logo-mark" width="28" height="28" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+      <rect class="bar" x="3" y="21" width="7" height="12" rx="3"/>
+      <rect class="bar" x="14.5" y="14" width="7" height="19" rx="3"/>
+      <rect class="bar accent" x="26" y="7" width="7" height="26" rx="3"/>
+    </svg>
+    STRIDE
+  </a>
   <ul class="nav-links">
     <li><a href="#produk" class="text-white">Shop</a></li>
     <li><a href="#tentang" class="text-white">Tentang</a></li>
@@ -453,7 +481,7 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
 <section class="hero" id="hero">
   <!-- Replace stride-walk.mp4 with your video -->
   <video autoplay muted loop playsinline preload="auto" poster="stride-poster.jpg" id="heroVideo">
-    <source src="stride-walk.mp4" type="video/mp4">
+    <source src="/templates/e-commerce/assets/mp4/stride-walk.mp4" type="video/mp4">
   </video>
   <!-- Fallback shown when video hasn't loaded -->
   <div class="hero-fallback"><span>▶ Video sepatu berjalan akan ditampilkan di sini</span></div>
@@ -507,7 +535,7 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
         <div class="product-img" style="background:#E8E3DA;">
           <span class="product-badge">Best Seller</span>
           <div class="img-inner">
-            <img src="product-1.jpg" alt="STRIDE Urban Walker — sneakers kasual pria warna hitam" loading="lazy" width="1000" height="667">
+            <img src="/templates/e-commerce/assets/jpg/product-1.jpg" alt="STRIDE Urban Walker — sneakers kasual pria warna hitam" loading="lazy" width="1000" height="667">
           </div>
           <div class="product-quick"><button type="button" data-add-cart="urban-walker"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0"/></svg> Tambah ke Keranjang</button></div>
         </div>
@@ -525,7 +553,7 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
         <div class="product-img" style="background:#DDE3E8;">
           <span class="product-badge" style="background:var(--ink);">New</span>
           <div class="img-inner">
-            <img src="product-2.jpg" alt="STRIDE Classic Derby — sepatu formal kulit coklat unisex" loading="lazy" width="1000" height="667">
+            <img src="/templates/e-commerce/assets/jpg/product-2.jpg" alt="STRIDE Classic Derby — sepatu formal kulit coklat unisex" loading="lazy" width="1000" height="667">
           </div>
           <div class="product-quick"><button type="button" data-add-cart="classic-derby"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0"/></svg> Tambah ke Keranjang</button></div>
         </div>
@@ -543,7 +571,7 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
         <div class="product-img" style="background:#E5E0D5;">
           <span class="product-badge" style="background:#4A5D43;">Stok Terbatas</span>
           <div class="img-inner">
-            <img src="product-3.jpg" alt="STRIDE Trail Blazer — sepatu boots outdoor sol tebal" loading="lazy" width="1000" height="1000">
+            <img src="/templates/e-commerce/assets/jpg/product-3.jpg" alt="STRIDE Trail Blazer — sepatu boots outdoor sol tebal" loading="lazy" width="1000" height="1000">
           </div>
           <div class="product-quick"><button type="button" data-add-cart="trail-blazer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0"/></svg> Tambah ke Keranjang</button></div>
         </div>
@@ -564,7 +592,7 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
 <!-- IMMERSIVE VIDEO STRIP -->
 <section class="video-strip" id="tentang">
   <video autoplay muted loop playsinline preload="metadata" id="stripVideo">
-    <source src="stride-walk.mp4" type="video/mp4">
+    <source src="/templates/e-commerce/assets/mp4/stride-walk.mp4" type="video/mp4">
   </video>
   <div class="strip-fallback"><span>▶ Video close-up sepatu berjalan</span></div>
   <div class="strip-overlay"></div>
@@ -580,17 +608,20 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
   <div class="wrap">
     <div class="usp-grid">
       <div class="usp-item fx">
-        <div class="usp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <span class="usp-index">01</span>
+        <div class="usp-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <h3>Gratis Ongkir</h3>
         <p>Ke seluruh Indonesia, tanpa minimum belanja.</p>
       </div>
       <div class="usp-item fx fx-delay-1">
-        <div class="usp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+        <span class="usp-index">02</span>
+        <div class="usp-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
         <h3>30 Hari Garansi</h3>
         <p>Tidak cocok? Tukar ukuran atau kembalikan — gratis.</p>
       </div>
       <div class="usp-item fx fx-delay-2">
-        <div class="usp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+        <span class="usp-index">03</span>
+        <div class="usp-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
         <h3>Handcrafted</h3>
         <p>Setiap pasang dibuat manual oleh pengrajin berpengalaman.</p>
       </div>
@@ -643,7 +674,14 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);margin-top:clamp(6
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="nav-logo" style="margin-bottom:12px;">STRIDE</div>
+        <div class="nav-logo" style="margin-bottom:12px;">
+          <svg class="logo-mark" width="28" height="28" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect class="bar" x="3" y="21" width="7" height="12" rx="3"/>
+            <rect class="bar" x="14.5" y="14" width="7" height="19" rx="3"/>
+            <rect class="bar accent" x="26" y="7" width="7" height="26" rx="3"/>
+          </svg>
+          STRIDE
+        </div>
         <p>Sepatu handcrafted Indonesia untuk langkah yang berarti.</p>
       </div>
       <div class="footer-col">
@@ -765,9 +803,9 @@ if(!rmq && window.gsap && window.ScrollTrigger){
 <script>
 /* ─── CART ─── */
 const PRODUCTS = {
-  'urban-walker':  {id:'urban-walker',  name:'Urban Walker',  price:849000,  img:'product-1.jpg'},
-  'classic-derby': {id:'classic-derby', name:'Classic Derby', price:999000,  img:'product-2.jpg'},
-  'trail-blazer':  {id:'trail-blazer',  name:'Trail Blazer',  price:1149000, img:'product-3.jpg'}
+  'urban-walker':  {id:'urban-walker',  name:'Urban Walker',  price:849000,  img:'/templates/e-commerce/assets/jpg/product-1.jpg'},
+  'classic-derby': {id:'classic-derby', name:'Classic Derby', price:999000,  img:'/templates/e-commerce/assets/jpg/product-2.jpg'},
+  'trail-blazer':  {id:'trail-blazer',  name:'Trail Blazer',  price:1149000, img:'/templates/e-commerce/assets/jpg/product-3.jpg'}
 };
 
 let cart = [];
@@ -918,9 +956,9 @@ function renderCheckout(){
         <div class="form-group">
           <label>Metode Pembayaran</label>
           <div class="pay-options">
-            <label class="pay-option"><input type="radio" name="pay" value="Transfer Bank" checked> Transfer Bank (BCA/Mandiri)</label>
-            <label class="pay-option"><input type="radio" name="pay" value="E-Wallet"> E-Wallet (OVO/DANA/GoPay)</label>
-            <label class="pay-option"><input type="radio" name="pay" value="COD"> Bayar di Tempat (COD)</label>
+            <label class="pay-option"><span>Transfer Bank (BCA/Mandiri)</span><input type="radio" name="pay" value="Transfer Bank" checked></label>
+            <label class="pay-option"><span>E-Wallet (OVO/DANA/GoPay)</span><input type="radio" name="pay" value="E-Wallet"></label>
+            <label class="pay-option"><span>Bayar di Tempat (COD)</span><input type="radio" name="pay" value="COD"></label>
           </div>
         </div>
         <button type="submit" class="btn-checkout">Buat Pesanan — ${formatRp(cartTotal())}</button>
