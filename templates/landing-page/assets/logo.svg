@@ -1,0 +1,18 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <circle cx="24" cy="24" r="24" fill="url(#gradient)"/>
+  
+  <!-- Lightning bolt / rocket shape representing "Nova" -->
+  <path d="M24 8L28 20H32L24 34L20 22H16L24 8Z" fill="#C4F042" stroke="#0A0A12" stroke-width="0.5" stroke-linejoin="round"/>
+  
+  <!-- Accent dot for energy -->
+  <circle cx="32" cy="14" r="2.5" fill="#C4F042" opacity="0.8"/>
+  
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
+    </linearGradient>
+  </defs>
+</svg>

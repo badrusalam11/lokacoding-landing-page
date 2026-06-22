@@ -1,339 +1,530 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vertex & Partners — Template Company Profile | Loka Coding</title>
-<meta name="robots" content="noindex, follow"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumina — Strategic Business Consulting</title>
+<link rel="icon" type="image/svg+xml" href="/templates/company-profile/lumina-logo.svg">
+<meta name="description" content="Lumina membantu perusahaan merangkai strategi menjadi hasil yang nyata, lewat pendekatan konsultasi yang terukur dan terpercaya.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0B132B; --navy-2:#142850; --gold:#C9A227; --gold-light:#E8D9A8;
-    --cream:#F7F5F0; --ink:#1B1B1B; --muted:#6B7280; --line:#E7E2D6;
+    --void:#06070A;
+    --panel:#0B0E18;
+    --panel-2:#0E1220;
+    --thread-blue:#4F6BFF;
+    --thread-indigo:#6E7FE0;
+    --mist:#C7CBF2;
+    --paper:#EDEFF7;
+    --muted:#767C99;
+    --hairline:rgba(199,203,242,0.12);
+    --ease:cubic-bezier(.16,.84,.44,1);
   }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);overflow-x:hidden;}
-  h1,h2,h3,.disp{font-family:'Fraunces',serif;}
-  a{color:inherit;}
-  .container{max-width:1180px;margin:0 auto;padding:0 40px;}
-  img{max-width:100%;display:block;}
 
-  /* ── Loka Coding preview bar ── */
-  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;
-    background:#05070D;color:#fff;display:flex;align-items:center;justify-content:space-between;
-    padding:0 20px;font-size:.74rem;font-weight:500;}
-  .lc-bar a{text-decoration:none;}
-  .lc-bar-back{color:#94A3B8;display:flex;align-items:center;gap:7px;transition:color .2s;}
-  .lc-bar-back:hover{color:#fff;}
-  .lc-bar-mid{color:#64748B;display:none;}
-  .lc-bar-order{background:var(--gold);color:#1B1B1B;font-weight:700;padding:7px 16px;border-radius:7px;display:flex;align-items:center;gap:6px;transition:opacity .2s;}
-  .lc-bar-order:hover{opacity:.85;}
-  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
-
-  /* ── Nav ── */
-  nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:78px;
-    display:flex;align-items:center;justify-content:space-between;padding:0 40px;
-    background:rgba(11,19,43,.0);transition:background .3s,backdrop-filter .3s;}
-  nav.scrolled{background:rgba(247,245,240,.95);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line);}
-  .brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;letter-spacing:.01em;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px;}
-  nav.scrolled .brand{color:var(--navy);}
-  .brand .mark{width:34px;height:34px;border:1.5px solid var(--gold);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--gold);}
-  .nlinks{display:flex;gap:38px;list-style:none;}
-  .nlinks a{font-size:.82rem;font-weight:500;color:rgba(255,255,255,.75);text-decoration:none;transition:color .2s;}
-  nav.scrolled .nlinks a{color:var(--muted);}
-  .nlinks a:hover{color:var(--gold);}
-  .nav-cta{font-size:.78rem;font-weight:600;background:var(--gold);color:var(--navy);border:none;padding:11px 22px;border-radius:3px;cursor:pointer;text-decoration:none;}
-  .mob-btn{display:none;background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;}
-  nav.scrolled .mob-btn{color:var(--navy);}
-
-  /* ── Hero ── */
-  #hero{position:relative;background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
-    padding:190px 0 100px;overflow:hidden;}
-  #hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(201,162,39,.18) 1px,transparent 1px);background-size:26px 26px;mask-image:radial-gradient(ellipse 60% 60% at 75% 30%,#000 30%,transparent 75%);}
-  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;}
-  .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);margin-bottom:26px;}
-  .hero-eyebrow::before{content:'';width:26px;height:1px;background:var(--gold);}
-  .hero-h{font-size:clamp(2.3rem,4.4vw,3.5rem);font-weight:600;line-height:1.12;color:#fff;margin-bottom:24px;letter-spacing:-.01em;}
-  .hero-h em{font-style:italic;color:var(--gold-light);}
-  .hero-p{font-size:1rem;color:rgba(255,255,255,.68);line-height:1.8;max-width:460px;margin-bottom:36px;}
-  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px;}
-  .btn-gold{background:var(--gold);color:var(--navy);font-weight:700;font-size:.85rem;padding:15px 30px;border-radius:3px;text-decoration:none;border:1px solid var(--gold);transition:transform .2s,box-shadow .2s;}
-  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(201,162,39,.3);}
-  .btn-line{color:#fff;font-weight:600;font-size:.85rem;padding:15px 26px;border:1px solid rgba(255,255,255,.25);border-radius:3px;text-decoration:none;transition:border-color .2s,background .2s;}
-  .btn-line:hover{border-color:var(--gold);background:rgba(201,162,39,.08);}
-  .hero-trust{display:flex;align-items:center;gap:16px;color:rgba(255,255,255,.55);font-size:.78rem;}
-  .hero-trust strong{color:#fff;font-weight:700;}
-  .hero-img-wrap{position:relative;border:1px solid rgba(201,162,39,.35);padding:14px;}
-  .hero-img-wrap img{aspect-ratio:4/4.6;object-fit:cover;}
-  .hero-img-tag{position:absolute;bottom:-22px;left:-22px;background:var(--gold);color:var(--navy);padding:18px 22px;font-size:.78rem;font-weight:700;max-width:200px;line-height:1.4;}
-  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr;} .hero-img-wrap{max-width:340px;} }
-
-  /* ── Logos marquee ── */
-  #logos{background:var(--navy-2);padding:34px 0;overflow:hidden;}
-  .logos-track{display:flex;gap:64px;width:max-content;animation:lscroll 26s linear infinite;align-items:center;}
-  @keyframes lscroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-  .logo-chip{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;color:rgba(255,255,255,.4);white-space:nowrap;letter-spacing:.02em;}
-
-  /* ── Section shared ── */
-  section{padding:110px 0;}
-  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
-  .eyebrow::before{content:'';width:22px;height:2px;background:var(--gold);}
-  .sec-h{font-size:clamp(1.7rem,3vw,2.5rem);font-weight:600;line-height:1.15;color:var(--navy);letter-spacing:-.01em;}
-  .sec-h em{font-style:italic;color:var(--gold);}
-  .sec-sub{color:var(--muted);font-size:.95rem;line-height:1.75;max-width:520px;margin-top:16px;}
-
-  /* ── Services ── */
-  #services .hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:30px;}
-  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-  .svc-card{background:var(--cream);padding:44px 36px;transition:background .3s;}
-  .svc-card:hover{background:#fff;}
-  .svc-num{font-family:'Fraunces',serif;font-size:.85rem;font-weight:600;color:var(--gold);margin-bottom:30px;}
-  .svc-t{font-size:1.2rem;font-weight:600;font-family:'Fraunces',serif;color:var(--navy);margin-bottom:14px;}
-  .svc-d{font-size:.86rem;color:var(--muted);line-height:1.75;}
-
-  /* ── Stats band ── */
-  #stats{background:var(--navy);padding:80px 0;}
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;}
-  .stat-n{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:600;color:var(--gold-light);}
-  .stat-l{font-size:.76rem;color:rgba(255,255,255,.55);margin-top:8px;letter-spacing:.04em;text-transform:uppercase;}
-  @media(max-width:760px){ .stats-grid{grid-template-columns:1fr 1fr;gap:40px;} }
-
-  /* ── Process ── */
-  .proc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-top:56px;}
-  .proc-step{position:relative;padding-top:26px;border-top:2px solid var(--line);}
-  .proc-step.active-line{border-top-color:var(--gold);}
-  .proc-n{font-family:'Fraunces',serif;font-size:1.1rem;color:var(--gold);margin-bottom:14px;}
-  .proc-t{font-weight:700;font-size:.95rem;color:var(--navy);margin-bottom:10px;}
-  .proc-d{font-size:.82rem;color:var(--muted);line-height:1.7;}
-  @media(max-width:760px){ .proc-row{grid-template-columns:1fr 1fr;} }
-
-  /* ── Team ── */
-  #team{background:#fff;}
-  #team .hd{margin-bottom:56px;}
-  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
-  .team-card img{width:100%;aspect-ratio:3/3.6;object-fit:cover;filter:grayscale(.15);}
-  .team-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.02rem;color:var(--navy);margin-top:18px;}
-  .team-role{font-size:.78rem;color:var(--gold);font-weight:600;margin-top:4px;}
-  @media(max-width:900px){ .team-grid{grid-template-columns:1fr 1fr;} }
-
-  /* ── Quote ── */
-  #quote{background:var(--cream);text-align:center;}
-  .quote-mark{font-family:'Fraunces',serif;font-size:3rem;color:var(--gold);line-height:1;}
-  .quote-t{font-family:'Fraunces',serif;font-size:clamp(1.3rem,2.4vw,1.9rem);font-weight:500;color:var(--navy);max-width:760px;margin:18px auto 26px;line-height:1.5;font-style:italic;}
-  .quote-who{font-size:.85rem;color:var(--muted);font-weight:600;}
-
-  /* ── CTA ── */
-  #cta{background:linear-gradient(135deg,var(--navy),var(--navy-2));text-align:center;}
-  .cta-h{font-family:'Fraunces',serif;font-size:clamp(1.8rem,3.4vw,2.7rem);color:#fff;font-weight:600;margin-bottom:18px;}
-  .cta-h em{font-style:italic;color:var(--gold-light);}
-  .cta-p{color:rgba(255,255,255,.65);max-width:480px;margin:0 auto 36px;font-size:.95rem;}
-
-  footer{background:#fff;border-top:1px solid var(--line);padding:48px 0 28px;}
-  .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
-  .ft-brand{font-family:'Fraunces',serif;font-weight:600;color:var(--navy);}
-  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;color:var(--muted);}
-  .ft-note{font-size:.74rem;color:#9CA3AF;margin-top:24px;text-align:center;}
-
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
-  .reveal.visible{opacity:1;transform:none;}
-
-  @media(max-width:900px){
-    .nlinks,.nav-cta{display:none;}
-    .mob-btn{display:block;}
-    .svc-grid{grid-template-columns:1fr;}
-    .stats-grid{grid-template-columns:1fr 1fr;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:auto;}
+  body{
+    background:var(--void);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
   }
-  @media(max-width:640px){
-    .container{padding:0 24px;}
-    nav{padding:0 24px;}
-    #hero{padding:170px 0 70px;}
-    .team-grid{grid-template-columns:1fr 1fr;}
+  ::selection{background:var(--thread-blue);color:var(--void);}
+
+  h1,h2,h3{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.05;
   }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--mist);
+    opacity:.85;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,video{display:block;max-width:100%;}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+  /* layout helpers */
+  .wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(20px,5vw,48px);}
+  section{position:relative;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px clamp(20px,5vw,48px);
+    transition:background .4s var(--ease),backdrop-filter .4s var(--ease),padding .4s var(--ease),border-color .4s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{
+    background:rgba(6,7,10,0.72);
+    backdrop-filter:blur(14px);
+    padding-block:14px;
+    border-color:var(--hairline);
+  }
+  .logo{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:500;
+    font-size:.95rem;
+    letter-spacing:.02em;
+    display:flex;
+    align-items:flex-end;
+    gap:0px;
+  }
+  .logo img{
+    display:inline-block;
+  }
+  /* .logo span{color:var(--thread-blue);} */
+  .nav-links{display:flex;gap:36px;list-style:none;}
+  .nav-links a{
+    font-size:.88rem;color:var(--muted);position:relative;transition:color .3s;
+  }
+  .nav-links a:hover{color:var(--paper);}
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;
+    background:var(--thread-blue);transition:width .3s var(--ease);
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;
+    border:1px solid var(--hairline);
+    padding:9px 18px;border-radius:100px;
+    transition:border-color .3s,color .3s;
+  }
+  .nav-cta:hover{border-color:var(--thread-blue);color:var(--mist);}
+  @media (max-width:860px){ .nav-links{display:none;} }
+
+  /* ---------- HERO (pinned, scroll-scrub) ---------- */
+  .hero-pin{ height:260vh; }
+  .hero-stage{
+    position:sticky; top:0; height:100vh; overflow:hidden;
+    display:flex; align-items:center;
+  }
+  .hero-stage video{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; filter:saturate(1.15) brightness(.95);
+  }
+  .hero-veil{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 70% 60% at 30% 75%, rgba(6,7,10,0.92) 0%, rgba(6,7,10,0.55) 45%, transparent 75%),
+      linear-gradient(180deg, rgba(6,7,10,0.55) 0%, rgba(6,7,10,0.15) 30%, rgba(6,7,10,0.35) 70%, rgba(6,7,10,0.95) 100%);
+  }
+  .hero-grain{
+    position:absolute; inset:0; opacity:.05; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero-content{
+    position:relative; z-index:2; width:100%;
+  }
+  .hero-content .wrap{ padding-bottom:9vh; }
+  .hero-content .eyebrow{ display:block; margin-bottom:22px; opacity:.85; }
+  .hero-title{
+    font-size:clamp(2.4rem,6.4vw,5.4rem);
+    max-width:14ch;
+    margin-bottom:26px;
+  }
+  .hero-title .word{ display:inline-block; overflow:hidden; }
+  .hero-title .word span{
+    display:inline-block; transform:translateY(0);
+    background:linear-gradient(180deg,var(--paper),var(--mist));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-sub{
+    font-size:clamp(1rem,1.6vw,1.18rem);
+    color:var(--muted);
+    max-width:38ch;
+    opacity:1; transform:translateY(0);
+  }
+  .scroll-cue{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    z-index:2; display:flex; flex-direction:column; align-items:center; gap:10px;
+    opacity:1; transition:opacity .3s;
+  }
+  .scroll-cue span{
+    font-family:'JetBrains Mono',monospace; font-size:.68rem; color:var(--muted);
+    letter-spacing:.15em; text-transform:uppercase;
+  }
+  .scroll-cue .line{
+    width:1px; height:34px; background:linear-gradient(180deg,var(--thread-blue),transparent);
+    animation:cueMove 1.8s ease-in-out infinite;
+  }
+  @keyframes cueMove{ 0%,100%{opacity:.2;} 50%{opacity:1;} }
+
+  /* ---------- STATEMENT ---------- */
+  .statement{
+    padding:clamp(110px,16vw,180px) 0;
+    background:var(--void);
+    border-top:1px solid var(--hairline);
+  }
+  .statement-line{
+    font-size:clamp(1.7rem,4.4vw,3.4rem);
+    max-width:18ch;
+    color:var(--muted);
+  }
+  .statement-line .reveal{
+    background:linear-gradient(90deg,var(--paper) 0%, var(--paper) 0%, var(--muted) 0%);
+    -webkit-background-clip:text;background-clip:text;color:var(--muted);
+  }
+  .statement-line .reveal.lit{ color:var(--paper); }
+  .statement-line b{ font-weight:700; color:var(--paper); }
+
+  /* ---------- SERVICES ---------- */
+  .services{ padding:clamp(90px,12vw,140px) 0; background:var(--panel); border-top:1px solid var(--hairline); }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:64px; flex-wrap:wrap; }
+  .section-head h2{ font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--muted); max-width:34ch; font-size:.96rem; }
+  .service-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--hairline); border:1px solid var(--hairline); }
+  .service-card{
+    background:var(--panel); padding:38px 30px; position:relative; overflow:hidden;
+    transition:background .35s var(--ease);
+  }
+  .service-card::before{
+    content:''; position:absolute; inset:0; opacity:0; transition:opacity .4s var(--ease);
+    background:radial-gradient(circle at 30% 0%, rgba(79,107,255,0.16), transparent 60%);
+  }
+  .service-card:hover::before{ opacity:1; }
+  .service-card:hover{ background:var(--panel-2); }
+  .service-num{ font-family:'JetBrains Mono',monospace; font-size:.74rem; color:var(--thread-blue); margin-bottom:30px; display:block; }
+  .service-card h3{ font-size:1.28rem; margin-bottom:12px; font-weight:600; }
+  .service-card p{ color:var(--muted); font-size:.92rem; line-height:1.6; }
+  @media (max-width:860px){ .service-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- PROCESS ---------- */
+  .process{ padding:clamp(90px,12vw,140px) 0; background:var(--void); border-top:1px solid var(--hairline); }
+  .process-rail{ position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-top:20px; }
+  .process-rail::before{
+    content:''; position:absolute; top:11px; left:0; right:0; height:1px; background:var(--hairline);
+  }
+  .process-line{
+    position:absolute; top:11px; left:0; height:1px; width:0; background:var(--thread-blue);
+    box-shadow:0 0 12px var(--thread-blue);
+  }
+  .process-step{ position:relative; padding-top:36px; }
+  .process-step::before{
+    content:''; position:absolute; top:6px; left:0; width:11px; height:11px; border-radius:50%;
+    background:var(--void); border:1px solid var(--muted); transition:border-color .4s,background .4s,box-shadow .4s;
+  }
+  .process-step.active::before{ border-color:var(--thread-blue); background:var(--thread-blue); box-shadow:0 0 14px var(--thread-blue); }
+  .process-step .pnum{ font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--thread-blue); display:block; margin-bottom:10px; }
+  .process-step h3{ font-size:1.08rem; font-weight:600; margin-bottom:8px; }
+  .process-step p{ color:var(--muted); font-size:.88rem; line-height:1.55; }
+  @media (max-width:860px){ .process-rail{ grid-template-columns:1fr; gap:34px; } .process-rail::before,.process-line{ display:none; } }
+
+  /* ---------- WORK ---------- */
+  .work{ padding:clamp(90px,12vw,140px) 0; background:var(--panel); border-top:1px solid var(--hairline); }
+  .work-list{ display:flex; flex-direction:column; }
+  .work-item{
+    display:grid; grid-template-columns:1.3fr 2fr auto; gap:24px; align-items:center;
+    padding:30px 0; border-top:1px solid var(--hairline); transition:padding-left .4s var(--ease);
+  }
+  .work-item:hover{ padding-left:14px; }
+  .work-item:last-child{ border-bottom:1px solid var(--hairline); }
+  .work-tag{ font-family:'JetBrains Mono',monospace; font-size:.74rem; color:var(--thread-blue); }
+  .work-title{ font-size:clamp(1.1rem,2vw,1.5rem); font-weight:600; font-family:'Bricolage Grotesque',sans-serif; }
+  .work-title span{ color:var(--muted); font-weight:400; font-family:'Inter',sans-serif; font-size:.85rem; display:block; margin-top:4px; }
+  .work-arrow{ width:34px; height:34px; border-radius:50%; border:1px solid var(--hairline); display:flex; align-items:center; justify-content:center; transition:border-color .3s,transform .3s; }
+  .work-item:hover .work-arrow{ border-color:var(--thread-blue); transform:rotate(45deg); }
+  .work-arrow svg{ width:14px; height:14px; stroke:var(--mist); }
+  @media (max-width:760px){ .work-item{ grid-template-columns:1fr; gap:10px; } .work-item:hover{ padding-left:0; } }
+
+  /* ---------- CTA ---------- */
+  .cta{ position:relative; padding:clamp(120px,18vw,200px) 0; overflow:hidden; border-top:1px solid var(--hairline); }
+  .cta video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.3; }
+  .cta-veil{ position:absolute; inset:0; background:radial-gradient(ellipse 60% 60% at 50% 40%, rgba(79,107,255,0.1), var(--void) 75%); }
+  .cta-content{ position:relative; z-index:2; text-align:center; }
+  .cta h2{ font-size:clamp(2rem,5vw,3.6rem); max-width:16ch; margin:0 auto 28px; }
+  .cta p{ color:var(--muted); max-width:32ch; margin:0 auto 40px; }
+  .cta-btn{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--paper); color:var(--void);
+    font-family:'JetBrains Mono',monospace; font-size:.88rem;
+    padding:16px 30px; border-radius:100px;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .cta-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(79,107,255,0.25); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:40px 0; border-top:1px solid var(--hairline); }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .footer-row p{ font-size:.82rem; color:var(--muted); }
+  .footer-links{ display:flex; gap:24px; list-style:none; }
+  .footer-links a{ font-size:.82rem; color:var(--muted); transition:color .3s; }
+  .footer-links a:hover{ color:var(--paper); }
+
+  /* reveal-on-scroll generic */
+  .fx{ opacity:0; transform:translateY(22px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .fx.in{ opacity:1; transform:translateY(0); }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .hero-pin{ height:auto; }
+    .hero-stage{ position:relative; height:90vh; }
+    .hero-title .word span{ transform:none; }
+    .fx{ opacity:1; transform:none; }
+    .scroll-cue .line{ animation:none; }
+  }
+
+  :focus-visible{ outline:2px solid var(--thread-blue); outline-offset:3px; }
 </style>
 </head>
 <body>
 
-<div class="lc-bar">
-  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
-  <span class="lc-bar-mid">Template Preview — Company Profile</span>
-  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Company%20Profile" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
-</div>
-
-<nav id="mainNav">
-  <a class="brand" href="#"><span class="mark">V&amp;P</span> Vertex &amp; Partners</a>
-  <ul class="nlinks">
-    <li><a href="#services">Layanan</a></li>
-    <li><a href="#process">Pendekatan</a></li>
-    <li><a href="#team">Tim</a></li>
-    <li><a href="#contact">Kontak</a></li>
+<nav id="nav">
+  <a href="#top" class="logo">
+    <img src="lumina-logo.svg" alt="Lumina Logo" width="40" height="40"><span>umina<span style="color:var(--thread-blue)">.</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#layanan">Layanan</a></li>
+    <li><a href="#proses">Proses</a></li>
+    <li><a href="#karya">Karya</a></li>
+    <li><a href="#kontak">Kontak</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Konsultasi Gratis</a>
-  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+  <a href="#kontak" class="nav-cta">Konsultasi Gratis</a>
 </nav>
 
-<section id="hero">
-  <div class="container hero-grid">
-    <div>
-      <div class="hero-eyebrow">Konsultan Strategi &amp; Keuangan</div>
-      <h1 class="hero-h">Kemitraan strategis untuk pertumbuhan bisnis yang <em>terukur</em>.</h1>
-      <p class="hero-p">Vertex &amp; Partners membantu perusahaan menengah hingga korporasi merancang strategi, mengelola risiko, dan mengeksekusi transformasi dengan presisi.</p>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-gold">Jadwalkan Konsultasi</a>
-        <a href="#services" class="btn-line">Lihat Layanan</a>
-      </div>
-      <div class="hero-trust"><strong>120+</strong> perusahaan telah mempercayai pendekatan kami sejak 2011.</div>
-    </div>
-    <div>
-      <div class="hero-img-wrap">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=900&auto=format&fit=crop" alt="Ruang rapat Vertex & Partners"/>
-        <div class="hero-img-tag">"Pendekatan berbasis data, hasil yang terukur."</div>
-      </div>
-    </div>
-  </div>
-</section>
+<main id="top">
 
-<section id="logos">
-  <div class="logos-track">
-    <span class="logo-chip">NORTHGATE CAPITAL</span>
-    <span class="logo-chip">ARDENT GROUP</span>
-    <span class="logo-chip">SILVERLINE HOLDINGS</span>
-    <span class="logo-chip">PRIMA INDUSTRI</span>
-    <span class="logo-chip">CRESTVIEW PARTNERS</span>
-    <span class="logo-chip">BARANA LOGISTIK</span>
-    <span class="logo-chip">NORTHGATE CAPITAL</span>
-    <span class="logo-chip">ARDENT GROUP</span>
-    <span class="logo-chip">SILVERLINE HOLDINGS</span>
-    <span class="logo-chip">PRIMA INDUSTRI</span>
-    <span class="logo-chip">CRESTVIEW PARTNERS</span>
-    <span class="logo-chip">BARANA LOGISTIK</span>
-  </div>
-</section>
-
-<section id="services">
-  <div class="container">
-    <div class="hd reveal">
-      <div>
-        <div class="eyebrow">Layanan Kami</div>
-        <h2 class="sec-h">Solusi menyeluruh untuk setiap<br>tahap <em>pertumbuhan</em>.</h2>
+  <!-- HERO -->
+  <section class="hero-pin" id="hero">
+    <div class="hero-stage">
+      <video id="heroVideo" muted playsinline preload="auto" poster="lumina-hero-poster.jpg">
+        <source src="lumina-hero.mp4" type="video/mp4">
+      </video>
+      <div class="hero-veil"></div>
+      <div class="hero-grain"></div>
+      <div class="hero-content">
+        <div class="wrap">
+          <span class="eyebrow" id="heroEyebrow">Lumina — Strategic Consulting Partner</span>
+          <h1 class="hero-title" id="heroTitle">
+            <span class="word"><span>Setiap</span></span> <span class="word"><span>strategi</span></span><br>
+            <span class="word"><span>punya</span></span> <span class="word"><span>benang</span></span> <span class="word"><span>merah.</span></span>
+          </h1>
+          <p class="hero-sub" id="heroSub">Kami bantu perusahaan menemukan arah yang jelas — dari data yang berserakan, menjadi langkah yang terukur.</p>
+        </div>
       </div>
-      <p class="sec-sub">Tiga pilar layanan inti yang telah membantu klien kami menavigasi perubahan pasar dan regulasi.</p>
+      <div class="scroll-cue" id="scrollCue"><span>Scroll</span><div class="line"></div></div>
     </div>
-    <div class="svc-grid">
-      <div class="svc-card reveal">
-        <div class="svc-num">01</div>
-        <div class="svc-t">Strategi Bisnis</div>
-        <div class="svc-d">Merumuskan arah jangka panjang melalui analisis pasar, kompetitor, dan model operasional yang realistis.</div>
+  </section>
+
+  <!-- STATEMENT -->
+  <section class="statement">
+    <div class="wrap">
+      <p class="statement-line" id="statementLine">
+        Bukan sekadar laporan. <b>Strategi yang benar-benar dijalankan</b> — dari diagnosis awal sampai hasil yang terlihat di lapangan.
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="layanan">
+    <div class="wrap">
+      <div class="section-head fx">
+        <h2>Yang kami kerjakan</h2>
+        <p>Tiga area yang biasanya ditangani terpisah, kami satukan dalam satu pendampingan menyeluruh.</p>
       </div>
-      <div class="svc-card reveal">
-        <div class="svc-num">02</div>
-        <div class="svc-t">Konsultasi Keuangan</div>
-        <div class="svc-d">Optimalisasi struktur modal, manajemen risiko, dan perencanaan investasi untuk keberlanjutan usaha.</div>
-      </div>
-      <div class="svc-card reveal">
-        <div class="svc-num">03</div>
-        <div class="svc-t">Transformasi Digital</div>
-        <div class="svc-d">Mendampingi adopsi teknologi dan proses baru agar organisasi tetap kompetitif di era digital.</div>
+      <div class="service-grid">
+        <div class="service-card fx">
+          <span class="service-num">01 / STRATEGY</span>
+          <h3>Strategic Advisory</h3>
+          <p>Memetakan arah bisnis yang jelas, didukung data — bukan asumsi atau insting semata.</p>
+        </div>
+        <div class="service-card fx">
+          <span class="service-num">02 / OPERATIONS</span>
+          <h3>Operational Excellence</h3>
+          <p>Merapikan proses internal supaya tim Anda bergerak lebih cepat dengan biaya yang lebih efisien.</p>
+        </div>
+        <div class="service-card fx">
+          <span class="service-num">03 / GROWTH</span>
+          <h3>Growth Partnership</h3>
+          <p>Pendampingan jangka panjang, bukan laporan sekali jalan — supaya pertumbuhan benar-benar berkelanjutan.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="stats">
-  <div class="container stats-grid">
-    <div class="reveal"><div class="stat-n">14</div><div class="stat-l">Tahun Pengalaman</div></div>
-    <div class="reveal"><div class="stat-n">120+</div><div class="stat-l">Klien Aktif</div></div>
-    <div class="reveal"><div class="stat-n">340</div><div class="stat-l">Proyek Selesai</div></div>
-    <div class="reveal"><div class="stat-n">96%</div><div class="stat-l">Tingkat Kepuasan</div></div>
-  </div>
-</section>
-
-<section id="process">
-  <div class="container">
-    <div class="reveal">
-      <div class="eyebrow">Pendekatan Kami</div>
-      <h2 class="sec-h">Proses kerja yang <em>jelas</em> dari awal hingga akhir.</h2>
-    </div>
-    <div class="proc-row">
-      <div class="proc-step active-line reveal"><div class="proc-n">01</div><div class="proc-t">Discovery</div><div class="proc-d">Memahami tantangan, data, dan tujuan bisnis secara mendalam.</div></div>
-      <div class="proc-step active-line reveal"><div class="proc-n">02</div><div class="proc-t">Strategi</div><div class="proc-d">Merancang rencana aksi yang realistis dan terukur.</div></div>
-      <div class="proc-step reveal"><div class="proc-n">03</div><div class="proc-t">Eksekusi</div><div class="proc-d">Mendampingi implementasi bersama tim internal klien.</div></div>
-      <div class="proc-step reveal"><div class="proc-n">04</div><div class="proc-t">Evaluasi</div><div class="proc-d">Mengukur hasil dan menyempurnakan strategi secara berkala.</div></div>
-    </div>
-  </div>
-</section>
-
-<section id="team">
-  <div class="container">
-    <div class="hd reveal">
-      <div class="eyebrow">Tim Kepemimpinan</div>
-      <h2 class="sec-h">Ditangani oleh praktisi <em>berpengalaman</em>.</h2>
-    </div>
-    <div class="team-grid">
-      <div class="team-card reveal">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop" alt="Managing Partner"/>
-        <div class="team-name">Arman Wicaksana</div>
-        <div class="team-role">Managing Partner</div>
+  <!-- PROCESS -->
+  <section class="process" id="proses">
+    <div class="wrap">
+      <div class="section-head fx">
+        <h2>Cara kami kerja</h2>
+        <p>Empat tahap yang sama untuk setiap klien, supaya prosesnya jelas dari hari pertama.</p>
       </div>
-      <div class="team-card reveal">
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=500&auto=format&fit=crop" alt="Head of Strategy"/>
-        <div class="team-name">Dinda Pramesti</div>
-        <div class="team-role">Head of Strategy</div>
-      </div>
-      <div class="team-card reveal">
-        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=500&auto=format&fit=crop" alt="Head of Finance"/>
-        <div class="team-name">Raka Sutanto</div>
-        <div class="team-role">Head of Finance</div>
-      </div>
-      <div class="team-card reveal">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500&auto=format&fit=crop" alt="Head of Digital"/>
-        <div class="team-name">Maya Indraswari</div>
-        <div class="team-role">Head of Digital</div>
+      <div class="process-rail" id="processRail">
+        <div class="process-line" id="processLine"></div>
+        <div class="process-step fx" data-step><span class="pnum">01</span><h3>Diagnose</h3><p>Memahami kondisi bisnis Anda secara menyeluruh, bukan dari permukaan saja.</p></div>
+        <div class="process-step fx" data-step><span class="pnum">02</span><h3>Strategize</h3><p>Merancang strategi yang realistis dan benar-benar bisa dieksekusi tim Anda.</p></div>
+        <div class="process-step fx" data-step><span class="pnum">03</span><h3>Implement</h3><p>Mendampingi langsung proses eksekusi, bukan cuma menyerahkan dokumen.</p></div>
+        <div class="process-step fx" data-step><span class="pnum">04</span><h3>Measure</h3><p>Mengukur dampak nyata, lalu menyempurnakan langkah berikutnya.</p></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="quote">
-  <div class="container reveal">
-    <div class="quote-mark">"</div>
-    <p class="quote-t">Vertex &amp; Partners tidak hanya memberi rekomendasi — mereka mendampingi kami sampai hasilnya benar-benar terlihat di laporan keuangan.</p>
-    <div class="quote-who">— Direktur Utama, Prima Industri</div>
-  </div>
-</section>
+  <!-- WORK -->
+  <section class="work" id="karya">
+    <div class="wrap">
+      <div class="section-head fx">
+        <h2>Beberapa klien</h2>
+        <p>Sebagian engagement yang sedang & sudah kami jalankan.</p>
+      </div>
+      <div class="work-list">
+        <a href="#" class="work-item fx">
+          <span class="work-tag">MANUFAKTUR</span>
+          <span class="work-title">Transformasi Operasional<span>Efisiensi proses produksi & restrukturisasi tim</span></span>
+          <span class="work-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+        </a>
+        <a href="#" class="work-item fx">
+          <span class="work-tag">RETAIL</span>
+          <span class="work-title">Strategi Ekspansi Pasar<span>Riset & rencana masuk ke 3 kota baru</span></span>
+          <span class="work-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+        </a>
+        <a href="#" class="work-item fx">
+          <span class="work-tag">PERUSAHAAN ANDA</span>
+          <span class="work-title">Proyek berikutnya<span>Cerita selanjutnya bisa dimulai dari sini</span></span>
+          <span class="work-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-<section id="cta">
-  <div class="container reveal">
-    <div class="cta-h">Siap merancang langkah<br><em>strategis</em> berikutnya?</div>
-    <p class="cta-p">Jadwalkan sesi konsultasi awal tanpa biaya bersama tim kami.</p>
-    <a href="#" class="btn-gold" id="contact">Hubungi Kami</a>
-  </div>
-</section>
+  <!-- CTA -->
+  <section class="cta" id="kontak">
+    <video autoplay muted loop playsinline preload="metadata">
+      <source src="lumina-hero.mp4" type="video/mp4">
+    </video>
+    <div class="cta-veil"></div>
+    <div class="cta-content wrap fx">
+      <span class="eyebrow">Mari mulai</span>
+      <h2 style="margin-top:18px;">Punya tantangan bisnis yang perlu dipetakan?</h2>
+      <p>Ceritakan kondisi perusahaan Anda — kami balas dengan rencana konkret, bukan basa-basi.</p>
+      <a href="https://wa.me/6280000000000" class="cta-btn">Hubungi Kami →</a>
+    </div>
+  </section>
 
-<footer>
-  <div class="container">
-    <div class="ft-row">
-      <div class="ft-brand">Vertex &amp; Partners</div>
-      <ul class="ft-links">
-        <li><a href="#services">Layanan</a></li>
-        <li><a href="#team">Tim</a></li>
-        <li><a href="#contact">Kontak</a></li>
+  <footer>
+    <div class="wrap footer-row">
+      <p>© 2026 Lumina. Semua hak dilindungi.</p>
+      <ul class="footer-links">
+        <li><a href="#layanan">Layanan</a></li>
+        <li><a href="#proses">Proses</a></li>
+        <li><a href="#karya">Karya</a></li>
       </ul>
     </div>
-    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan situs perusahaan sungguhan.</div>
-  </div>
-</footer>
+  </footer>
 
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-  window.addEventListener('scroll', () => {
-    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// NAV background on scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive:true });
+
+if (!reduceMotion && window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const video = document.getElementById('heroVideo');
+  const heroPin = document.getElementById('hero');
+
+  function setupHero(){
+    const dur = video.duration || 4;
+
+    // Set initial hidden state for animations
+    gsap.set('#heroEyebrow', { opacity: 0 });
+    gsap.set('.hero-title .word span', { y: '110%' });
+    gsap.set('#heroSub', { opacity: 0, y: 14 });
+    gsap.set('#scrollCue', { opacity: 0 });
+
+    // AUTO-PLAY: Animate hero content on page load
+    const heroTL = gsap.timeline({ delay: 0.3 });
+    heroTL
+      .to('#heroEyebrow', { opacity: .85, duration: 0.6, ease: 'power2.out' })
+      .to('.hero-title .word span', { y: 0, duration: 0.8, stagger: 0.08, ease: 'power3.out' }, 0.2)
+      .to('#heroSub', { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.6)
+      .to('#scrollCue', { opacity: 1, duration: 0.5, ease: 'power2.out' }, 1.0);
+
+    // Pin the hero + scrub video as user scrolls
+    const st = ScrollTrigger.create({
+      trigger: heroPin,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+      onUpdate: self => {
+        video.currentTime = self.progress * (dur - 0.05);
+      }
+    });
+
+    // Fade out scroll cue when scrolling
+    gsap.timeline({ 
+      scrollTrigger: { 
+        trigger: heroPin, 
+        start: '10% top', 
+        end: '30% top', 
+        scrub: true 
+      }
+    }).to('#scrollCue', { opacity: 0, duration: 0.3 });
+  }
+
+  if (video.readyState >= 1) setupHero();
+  else video.addEventListener('loadedmetadata', setupHero);
+
+  // Generic fade-up reveals
+  gsap.utils.toArray('.fx').forEach(el => {
+    gsap.to(el, {
+      opacity:1, y:0, duration:.8, ease:'power3.out',
+      scrollTrigger:{ trigger: el, start:'top 88%' }
+    });
   });
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Statement line: progressive color reveal word by word
+  const statementWords = document.getElementById('statementLine');
+  const text = statementWords.innerHTML;
+  // wrap each word for reveal (preserving the <b> tag content as single unit)
+  statementWords.innerHTML = text
+    .split(/(<b>.*?<\/b>)/)
+    .map(chunk => {
+      if (chunk.startsWith('<b>')) return `<span class="reveal">${chunk}</span>`;
+      return chunk.split(' ').filter(Boolean).map(w => `<span class="reveal">${w}</span>`).join(' ');
+    }).join(' ');
+
+  gsap.to('.statement-line .reveal', {
+    color: '#EDEFF7',
+    stagger: .06,
+    scrollTrigger:{ trigger:'.statement', start:'top 70%', end:'bottom 60%', scrub:true }
+  });
+
+  // Process line draw + step activation
+  const rail = document.getElementById('processRail');
+  const line = document.getElementById('processLine');
+  const steps = gsap.utils.toArray('[data-step]');
+  ScrollTrigger.create({
+    trigger: rail, start:'top 75%', end:'bottom 75%', scrub:true,
+    onUpdate: self => {
+      line.style.width = (self.progress * 100) + '%';
+      steps.forEach((s,i) => s.classList.toggle('active', self.progress >= (i+0.4)/steps.length));
+    }
+  });
+}
+else {
+  // No-motion fallback: just show everything
+  document.querySelectorAll('.fx, .hero-title .word span, .hero-sub, #heroEyebrow').forEach(el=>{
+    el.style.opacity = 1; el.style.transform = 'none';
+  });
+}
 </script>
 </body>
 </html>
