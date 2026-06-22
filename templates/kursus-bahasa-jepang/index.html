@@ -41,60 +41,60 @@
   .nav-cta{font-size:.8rem;font-weight:700;background:var(--forest);color:#fff;border:none;padding:12px 24px;border-radius:100px;cursor:pointer;text-decoration:none;}
   .mob-btn{display:none;background:none;border:none;color:var(--forest-d);font-size:1.2rem;cursor:pointer;}
 
-  #hero{padding:190px 0 0;overflow:hidden;position:relative;}
-  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;}
-  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:100px;
-    padding:8px 16px;font-size:.76rem;font-weight:700;color:var(--forest-d);margin-bottom:24px;}
-  .hero-h{font-size:clamp(2.1rem,4.4vw,3.2rem);font-weight:800;line-height:1.22;margin-bottom:20px;letter-spacing:-.01em;}
+  /* hero — panoramic full-bleed */
+  #hero{position:relative;height:80vh;min-height:100vh;overflow:hidden;padding:0;}
+  #hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+  #hero.has-video video{display:block;}
+  #hero.has-video .hero-fallback-scene{display:none;}
+  .hero-overlay{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(251,246,236,.05) 0%,rgba(251,246,236,.38) 42%,rgba(251,246,236,.98) 72%);}
+  .hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-bottom:clamp(50px,8vh,90px);}
+  .hero-h{font-size:clamp(2.1rem,4.8vw,3.6rem);font-weight:800;line-height:1.18;margin-bottom:20px;letter-spacing:-.01em;max-width:16ch;
+    text-shadow:0 2px 20px rgba(251,246,236,.6);}
   .hero-h .hl{color:var(--forest-d);}
-  .hero-p{color:var(--muted);font-size:.98rem;line-height:1.85;max-width:440px;margin-bottom:32px;}
-  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px;}
+  .hero-p{color:rgba(70,64,47,.85);font-size:.98rem;line-height:1.85;max-width:440px;margin-bottom:32px;text-shadow:0 1px 16px rgba(251,246,236,.7);}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
   .btn-forest{background:var(--forest);color:#fff;font-weight:700;font-size:.86rem;padding:15px 30px;border-radius:100px;text-decoration:none;
     display:inline-block;transition:transform .2s,box-shadow .2s;}
   .btn-forest:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(91,127,94,.3);}
   .btn-line{color:var(--ink);font-weight:700;font-size:.86rem;padding:15px 26px;border-radius:100px;border:1.5px solid var(--line);text-decoration:none;display:inline-block;background:#fff;}
 
-  /* hero illustrated scene */
-  .hero-scene{position:relative;aspect-ratio:4/4.3;border-radius:26px;overflow:hidden;
+  /* hero illustrated scene (fallback, full-bleed) */
+  .hero-fallback-scene{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;
     background:linear-gradient(180deg,var(--sky) 0%,#E4EFE0 55%,var(--cream2) 100%);}
-  .hero-scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
-  .hero-scene.has-video video{display:block;}
-  .hero-scene.has-video .scene-sun,.hero-scene.has-video .scene-cloud,.hero-scene.has-video .scene-torii,
-  .hero-scene.has-video .scene-leaf,.hero-scene.has-video .hill-back,.hero-scene.has-video .hill-front{display:none;}
-  .scene-sun{position:absolute;top:36px;right:40px;width:130px;height:130px;border-radius:50%;
+  .scene-sun{position:absolute;top:130px;right:60px;width:160px;height:160px;border-radius:50%;
     background:radial-gradient(circle,var(--sun) 0%,rgba(240,206,134,0) 72%);}
   .scene-cloud{position:absolute;background:#fff;border-radius:50px;opacity:.85;animation:drift 9s ease-in-out infinite;}
   .scene-cloud::before,.scene-cloud::after{content:'';position:absolute;background:#fff;border-radius:50%;}
-  .c1{width:86px;height:30px;top:70px;left:30px;}
-  .c1::before{width:40px;height:40px;top:-20px;left:8px;}
-  .c1::after{width:32px;height:32px;top:-14px;left:42px;}
-  .c2{width:64px;height:24px;top:130px;right:90px;animation-delay:2.4s;}
-  .c2::before{width:30px;height:30px;top:-15px;left:6px;}
-  .c2::after{width:24px;height:24px;top:-10px;left:32px;}
-  .c3{width:50px;height:20px;bottom:140px;left:54px;animation-delay:4.8s;}
-  .c3::before{width:22px;height:22px;top:-11px;left:5px;}
-  .c3::after{width:18px;height:18px;top:-8px;left:24px;}
+  .c1{width:100px;height:34px;top:170px;left:8%;}
+  .c1::before{width:46px;height:46px;top:-23px;left:8px;}
+  .c1::after{width:36px;height:36px;top:-16px;left:48px;}
+  .c2{width:74px;height:26px;top:230px;right:18%;animation-delay:2.4s;}
+  .c2::before{width:34px;height:34px;top:-17px;left:6px;}
+  .c2::after{width:28px;height:28px;top:-12px;left:36px;}
+  .c3{width:58px;height:22px;top:30%;left:42%;animation-delay:4.8s;}
+  .c3::before{width:26px;height:26px;top:-13px;left:5px;}
+  .c3::after{width:20px;height:20px;top:-9px;left:28px;}
   @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(14px)}}
-  .scene-torii{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);font-size:4.6rem;color:var(--forest-d);opacity:.92;}
+  .scene-torii{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);font-size:7rem;color:var(--forest-d);opacity:.92;}
   .scene-leaf{position:absolute;color:var(--forest);opacity:.8;animation:bob 4s ease-in-out infinite;}
-  .l1{font-size:1.3rem;top:42%;left:14%;animation-delay:.4s;}
-  .l2{font-size:1.05rem;top:60%;right:16%;animation-delay:1.6s;}
-  .l3{font-size:.85rem;top:27%;right:32%;animation-delay:2.8s;}
+  .l1{font-size:1.6rem;top:38%;left:18%;animation-delay:.4s;}
+  .l2{font-size:1.3rem;top:55%;right:20%;animation-delay:1.6s;}
+  .l3{font-size:1.1rem;top:25%;right:35%;animation-delay:2.8s;}
   @keyframes bob{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(12deg)}}
-  .hill-back{position:absolute;left:-25%;bottom:-90px;width:150%;height:220px;border-radius:50%;background:var(--sage);opacity:.9;}
-  .hill-front{position:absolute;left:-15%;bottom:-120px;width:135%;height:200px;border-radius:50%;background:var(--forest);}
-  .float-card{position:absolute;bottom:-22px;left:-22px;background:#fff;border-radius:16px;box-shadow:0 16px 40px rgba(70,64,47,.16);
-    padding:18px 22px;display:flex;align-items:center;gap:14px;}
-  .float-card .ico{width:42px;height:42px;border-radius:50%;background:#FBF0D9;color:#C99A3B;display:flex;align-items:center;justify-content:center;}
-  .float-card .n{font-weight:800;font-size:1.1rem;}
-  .float-card .l{font-size:.72rem;color:var(--muted);}
-  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+  .hill-back{position:absolute;left:-10%;bottom:-10vh;width:120%;height:34vh;border-radius:50%;background:var(--sage);opacity:.9;}
+  .hill-front{position:absolute;left:-5%;bottom:-16vh;width:110%;height:30vh;border-radius:50%;background:var(--forest);}
+
+  @media(max-width:640px){
+    .hero-h{max-width:none;}
+  }
 
   /* placeholder badge: tampil di atas tiap fallback video, hilang otomatis saat video asli ditemukan */
   .video-ph-badge{position:absolute;top:16px;left:16px;z-index:3;background:rgba(70,64,47,.82);color:var(--cream2);
     font-size:.66rem;font-weight:700;padding:7px 13px;border-radius:100px;display:flex;align-items:center;gap:7px;
     letter-spacing:.01em;backdrop-filter:blur(4px);}
   .has-video .video-ph-badge{display:none;}
+  #hero .video-ph-badge{top:140px;left:0;}
 
   section{padding:110px 0;}
   .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--forest-d);margin-bottom:16px;}
@@ -222,36 +222,30 @@
 </nav>
 
 <section id="hero">
-  <div class="container hero-grid">
-    <div>
-      <div class="hero-badge">⛩️ Kursus Bahasa Jepang Bertema Ghibli</div>
-      <h1 class="hero-h">Belajar Bahasa Jepang yang <span class="hl">terasa seperti pulang ke rumah.</span></h1>
-      <p class="hero-p">Mori Nihongo mengajak kamu menjelajahi Bahasa Jepang lewat suasana belajar yang tenang, hangat, dan penuh cerita — terinspirasi dunia animasi Jepang klasik yang menenangkan mata dan hati.</p>
-      <div class="hero-btns">
-        <a href="#programs" class="btn-forest">Lihat Program</a>
-        <a href="#cta" class="btn-line">Coba Kelas Gratis</a>
-      </div>
-    </div>
-    <div class="hero-scene reveal" id="heroScene">
-      <!-- Placeholder: ganti src di bawah dengan hero-loop.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
-      <video id="heroVideo" autoplay muted loop playsinline preload="auto">
-        <source src="assets/mp4/hero-loop.mp4" type="video/mp4">
-      </video>
-      <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> hero-loop.mp4</div>
-      <div class="scene-sun"></div>
-      <div class="scene-cloud c1"></div>
-      <div class="scene-cloud c2"></div>
-      <div class="scene-cloud c3"></div>
-      <i class="fa-solid fa-torii-gate scene-torii"></i>
-      <i class="fa-solid fa-leaf scene-leaf l1"></i>
-      <i class="fa-solid fa-leaf scene-leaf l2"></i>
-      <i class="fa-solid fa-leaf scene-leaf l3"></i>
-      <div class="hill-back"></div>
-      <div class="hill-front"></div>
-      <div class="float-card">
-        <div class="ico"><i class="fa-solid fa-star"></i></div>
-        <div><div class="n">4.9/5</div><div class="l">dari 800+ murid</div></div>
-      </div>
+  <!-- Placeholder: ganti src di bawah dengan hero-loop.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
+  <video id="heroVideo" autoplay muted loop playsinline preload="auto">
+    <source src="assets/mp4/hero-loop.mp4" type="video/mp4">
+  </video>
+  <div class="hero-fallback-scene">
+    <div class="scene-sun"></div>
+    <div class="scene-cloud c1"></div>
+    <div class="scene-cloud c2"></div>
+    <div class="scene-cloud c3"></div>
+    <i class="fa-solid fa-torii-gate scene-torii"></i>
+    <i class="fa-solid fa-leaf scene-leaf l1"></i>
+    <i class="fa-solid fa-leaf scene-leaf l2"></i>
+    <i class="fa-solid fa-leaf scene-leaf l3"></i>
+    <div class="hill-back"></div>
+    <div class="hill-front"></div>
+  </div>
+  <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> hero-loop.mp4</div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <h1 class="hero-h">Belajar Bahasa Jepang yang <span class="hl">terasa seperti pulang ke rumah.</span></h1>
+    <p class="hero-p">Mori Nihongo mengajak kamu menjelajahi Bahasa Jepang lewat suasana belajar yang tenang, hangat, dan penuh cerita — terinspirasi dunia animasi Jepang klasik yang menenangkan mata dan hati.</p>
+    <div class="hero-btns">
+      <a href="#programs" class="btn-forest">Lihat Program</a>
+      <a href="#cta" class="btn-line">Coba Kelas Gratis</a>
     </div>
   </div>
 </section>
@@ -423,9 +417,9 @@
     if (video.readyState >= 2) onReady();
     else video.addEventListener('loadeddata', onReady);
   }
-  const heroScene = document.getElementById('heroScene');
+  const heroSection = document.getElementById('hero');
   const heroVideo = document.getElementById('heroVideo');
-  autoRevealVideo(heroVideo, () => heroScene.classList.add('has-video'));
+  autoRevealVideo(heroVideo, () => heroSection.classList.add('has-video'));
 
   document.querySelectorAll('.kelas-frame').forEach(frame => {
     autoRevealVideo(frame.querySelector('video'), () => frame.classList.add('has-video'));
