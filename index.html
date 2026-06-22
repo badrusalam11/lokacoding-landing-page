@@ -274,59 +274,6 @@
     }
     @media(max-width:960px){ .cinema-right{ display:none; } .cinema-grid{ grid-template-columns:1fr; padding:0 24px; } }
 
-    /* ══════════════════════════════════════
-       PROCESS — scroll-story (Idea/Design/Development/Launch)
-    ══════════════════════════════════════ */
-    #process {
-      position:relative; height:100vh; width:100%;
-      overflow:hidden; background:var(--dark-bg);
-      transition:background-color .4s ease;
-    }
-    .process-panel {
-      position:absolute; inset:0;
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      text-align:center; padding:0 24px;
-      opacity:0; color:var(--dark-text);
-      transition:color .4s ease;
-    }
-    .process-num {
-      font-size:.74rem; font-weight:700; letter-spacing:.16em;
-      text-transform:uppercase; color:var(--blue); margin-bottom:20px;
-    }
-    .process-ico {
-      width:74px; height:74px; border-radius:50%;
-      background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.3);
-      display:flex; align-items:center; justify-content:center;
-      font-size:1.6rem; color:var(--blue); margin-bottom:28px;
-    }
-    .process-t {
-      font-size:clamp(2.4rem,6vw,4.6rem); font-weight:800;
-      letter-spacing:-.04em; margin-bottom:18px; color:inherit;
-    }
-    .process-d { font-size:1rem; max-width:480px; line-height:1.8; opacity:.75; color:inherit; }
-
-    .process-steps {
-      position:absolute; bottom:74px; left:50%; transform:translateX(-50%);
-      display:flex; gap:28px; z-index:3;
-      font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
-      color:var(--dark-muted);
-    }
-    .process-steps span { transition:color .3s, opacity .3s; opacity:.45; }
-    .process-steps span.active { color:var(--blue); opacity:1; }
-
-    .process-progress {
-      position:absolute; bottom:52px; left:50%; transform:translateX(-50%);
-      width:240px; height:3px; background:rgba(255,255,255,.14);
-      border-radius:3px; overflow:hidden; z-index:3;
-    }
-    .process-progress-bar {
-      width:100%; height:100%; background:var(--blue);
-      transform-origin:left; transform:scaleX(0);
-    }
-    @media(max-width:580px){
-      .process-steps { gap:14px; font-size:.6rem; }
-    }
-
     .btn-primary {
       font-size:.85rem; font-weight:600;
       background:var(--blue); color:#fff;
@@ -808,7 +755,7 @@
     <li><a href="#">Beranda</a></li>
     <li><a href="#about">Profil</a></li>
     <li><a href="#products">Produk</a></li>
-    <li><a href="#portfolio">Website</a></li>
+    <li><a href="/templates.html">Website</a></li>
     <li><a href="#cta-section">Kontak</a></li>
   </ul>
   <button class="nav-cta">Hubungi Kami</button>
@@ -819,7 +766,7 @@
   <a href="#">Beranda</a>
   <a href="#about">Profil</a>
   <a href="#products">Produk</a>
-  <a href="#portfolio">Desain</a>
+  <a href="/templates.html">Desain</a>
   <a href="#cta-section">Kontak</a>
   <button class="nav-cta" style="align-self:flex-start;margin-top:6px;">Hubungi Kami</button>
 </div>
@@ -881,42 +828,6 @@
       <span>Scroll</span>
       <i class="fa-solid fa-chevron-down"></i>
     </div>
-</section>
-
-<!-- ════ PROCESS (scroll-story: Idea → Design → Development → Launch) ════ -->
-<section id="process" style="padding:0;max-width:none;">
-  <div class="process-panel" style="opacity:1;">
-    <div class="process-num">Proses 01</div>
-    <div class="process-ico"><i class="fa-solid fa-lightbulb"></i></div>
-    <h3 class="process-t">Ide</h3>
-    <p class="process-d">Kami menggali kebutuhan dan visi bisnis Anda secara mendalam, lalu merumuskannya menjadi konsep produk yang jelas dan terarah.</p>
-  </div>
-  <div class="process-panel">
-    <div class="process-num">Proses 02</div>
-    <div class="process-ico"><i class="fa-solid fa-pen-ruler"></i></div>
-    <h3 class="process-t">Desain</h3>
-    <p class="process-d">Wireframe, UI/UX, dan identitas visual dirancang agar produk terasa intuitif sekaligus mencerminkan brand Anda.</p>
-  </div>
-  <div class="process-panel">
-    <div class="process-num">Proses 03</div>
-    <div class="process-ico"><i class="fa-solid fa-code"></i></div>
-    <h3 class="process-t">Pengembangan</h3>
-    <p class="process-d">Tim engineer kami membangun produk dengan arsitektur yang scalable, kode bersih, dan pengujian menyeluruh.</p>
-  </div>
-  <div class="process-panel">
-    <div class="process-num">Proses 04</div>
-    <div class="process-ico"><i class="fa-solid fa-rocket"></i></div>
-    <h3 class="process-t">Peluncuran</h3>
-    <p class="process-d">Produk diluncurkan, dipantau, dan terus disempurnakan bersama Anda untuk pertumbuhan jangka panjang.</p>
-  </div>
-
-  <div class="process-steps">
-    <span data-step-label="0">Ide</span>
-    <span data-step-label="1">Desain</span>
-    <span data-step-label="2">Pengembangan</span>
-    <span data-step-label="3">Peluncuran</span>
-  </div>
-  <div class="process-progress"><div class="process-progress-bar"></div></div>
 </section>
 
 <div class="divider"></div>
@@ -1140,7 +1051,7 @@
           <li><a href="#">Beranda</a></li>
           <li><a href="#about">Profil</a></li>
           <li><a href="#products">Produk</a></li>
-          <li><a href="#portfolio">Website</a></li>
+          <li><a href="/templates.html">Website</a></li>
           <li><a href="#cta-section">Kontak</a></li>
         </ul>
       </div>
@@ -1347,24 +1258,31 @@
     { id: 'cinema',      link: document.querySelector('.nav-links a[href="#"]') },
     { id: 'about',       link: document.querySelector('.nav-links a[href="#about"]') },
     { id: 'products',    link: document.querySelector('.nav-links a[href="#products"]') },
-    { id: 'portfolio',   link: document.querySelector('.nav-links a[href="#portfolio"]') },
     { id: 'cta-section', link: document.querySelector('.nav-links a[href="#cta-section"]') },
   ];
- 
+
   function updateActiveNav() {
     const scrollY = window.scrollY;
     const navH = 66;
     let current = sections[0];
- 
-    sections.forEach(s => {
-      const el = document.getElementById(s.id);
-      if (!el) return;
-      // section dianggap aktif kalau top-nya sudah melewati tengah layar
-      if (el.getBoundingClientRect().top <= navH + 80) {
-        current = s;
-      }
-    });
- 
+
+    // CTA section + footer can be shorter than the viewport, so its top
+    // never crosses the navH+80 threshold — treat hitting page bottom
+    // as "Kontak" being active so it isn't stuck unreachable.
+    const atBottom = scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    if (atBottom) {
+      current = sections[sections.length - 1];
+    } else {
+      sections.forEach(s => {
+        const el = document.getElementById(s.id);
+        if (!el) return;
+        // section dianggap aktif kalau top-nya sudah melewati tengah layar
+        if (el.getBoundingClientRect().top <= navH + 80) {
+          current = s;
+        }
+      });
+    }
+
     sections.forEach(s => s.link && s.link.classList.remove('active'));
     if (current.link) current.link.classList.add('active');
   }
@@ -1373,11 +1291,9 @@
   updateActiveNav(); // jalankan sekali saat load
 
   /* Navbar theme follows whichever section currently sits behind it */
-  let processProgress = 0;
   function updateNavTheme() {
     const navH = 66;
     const cinemaEl = document.getElementById('cinema');
-    const processEl = document.getElementById('process');
     const footerEl = document.querySelector('footer');
     let dark = false;
     [cinemaEl, footerEl].forEach(el => {
@@ -1385,10 +1301,6 @@
       const r = el.getBoundingClientRect();
       if (r.top <= navH && r.bottom > navH) dark = true;
     });
-    if (processEl) {
-      const r = processEl.getBoundingClientRect();
-      if (r.top <= navH && r.bottom > navH) dark = processProgress <= 0.46;
-    }
     document.body.classList.toggle('nav-on-dark', dark);
   }
   window.addEventListener('scroll', updateNavTheme, { passive: true });
@@ -1407,7 +1319,7 @@
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
-    /* Pinned sections (cinema/process/products) change the page's scrollable
+    /* Pinned sections (cinema/products) change the page's scrollable
        height at runtime — Lenis must re-measure on every ScrollTrigger refresh,
        otherwise its scroll bounds go stale and fight with the pin right at the
        boundary where a pinned section hands scrolling back to the page. */
@@ -1602,7 +1514,7 @@
       animate();
     }
 
-    /* pinned scroll-driven "opening" transition into the Process section */
+    /* pinned scroll-driven "opening" transition out of the cinema hero */
     ScrollTrigger.create({
       trigger: '#cinema',
       start: 'top top',
@@ -1615,61 +1527,6 @@
         gsap.set(cinemaGrid, { opacity: 1 - textP, y: -40 * textP, scale: 1 - 0.08 * textP });
         if (scrollHintEl) gsap.set(scrollHintEl, { opacity: 1 - Math.min(1, progress / 0.15) });
         updateNavTheme();
-      }
-    });
-  })();
-
-  /* ══════════════════════════════════════
-     PROCESS — pinned scroll-story, dark → light wash
-  ══════════════════════════════════════ */
-  (function initProcess() {
-    const processEl = document.getElementById('process');
-    if (!processEl) return;
-    const panels = gsap.utils.toArray('.process-panel', processEl);
-    const stepLabels = gsap.utils.toArray('[data-step-label]', processEl);
-    const progressBar = processEl.querySelector('.process-progress-bar');
-    const n = panels.length;
-    let processIsLight = false;
-
-    ScrollTrigger.create({
-      trigger: processEl,
-      start: 'top top',
-      end: '+=260%',
-      pin: true,
-      scrub: true,
-      onUpdate(self) {
-        const p = self.progress;
-        const pos = p * n;
-        processProgress = p;
-        updateNavTheme();
-
-        panels.forEach((panel, i) => {
-          const d = pos - i;
-          const isLast = i === n - 1;
-          let op;
-          if (d < -0.3) op = 0;
-          else if (d < 0) op = 1 + d / 0.3;
-          else if (isLast || d < 0.7) op = 1;
-          else if (d < 1) op = 1 - (d - 0.7) / 0.3;
-          else op = 0;
-          op = Math.max(0, Math.min(1, op));
-          gsap.set(panel, { opacity: op, y: (1 - op) * (d < 0 ? 26 : -26), scale: 0.95 + op * 0.05 });
-        });
-
-        const activeIndex = Math.max(0, Math.min(n - 1, Math.round(pos - 0.5)));
-        stepLabels.forEach((el, i) => el.classList.toggle('active', i === activeIndex));
-
-        /* dark → light storytelling: binary swap (not a linear blend) so text/bg
-           never pass through a low-contrast gray-on-gray middle. The swap lands
-           in the gap between "Desain" and "Pengembangan" (CSS transition smooths it). */
-        const lightPhase = p > 0.46;
-        if (lightPhase !== processIsLight) {
-          processIsLight = lightPhase;
-          processEl.style.background = lightPhase ? '#F8FAFF' : '#05070D';
-          panels.forEach(panel => { panel.style.color = lightPhase ? '#0F172A' : '#FFFFFF'; });
-        }
-
-        if (progressBar) gsap.set(progressBar, { scaleX: p });
       }
     });
   })();

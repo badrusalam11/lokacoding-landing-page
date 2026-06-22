@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mori Nihongo — Template Website Kursus Bahasa Jepang Tema Ghibli | Loka Coding</title>
+<meta name="description" content="Mori Nihongo, kursus Bahasa Jepang dengan suasana belajar yang tenang dan hangat — terinspirasi dunia animasi Jepang klasik."/>
+<meta name="robots" content="noindex, follow"/>
+<link rel="icon" type="image/svg+xml" href="mori-nihongo-logo.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{
+    --forest:#5B7F5E; --forest-d:#456148; --sage:#A9C9A0; --sky:#BEE0DB; --blush:#F2C6BB; --sun:#F0CE86;
+    --cream:#FBF6EC; --cream2:#FFFDF7; --ink:#46402F; --muted:#79715F; --line:#EAE0C7;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Quicksand',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;line-height:1.7;}
+  h1,h2,h3,.disp{font-family:'M PLUS Rounded 1c',sans-serif;}
+  a{color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 40px;}
+  img{max-width:100%;display:block;}
+
+  .lc-bar{position:fixed;top:0;left:0;width:100%;height:42px;z-index:900;background:#3F4A3A;color:#fff;
+    display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:.74rem;font-weight:500;}
+  .lc-bar a{text-decoration:none;}
+  .lc-bar-back{color:#cdd6c4;display:flex;align-items:center;gap:7px;}
+  .lc-bar-back:hover{color:#fff;}
+  .lc-bar-mid{color:#7c8a72;display:none;}
+  .lc-bar-order{background:var(--sun);color:#3F4A3A;font-weight:700;padding:7px 16px;border-radius:7px;display:flex;align-items:center;gap:6px;}
+  @media(min-width:700px){ .lc-bar-mid{display:inline;} }
+
+  nav{position:fixed;top:42px;left:0;width:100%;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 40px;background:rgba(251,246,236,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .brand{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;font-size:1.2rem;color:var(--forest-d);text-decoration:none;display:flex;align-items:center;gap:10px;}
+  .brand .mark{width:36px;height:36px;display:block;}
+  .nlinks{display:flex;gap:34px;list-style:none;}
+  .nlinks a{font-size:.84rem;font-weight:600;color:var(--ink);text-decoration:none;}
+  .nlinks a:hover{color:var(--forest-d);}
+  .nav-cta{font-size:.8rem;font-weight:700;background:var(--forest);color:#fff;border:none;padding:12px 24px;border-radius:100px;cursor:pointer;text-decoration:none;}
+  .mob-btn{display:none;background:none;border:none;color:var(--forest-d);font-size:1.2rem;cursor:pointer;}
+
+  /* hero — panoramic full-bleed */
+  #hero{position:relative;height:80vh;min-height:100vh;overflow:hidden;padding:0;}
+  #hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+  #hero.has-video video{display:block;}
+  #hero.has-video .hero-fallback-scene{display:none;}
+  .hero-overlay{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(251,246,236,.05) 0%,rgba(251,246,236,.38) 42%,rgba(251,246,236,.98) 72%);}
+  .hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;padding-bottom:clamp(50px,8vh,90px);}
+  .hero-h{font-size:clamp(2.1rem,4.8vw,3.6rem);font-weight:800;line-height:1.18;margin-bottom:20px;letter-spacing:-.01em;max-width:16ch;
+    text-shadow:0 2px 20px rgba(251,246,236,.6);}
+  .hero-h .hl{color:var(--forest-d);}
+  .hero-p{color:rgba(70,64,47,.85);font-size:.98rem;line-height:1.85;max-width:440px;margin-bottom:32px;text-shadow:0 1px 16px rgba(251,246,236,.7);}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-forest{background:var(--forest);color:#fff;font-weight:700;font-size:.86rem;padding:15px 30px;border-radius:100px;text-decoration:none;
+    display:inline-block;transition:transform .2s,box-shadow .2s;}
+  .btn-forest:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(91,127,94,.3);}
+  .btn-line{color:var(--ink);font-weight:700;font-size:.86rem;padding:15px 26px;border-radius:100px;border:1.5px solid var(--line);text-decoration:none;display:inline-block;background:#fff;}
+
+  /* hero illustrated scene (fallback, full-bleed) */
+  .hero-fallback-scene{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;
+    background:linear-gradient(180deg,var(--sky) 0%,#E4EFE0 55%,var(--cream2) 100%);}
+  .scene-sun{position:absolute;top:130px;right:60px;width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle,var(--sun) 0%,rgba(240,206,134,0) 72%);}
+  .scene-cloud{position:absolute;background:#fff;border-radius:50px;opacity:.85;animation:drift 9s ease-in-out infinite;}
+  .scene-cloud::before,.scene-cloud::after{content:'';position:absolute;background:#fff;border-radius:50%;}
+  .c1{width:100px;height:34px;top:170px;left:8%;}
+  .c1::before{width:46px;height:46px;top:-23px;left:8px;}
+  .c1::after{width:36px;height:36px;top:-16px;left:48px;}
+  .c2{width:74px;height:26px;top:230px;right:18%;animation-delay:2.4s;}
+  .c2::before{width:34px;height:34px;top:-17px;left:6px;}
+  .c2::after{width:28px;height:28px;top:-12px;left:36px;}
+  .c3{width:58px;height:22px;top:30%;left:42%;animation-delay:4.8s;}
+  .c3::before{width:26px;height:26px;top:-13px;left:5px;}
+  .c3::after{width:20px;height:20px;top:-9px;left:28px;}
+  @keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(14px)}}
+  .scene-torii{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);font-size:7rem;color:var(--forest-d);opacity:.92;}
+  .scene-leaf{position:absolute;color:var(--forest);opacity:.8;animation:bob 4s ease-in-out infinite;}
+  .l1{font-size:1.6rem;top:38%;left:18%;animation-delay:.4s;}
+  .l2{font-size:1.3rem;top:55%;right:20%;animation-delay:1.6s;}
+  .l3{font-size:1.1rem;top:25%;right:35%;animation-delay:2.8s;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(12deg)}}
+  .hill-back{position:absolute;left:-10%;bottom:-10vh;width:120%;height:34vh;border-radius:50%;background:var(--sage);opacity:.9;}
+  .hill-front{position:absolute;left:-5%;bottom:-16vh;width:110%;height:30vh;border-radius:50%;background:var(--forest);}
+
+  @media(max-width:640px){
+    .hero-h{max-width:none;}
+  }
+
+  /* placeholder badge: tampil di atas tiap fallback video, hilang otomatis saat video asli ditemukan */
+  .video-ph-badge{position:absolute;top:16px;left:16px;z-index:3;background:rgba(70,64,47,.82);color:var(--cream2);
+    font-size:.66rem;font-weight:700;padding:7px 13px;border-radius:100px;display:flex;align-items:center;gap:7px;
+    letter-spacing:.01em;backdrop-filter:blur(4px);}
+  .has-video .video-ph-badge{display:none;}
+  #hero .video-ph-badge{top:140px;left:0;}
+
+  section{padding:110px 0;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--forest-d);margin-bottom:16px;}
+  .sec-h{font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:800;line-height:1.3;}
+  .sec-h .hl{color:var(--forest-d);}
+
+  /* video kelas showcase */
+  #video{background:#fff;}
+  .kelas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .kelas-card{background:var(--cream);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .25s,box-shadow .25s;}
+  .kelas-card:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(91,127,94,.14);}
+  .kelas-frame{position:relative;aspect-ratio:4/5;overflow:hidden;}
+  .kelas-frame.v1{background:linear-gradient(160deg,var(--sky) 0%,var(--cream2) 68%);}
+  .kelas-frame.v2{background:linear-gradient(160deg,var(--blush) 0%,var(--cream2) 68%);}
+  .kelas-frame.v3{background:linear-gradient(160deg,var(--sage) 0%,var(--cream2) 68%);}
+  .kelas-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+  .kelas-frame.has-video video{display:block;}
+  .kelas-frame.has-video .kelas-ico{display:none;}
+  .kelas-ico{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:5rem;color:var(--forest-d);opacity:.3;}
+  .kelas-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;
+    background:rgba(255,255,255,.92);color:var(--forest-d);display:flex;align-items:center;justify-content:center;font-size:.95rem;
+    box-shadow:0 8px 22px rgba(70,64,47,.18);z-index:2;}
+  .has-video .kelas-play{display:none;}
+  .kelas-cap{padding:20px 22px 24px;}
+  @media(max-width:900px){ .kelas-grid{grid-template-columns:1fr;} }
+
+  /* stats */
+  #stats{background:var(--forest);}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;}
+  .stat-n{font-family:'M PLUS Rounded 1c',sans-serif;font-size:2.3rem;font-weight:800;color:var(--sun);}
+  .stat-l{font-size:.76rem;color:rgba(255,255,255,.78);margin-top:6px;}
+  @media(max-width:760px){ .stats-grid{grid-template-columns:1fr 1fr;gap:36px;} }
+
+  /* programs */
+  #programs{background:var(--cream);}
+  .prog-hd{text-align:center;max-width:580px;margin:0 auto 56px;}
+  .prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .prog-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px;transition:transform .25s,box-shadow .25s;}
+  .prog-card:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(91,127,94,.14);}
+  .prog-ico{width:48px;height:48px;border-radius:12px;background:#EAF2E6;color:var(--forest-d);display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:20px;}
+  .prog-t{font-weight:700;font-size:1rem;margin-bottom:10px;}
+  .prog-d{font-size:.82rem;color:var(--muted);line-height:1.65;margin-bottom:16px;}
+  .prog-meta{font-size:.74rem;font-weight:700;color:var(--forest-d);}
+  @media(max-width:900px){ .prog-grid{grid-template-columns:1fr 1fr;} }
+
+  /* why us */
+  #why{background:#fff;}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .why-list{display:flex;flex-direction:column;gap:22px;margin-top:24px;}
+  .why-item{display:flex;gap:16px;align-items:flex-start;}
+  .why-item .ico{width:38px;height:38px;border-radius:50%;background:#EAF2E6;color:var(--forest-d);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .why-item .t{font-weight:700;font-size:.92rem;margin-bottom:4px;}
+  .why-item .d{font-size:.82rem;color:var(--muted);line-height:1.6;}
+  .nook{position:relative;aspect-ratio:4/4.2;border-radius:20px;overflow:hidden;
+    background:linear-gradient(160deg,var(--blush) 0%,var(--cream2) 60%);}
+  .nook video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+  .nook.has-video video{display:block;}
+  .nook.has-video .nook-leaf,.nook.has-video .nook-mid,.nook.has-video .nook-cup{display:none;}
+  .nook-leaf{position:absolute;top:26px;right:28px;font-size:1.6rem;color:var(--forest);opacity:.7;}
+  .nook-mid{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);font-size:3.4rem;color:var(--forest-d);opacity:.9;}
+  .nook-cup{position:absolute;bottom:30px;left:34px;font-size:1.5rem;color:#C99A3B;opacity:.85;}
+  @media(max-width:900px){ .why-grid{grid-template-columns:1fr;} .nook{order:-1;} }
+
+  /* instructors */
+  #instructors{background:var(--cream);}
+  .ins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .ins-card img{width:100%;aspect-ratio:1/1.1;object-fit:cover;border-radius:18px;}
+  .ins-name{font-weight:700;margin-top:16px;}
+  .ins-role{font-size:.78rem;color:var(--forest-d);font-weight:600;margin-top:3px;}
+  @media(max-width:900px){ .ins-grid{grid-template-columns:1fr 1fr;} }
+
+  /* testimonial */
+  #testi{background:#fff;text-align:center;}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .testi-card{background:var(--cream);border-radius:18px;padding:28px;text-align:left;border:1px solid var(--line);}
+  .testi-stars{color:#C99A3B;margin-bottom:14px;font-size:.85rem;}
+  .testi-t{font-size:.86rem;color:var(--ink);line-height:1.7;margin-bottom:16px;}
+  .testi-who{font-size:.78rem;color:var(--muted);font-weight:600;}
+  @media(max-width:900px){ .testi-grid{grid-template-columns:1fr;} }
+
+  #cta{background:var(--forest);text-align:center;}
+  .cta-h{color:#fff;font-size:clamp(1.7rem,3.2vw,2.4rem);font-weight:800;margin-bottom:18px;}
+  .cta-h .hl{color:var(--sun);}
+  .cta-p{color:rgba(255,255,255,.7);max-width:460px;margin:0 auto 32px;}
+
+  footer{background:var(--cream2);border-top:1px solid var(--line);padding:48px 0 28px;}
+  .ft-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .ft-brand{font-family:'M PLUS Rounded 1c',sans-serif;font-weight:800;color:var(--forest-d);}
+  .ft-links{display:flex;gap:26px;list-style:none;font-size:.8rem;color:var(--muted);}
+  .ft-note{font-size:.74rem;color:#A8A29A;margin-top:24px;text-align:center;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:900px){
+    .nlinks,.nav-cta{display:none;}
+    .mob-btn{display:block;}
+  }
+  @media(max-width:640px){
+    .container{padding:0 24px;}
+    nav{padding:0 24px;}
+    #hero{padding:170px 0 0;}
+    .prog-grid,.ins-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="lc-bar">
+  <a href="../../templates.html" class="lc-bar-back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog</a>
+  <span class="lc-bar-mid">Template Preview — Kursus Bahasa Jepang (Tema Ghibli)</span>
+  <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20template%20Kursus%20Bahasa%20Jepang%20Tema%20Ghibli" target="_blank" rel="noopener" class="lc-bar-order">Order Template <i class="fa-solid fa-arrow-right"></i></a>
+</div>
+
+<nav>
+  <a class="brand" href="#"><img src="mori-nihongo-logo.svg" alt="Mori Nihongo" class="mark"/>Mori Nihongo</a>
+  <ul class="nlinks">
+    <li><a href="#programs">Program</a></li>
+    <li><a href="#video">Video Kelas</a></li>
+    <li><a href="#why">Kenapa Kami</a></li>
+    <li><a href="#testi">Testimoni</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Coba Kelas Gratis</a>
+  <button class="mob-btn"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<section id="hero">
+  <!-- Placeholder: ganti src di bawah dengan hero-loop.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
+  <video id="heroVideo" autoplay muted loop playsinline preload="auto">
+    <source src="assets/mp4/hero-loop.mp4" type="video/mp4">
+  </video>
+  <div class="hero-fallback-scene">
+    <div class="scene-sun"></div>
+    <div class="scene-cloud c1"></div>
+    <div class="scene-cloud c2"></div>
+    <div class="scene-cloud c3"></div>
+    <i class="fa-solid fa-torii-gate scene-torii"></i>
+    <i class="fa-solid fa-leaf scene-leaf l1"></i>
+    <i class="fa-solid fa-leaf scene-leaf l2"></i>
+    <i class="fa-solid fa-leaf scene-leaf l3"></i>
+    <div class="hill-back"></div>
+    <div class="hill-front"></div>
+  </div>
+  <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> hero-loop.mp4</div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <h1 class="hero-h">Belajar Bahasa Jepang yang <span class="hl">terasa seperti pulang ke rumah.</span></h1>
+    <p class="hero-p">Mori Nihongo mengajak kamu menjelajahi Bahasa Jepang lewat suasana belajar yang tenang, hangat, dan penuh cerita — terinspirasi dunia animasi Jepang klasik yang menenangkan mata dan hati.</p>
+    <div class="hero-btns">
+      <a href="#programs" class="btn-forest">Lihat Program</a>
+      <a href="#cta" class="btn-line">Coba Kelas Gratis</a>
+    </div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="container">
+    <div class="prog-hd reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Video Kelas</div>
+      <h2 class="sec-h">Intip suasana <span class="hl">tiap jalur belajar.</span></h2>
+    </div>
+    <div class="kelas-grid">
+      <div class="kelas-card reveal">
+        <div class="kelas-frame v1">
+          <!-- Placeholder: ganti src di bawah dengan kelas-hiragana.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
+          <video autoplay muted loop playsinline preload="auto">
+            <source src="assets/mp4/kelas-hiragana.mp4" type="video/mp4">
+          </video>
+          <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> kelas-hiragana.mp4</div>
+          <i class="fa-solid fa-pen-fancy kelas-ico"></i>
+          <div class="kelas-play"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="kelas-cap">
+          <div class="prog-t">Hiragana &amp; Katakana</div>
+          <div class="prog-d">Cuplikan latihan menulis huruf dasar dengan tempo yang santai.</div>
+        </div>
+      </div>
+      <div class="kelas-card reveal">
+        <div class="kelas-frame v2">
+          <!-- Placeholder: ganti src di bawah dengan kelas-kaiwa.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
+          <video autoplay muted loop playsinline preload="auto">
+            <source src="assets/mp4/kelas-kaiwa.mp4" type="video/mp4">
+          </video>
+          <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> kelas-kaiwa.mp4</div>
+          <i class="fa-solid fa-comments kelas-ico"></i>
+          <div class="kelas-play"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="kelas-cap">
+          <div class="prog-t">Kaiwa (Percakapan)</div>
+          <div class="prog-d">Cuplikan latihan ngobrol santai, biar makin percaya diri bicara.</div>
+        </div>
+      </div>
+      <div class="kelas-card reveal">
+        <div class="kelas-frame v3">
+          <!-- Placeholder: ganti src di bawah dengan kelas-kanji.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
+          <video autoplay muted loop playsinline preload="auto">
+            <source src="assets/mp4/kelas-kanji.mp4" type="video/mp4">
+          </video>
+          <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> kelas-kanji.mp4</div>
+          <i class="fa-solid fa-torii-gate kelas-ico"></i>
+          <div class="kelas-play"><i class="fa-solid fa-play"></i></div>
+        </div>
+        <div class="kelas-cap">
+          <div class="prog-t">Kanji</div>
+          <div class="prog-d">Cuplikan belajar kanji lewat cerita dan ilustrasi yang mudah diingat.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="container stats-grid">
+    <div class="reveal"><div class="stat-n">800+</div><div class="stat-l">Murid Aktif</div></div>
+    <div class="reveal"><div class="stat-n">18</div><div class="stat-l">Sensei &amp; Tutor</div></div>
+    <div class="reveal"><div class="stat-n">92%</div><div class="stat-l">Lulus JLPT Tahap Pertama</div></div>
+    <div class="reveal"><div class="stat-n">6</div><div class="stat-l">Tahun Menemani Belajar</div></div>
+  </div>
+</section>
+
+<section id="programs">
+  <div class="container">
+    <div class="prog-hd reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Program Kami</div>
+      <h2 class="sec-h">Pilih jalur belajar yang sesuai<br>dengan <span class="hl">level Bahasa Jepangmu.</span></h2>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-card reveal"><div class="prog-ico"><i class="fa-solid fa-pen-fancy"></i></div><div class="prog-t">Hiragana &amp; Katakana</div><div class="prog-d">Fondasi membaca dan menulis huruf Jepang untuk pemula total, dengan cara yang santai.</div><div class="prog-meta">Pemula</div></div>
+      <div class="prog-card reveal"><div class="prog-ico"><i class="fa-solid fa-torii-gate"></i></div><div class="prog-t">Kanji Dasar</div><div class="prog-d">Mengenal kanji-kanji penting lewat cerita dan ilustrasi yang mudah diingat.</div><div class="prog-meta">Dasar - Menengah</div></div>
+      <div class="prog-card reveal"><div class="prog-ico"><i class="fa-solid fa-comments"></i></div><div class="prog-t">Percakapan (Kaiwa)</div><div class="prog-d">Latihan ngobrol sehari-hari biar makin percaya diri bicara Bahasa Jepang.</div><div class="prog-meta">Semua Level</div></div>
+      <div class="prog-card reveal"><div class="prog-ico"><i class="fa-solid fa-book-open"></i></div><div class="prog-t">Persiapan JLPT N5-N3</div><div class="prog-d">Strategi dan latihan soal terarah untuk lulus ujian kemampuan Bahasa Jepang.</div><div class="prog-meta">Intensif</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="container why-grid">
+    <div class="nook reveal" id="nookFrame">
+      <!-- Placeholder: ganti src di bawah dengan nook-study.mp4 — brief lengkap ada di VIDEO-PROMPTS.md -->
+      <video id="nookVideo" autoplay muted loop playsinline preload="auto">
+        <source src="assets/mp4/nook-study.mp4" type="video/mp4">
+      </video>
+      <div class="video-ph-badge"><i class="fa-solid fa-clapperboard"></i> nook-study.mp4</div>
+      <i class="fa-solid fa-seedling nook-leaf"></i>
+      <i class="fa-solid fa-book-open nook-mid"></i>
+      <i class="fa-solid fa-mug-hot nook-cup"></i>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">Kenapa Mori Nihongo</div>
+      <h2 class="sec-h">Belajar dengan suasana yang <span class="hl">tenang di mata dan hati.</span></h2>
+      <div class="why-list">
+        <div class="why-item"><div class="ico"><i class="fa-solid fa-users"></i></div><div><div class="t">Kelas Kecil &amp; Hangat</div><div class="d">Maksimal 10 murid per kelas, biar belajar serasa ngobrol bareng teman dekat.</div></div></div>
+        <div class="why-item"><div class="ico"><i class="fa-solid fa-leaf"></i></div><div><div class="t">Materi Penuh Cerita</div><div class="d">Setiap pelajaran dibungkus cerita dan ilustrasi lembut, bukan sekadar teori kaku.</div></div></div>
+        <div class="why-item"><div class="ico"><i class="fa-solid fa-mug-hot"></i></div><div><div class="t">Tempo Belajar Santai</div><div class="d">Tidak terburu-buru — fokus pada pemahaman, bukan kejar target semata.</div></div></div>
+        <div class="why-item"><div class="ico"><i class="fa-solid fa-laptop"></i></div><div><div class="t">Kelas Online &amp; Offline</div><div class="d">Belajar dari rumahmu sendiri atau datang langsung ke kelas, sesuai kenyamanan.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="instructors">
+  <div class="container">
+    <div class="prog-hd reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Sensei Kami</div>
+      <h2 class="sec-h">Dibimbing oleh sensei <span class="hl">yang sabar dan hangat.</span></h2>
+    </div>
+    <div class="ins-grid">
+      <div class="ins-card reveal"><img src="https://as2.ftcdn.net/v2/jpg/02/03/73/73/1000_F_203737309_Xsyv5vRhYHD0avGK9WLjpvU0SvDgGtPe.jpg" alt="Pengajar Percakapan"/><div class="ins-name">Yuka-sensei</div><div class="ins-role">Percakapan (Kaiwa)</div></div>
+      <div class="ins-card reveal"><img src="https://as1.ftcdn.net/v2/jpg/00/92/95/92/1000_F_92959242_pIXXneNpKWi5P6ZDvfIpyCQeACMpmxoR.jpg" alt="Pengajar JLPT"/><div class="ins-name">Haruka-sensei</div><div class="ins-role">Persiapan JLPT</div></div>
+      <div class="ins-card reveal"><img src="https://as2.ftcdn.net/v2/jpg/04/07/93/07/1000_F_407930762_gg4ooRBwoaMLY4HVkFzaGuaa349NoJZK.jpg" alt="Pengajar Hiragana Katakana"/><div class="ins-name">Kak Dinda</div><div class="ins-role">Hiragana &amp; Katakana</div></div>
+      <div class="ins-card reveal"><img src="https://as1.ftcdn.net/v2/jpg/03/07/97/42/1000_F_307974220_wVnR9JAypjysyT8Z38pD94Nt7XnZ0Qyn.jpg" alt="Pengajar Kanji"/><div class="ins-name">Pak Aji</div><div class="ins-role">Kanji &amp; Tata Bahasa</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="testi">
+  <div class="container">
+    <div class="prog-hd reveal">
+      <div class="eyebrow" style="justify-content:center;display:flex;">Kata Murid Kami</div>
+      <h2 class="sec-h">Dipercaya oleh ratusan <span class="hl">pencinta Bahasa Jepang.</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><div class="testi-t">"Belajar di sini beda banget, suasananya tenang kayak nonton film favorit. Sekarang aku udah berani baca komik Jepang sendiri!"</div><div class="testi-who">Salsa, Murid Kaiwa</div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><div class="testi-t">"Tutornya sabar dan materinya nggak bikin pusing. Aku lulus JLPT N4 cuma dalam 6 bulan!"</div><div class="testi-who">Bayu, Murid JLPT</div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><div class="testi-t">"Anak saya yang tadinya susah fokus, sekarang malah nungguin jadwal les Bahasa Jepang setiap minggu."</div><div class="testi-who">Bu Rahma, Orang Tua Murid</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container reveal">
+    <div class="cta-h">Mulai petualangan <span class="hl">Bahasa Jepangmu</span><br>hari ini.</div>
+    <p class="cta-p">Coba satu kelas gratis bersama sensei kami — tanpa biaya, tanpa tekanan.</p>
+    <a href="https://wa.me/6285121533661?text=Saya%20tertarik%20coba%20kelas%20gratis%20Mori%20Nihongo" class="btn-forest">Daftar Kelas Gratis</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="ft-row">
+      <div class="ft-brand">Mori Nihongo</div>
+      <ul class="ft-links">
+        <li><a href="#programs">Program</a></li>
+        <li><a href="#testi">Testimoni</a></li>
+        <li><a href="#cta">Daftar</a></li>
+      </ul>
+    </div>
+    <div class="ft-note">Ini adalah halaman demo template dari Loka Coding — bukan lembaga sungguhan.</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* Video ambient: fallback ilustrasi hilang otomatis begitu file mp4-nya ditemukan */
+  function autoRevealVideo(video, onReady) {
+    if (video.readyState >= 2) onReady();
+    else video.addEventListener('loadeddata', onReady);
+  }
+  const heroSection = document.getElementById('hero');
+  const heroVideo = document.getElementById('heroVideo');
+  autoRevealVideo(heroVideo, () => heroSection.classList.add('has-video'));
+
+  document.querySelectorAll('.kelas-frame').forEach(frame => {
+    autoRevealVideo(frame.querySelector('video'), () => frame.classList.add('has-video'));
+  });
+
+  const nookFrame = document.getElementById('nookFrame');
+  const nookVideo = document.getElementById('nookVideo');
+  autoRevealVideo(nookVideo, () => nookFrame.classList.add('has-video'));
+</script>
+</body>
+</html>
