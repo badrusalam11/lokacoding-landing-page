@@ -57,6 +57,10 @@
   /* hero illustrated scene */
   .hero-scene{position:relative;aspect-ratio:4/4.3;border-radius:26px;overflow:hidden;
     background:linear-gradient(180deg,var(--sky) 0%,#E4EFE0 55%,var(--cream2) 100%);}
+  .hero-scene video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+  .hero-scene.has-video video{display:block;}
+  .hero-scene.has-video .scene-sun,.hero-scene.has-video .scene-cloud,.hero-scene.has-video .scene-torii,
+  .hero-scene.has-video .scene-leaf,.hero-scene.has-video .hill-back,.hero-scene.has-video .hill-front{display:none;}
   .scene-sun{position:absolute;top:36px;right:40px;width:130px;height:130px;border-radius:50%;
     background:radial-gradient(circle,var(--sun) 0%,rgba(240,206,134,0) 72%);}
   .scene-cloud{position:absolute;background:#fff;border-radius:50px;opacity:.85;animation:drift 9s ease-in-out infinite;}
@@ -87,26 +91,35 @@
   .sec-h{font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:800;line-height:1.3;}
   .sec-h .hl{color:var(--forest-d);}
 
-  /* video */
-  #video{background:#fff;}
-  .video-hd{text-align:center;max-width:560px;margin:0 auto 44px;}
-  .video-frame{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;
-    background:linear-gradient(135deg,var(--sky),var(--sage));}
-  .video-el{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
-  .video-frame.has-video .video-el{display:block;}
-  .video-frame.has-video .vc,.video-frame.has-video .video-tag{display:none;}
-  .video-frame .vc{position:absolute;border-radius:50px;background:rgba(255,255,255,.55);}
-  .vc1{width:120px;height:36px;top:14%;left:8%;}
-  .vc2{width:90px;height:28px;bottom:18%;right:10%;}
-  .video-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;
-    background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;color:var(--forest-d);font-size:1.4rem;
-    box-shadow:0 12px 28px rgba(70,64,47,.22);border:none;cursor:pointer;z-index:2;transition:opacity .25s,transform .25s;}
-  .video-play:hover{transform:translate(-50%,-50%) scale(1.06);}
-  .video-frame.playing .video-play{opacity:0;pointer-events:none;}
-  .video-tag{position:absolute;top:18px;left:18px;background:rgba(70,64,47,.55);color:#fff;font-size:.7rem;font-weight:700;
-    padding:6px 14px;border-radius:100px;letter-spacing:.03em;}
-  .video-note{text-align:center;font-size:.8rem;color:var(--muted);margin-top:18px;}
-  .video-note code{background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:2px 7px;color:var(--ink);font-size:.78rem;}
+  /* immersive video strip */
+  .video-strip{position:relative;height:80vh;min-height:480px;overflow:hidden;padding:0;}
+  .video-strip video{position:absolute;inset:0;width:100%;height:130%;top:-15%;object-fit:cover;will-change:transform;}
+  .strip-fallback{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;
+    background:linear-gradient(180deg,var(--sky) 0%,#E4EFE0 55%,var(--cream2) 100%);}
+  .strip-fallback .f-sun{position:absolute;top:8%;right:10%;width:180px;height:180px;border-radius:50%;
+    background:radial-gradient(circle,var(--sun) 0%,rgba(240,206,134,0) 72%);}
+  .strip-fallback .f-cloud{position:absolute;background:#fff;border-radius:60px;opacity:.85;animation:drift 10s ease-in-out infinite;}
+  .strip-fallback .f-cloud::before,.strip-fallback .f-cloud::after{content:'';position:absolute;background:#fff;border-radius:50%;}
+  .f-c1{width:110px;height:36px;top:16%;left:12%;}
+  .f-c1::before{width:50px;height:50px;top:-26px;left:10px;}
+  .f-c1::after{width:40px;height:40px;top:-18px;left:55px;}
+  .f-c2{width:80px;height:28px;top:26%;right:20%;animation-delay:2.6s;}
+  .f-c2::before{width:36px;height:36px;top:-18px;left:8px;}
+  .f-c2::after{width:30px;height:30px;top:-13px;left:40px;}
+  .strip-fallback .f-torii{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-size:7rem;color:var(--forest-d);opacity:.9;}
+  .strip-fallback .f-hill{position:absolute;left:-10%;bottom:-160px;width:120%;height:300px;border-radius:50%;background:var(--forest);opacity:.95;}
+  .strip-fallback .f-tag{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:.76rem;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;color:var(--forest-d);opacity:.75;white-space:nowrap;}
+  .strip-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(46,42,30,.1) 0%,rgba(46,42,30,.62) 100%);}
+  .strip-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 24px;}
+  .strip-content .eyebrow{color:var(--sun);justify-content:center;display:flex;}
+  .strip-content h2{color:#fff;font-size:clamp(1.8rem,3.6vw,2.8rem);max-width:20ch;margin-bottom:16px;text-shadow:0 2px 24px rgba(0,0,0,.18);}
+  .strip-content h2 .hl{color:var(--sun);}
+  .strip-content p{color:rgba(255,255,255,.85);max-width:40ch;margin:0 auto 30px;font-size:.96rem;line-height:1.7;}
+  .btn-white-soft{background:#fff;color:var(--forest-d);font-weight:700;font-size:.86rem;padding:15px 30px;border-radius:100px;
+    text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s;}
+  .btn-white-soft:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.18);}
+  @media(max-width:640px){ .video-strip{height:64vh;min-height:420px;} .strip-fallback .f-torii{font-size:4.6rem;} }
 
   /* stats */
   #stats{background:var(--forest);}
@@ -137,6 +150,9 @@
   .why-item .d{font-size:.82rem;color:var(--muted);line-height:1.6;}
   .nook{position:relative;aspect-ratio:4/4.2;border-radius:20px;overflow:hidden;
     background:linear-gradient(160deg,var(--blush) 0%,var(--cream2) 60%);}
+  .nook video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+  .nook.has-video video{display:block;}
+  .nook.has-video .nook-leaf,.nook.has-video .nook-mid,.nook.has-video .nook-cup{display:none;}
   .nook-leaf{position:absolute;top:26px;right:28px;font-size:1.6rem;color:var(--forest);opacity:.7;}
   .nook-mid{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);font-size:3.4rem;color:var(--forest-d);opacity:.9;}
   .nook-cup{position:absolute;bottom:30px;left:34px;font-size:1.5rem;color:#C99A3B;opacity:.85;}
@@ -216,7 +232,11 @@
         <a href="#cta" class="btn-line">Coba Kelas Gratis</a>
       </div>
     </div>
-    <div class="hero-scene reveal">
+    <div class="hero-scene reveal" id="heroScene">
+      <!-- Ganti ghibli.mp4 dengan video kelas asli Anda -->
+      <video id="heroVideo" autoplay muted loop playsinline preload="auto">
+        <source src="assets/mp4/ghibli.mp4" type="video/mp4">
+      </video>
       <div class="scene-sun"></div>
       <div class="scene-cloud c1"></div>
       <div class="scene-cloud c2"></div>
@@ -233,23 +253,25 @@
   </div>
 </section>
 
-<section id="video">
-  <div class="container">
-    <div class="video-hd reveal">
-      <div class="eyebrow" style="justify-content:center;display:flex;">Cuplikan Kelas</div>
-      <h2 class="sec-h">Rasakan suasana belajar yang <span class="hl">tenang dan menyenangkan.</span></h2>
-      <p style="color:var(--muted);font-size:.9rem;margin-top:14px;">Setiap sesi kami desain agar terasa seperti menonton cerita favoritmu — pelan, hangat, dan mudah diikuti.</p>
-    </div>
-    <div class="video-frame reveal" id="videoFrame">
-      <video class="video-el" id="classVideo" muted loop playsinline preload="metadata">
-        <source src="video-kelas.mp4" type="video/mp4">
-      </video>
-      <span class="video-tag">Placeholder Video Pembelajaran</span>
-      <div class="vc vc1"></div>
-      <div class="vc vc2"></div>
-      <button class="video-play" id="videoPlayBtn" aria-label="Putar video"><i class="fa-solid fa-play"></i></button>
-    </div>
-    <p class="video-note">* Taruh file video dengan nama <code>video-kelas.mp4</code> di folder ini (rasio 16:9 disarankan) — placeholder ini otomatis berganti jadi video begitu file ditemukan.</p>
+<section class="video-strip" id="video">
+  <!-- Ganti ambience.mp4 dengan video kelas asli Anda (rasio lanskap, loop halus 10-20 detik) -->
+  <video id="classVideo" autoplay muted loop playsinline preload="auto">
+    <source src="assets/mp4/ambience.mp4" type="video/mp4">
+  </video>
+  <div class="strip-fallback" id="stripFallback">
+    <div class="f-sun"></div>
+    <div class="f-cloud f-c1"></div>
+    <div class="f-cloud f-c2"></div>
+    <i class="fa-solid fa-torii-gate f-torii"></i>
+    <div class="f-hill"></div>
+    <span class="f-tag">✦ Video kelas akan ditampilkan di sini</span>
+  </div>
+  <div class="strip-overlay"></div>
+  <div class="strip-content reveal">
+    <div class="eyebrow">Cuplikan Kelas</div>
+    <h2>Rasakan suasana belajar yang <span class="hl">tenang dan menyenangkan.</span></h2>
+    <p>Setiap sesi kami desain agar terasa seperti menonton cerita favoritmu — pelan, hangat, dan mudah diikuti.</p>
+    <a href="#cta" class="btn-white-soft">Coba Kelas Gratis →</a>
   </div>
 </section>
 
@@ -279,7 +301,11 @@
 
 <section id="why">
   <div class="container why-grid">
-    <div class="nook reveal">
+    <div class="nook reveal" id="nookFrame">
+      <!-- Ganti book.mp4 dengan video kelas asli Anda -->
+      <video id="nookVideo" autoplay muted loop playsinline preload="auto">
+        <source src="assets/mp4/book.mp4" type="video/mp4">
+      </video>
       <i class="fa-solid fa-seedling nook-leaf"></i>
       <i class="fa-solid fa-book-open nook-mid"></i>
       <i class="fa-solid fa-mug-hot nook-cup"></i>
@@ -354,19 +380,31 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  /* Video kelas: nyala otomatis begitu video-kelas.mp4 ditemukan di folder ini */
-  const videoFrame = document.getElementById('videoFrame');
+  /* Video ambient: fallback ilustrasi hilang otomatis begitu file mp4-nya ditemukan */
+  function autoRevealVideo(video, onReady) {
+    if (video.readyState >= 2) onReady();
+    else video.addEventListener('loadeddata', onReady);
+  }
+  const heroScene = document.getElementById('heroScene');
+  const heroVideo = document.getElementById('heroVideo');
+  autoRevealVideo(heroVideo, () => heroScene.classList.add('has-video'));
+
+  const stripFallback = document.getElementById('stripFallback');
   const classVideo = document.getElementById('classVideo');
-  const videoPlayBtn = document.getElementById('videoPlayBtn');
-  const markHasVideo = () => videoFrame.classList.add('has-video');
-  if (classVideo.readyState >= 2) markHasVideo();
-  classVideo.addEventListener('loadeddata', markHasVideo);
-  videoPlayBtn.addEventListener('click', () => {
-    classVideo.controls = true;
-    classVideo.play().catch(() => {});
-  });
-  classVideo.addEventListener('play', () => videoFrame.classList.add('playing'));
-  classVideo.addEventListener('pause', () => videoFrame.classList.remove('playing'));
+  autoRevealVideo(classVideo, () => { stripFallback.style.display = 'none'; });
+
+  const nookFrame = document.getElementById('nookFrame');
+  const nookVideo = document.getElementById('nookVideo');
+  autoRevealVideo(nookVideo, () => nookFrame.classList.add('has-video'));
+
+  /* parallax halus pada video saat scroll */
+  const videoStrip = document.querySelector('.video-strip');
+  window.addEventListener('scroll', () => {
+    const rect = videoStrip.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+    const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+    classVideo.style.transform = `translateY(${(progress - 0.5) * 40}px)`;
+  }, { passive: true });
 </script>
 </body>
 </html>
