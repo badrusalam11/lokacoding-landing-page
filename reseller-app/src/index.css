@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+  --color-brand-blue: #3b82f6;
+  --color-brand-blue-dark: #2563eb;
+  --color-brand-blue-light: #eff6ff;
+  --color-brand-bg: #f8faff;
+  --color-brand-text: #0f172a;
+  --color-brand-muted: #64748b;
+  --color-brand-border: #e2e8f0;
+
+  --color-brand-dark-bg: #05070d;
+  --color-brand-dark-surface: #0b1020;
+}
+
+body {
+  margin: 0;
+  background: var(--color-brand-bg);
+  color: var(--color-brand-text);
+  font-family: var(--font-sans);
+}
+
+@layer components {
+  .input {
+    @apply rounded-xl border border-brand-border bg-white px-4 py-2.5 text-brand-text outline-none transition focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20;
+  }
+}
