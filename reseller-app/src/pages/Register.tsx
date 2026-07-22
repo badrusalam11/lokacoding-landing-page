@@ -4,6 +4,49 @@ import { Navbar } from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import { ApiError } from "../api/client";
 
+interface FieldErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  password?: string;
+}
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_PATTERN = /^(\+62|62|0)8[0-9]{8,12}$/;
+
+function validate(values: { name: string; email: string; phone: string; password: string }): FieldErrors {
+  const errors: FieldErrors = {};
+  const name = values.name.trim();
+  const email = values.email.trim();
+  const phone = values.phone.trim().replace(/[\s-]/g, "");
+
+  if (!name) {
+    errors.name = "Nama lengkap wajib diisi.";
+  } else if (name.length < 2) {
+    errors.name = "Nama minimal 2 karakter.";
+  }
+
+  if (!email) {
+    errors.email = "Email wajib diisi.";
+  } else if (!EMAIL_PATTERN.test(email)) {
+    errors.email = "Format email tidak valid.";
+  }
+
+  if (!phone) {
+    errors.phone = "No. WhatsApp wajib diisi.";
+  } else if (!PHONE_PATTERN.test(phone)) {
+    errors.phone = "Nomor WhatsApp tidak valid. Gunakan format 08xxxxxxxxxx.";
+  }
+
+  if (!values.password) {
+    errors.password = "Password wajib diisi.";
+  } else if (values.password.length < 8) {
+    errors.password = "Password minimal 8 karakter.";
+  }
+
+  return errors;
+}
+
 export default function Register() {
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -12,18 +55,28 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<FieldErrors>({});
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
+
+    const fieldErrors = validate({ name, email, phone, password });
+    setErrors(fieldErrors);
+    if (Object.keys(fieldErrors).length > 0) return;
+
     setSubmitting(true);
     try {
-      await register({ name, email, password, phone: phone || undefined });
+      await register({ name: name.trim(), email: email.trim(), password, phone: phone.trim() });
       navigate("/dashboard");
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Gagal mendaftar. Coba lagi.");
+      setError(
+        err instanceof ApiError
+          ? err.message
+          : "Gagal terhubung ke server. Periksa koneksi internet kamu dan coba lagi.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -38,42 +91,38 @@ export default function Register() {
           Gratis, tanpa biaya pendaftaran. Mulai ajukan project setelah daftar.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
-          <Field label="Nama Lengkap">
+        <form onSubmit={handleSubmit} noValidate className="mt-8 flex flex-col gap-4">
+          <Field label="Nama Lengkap" error={errors.name}>
             <input
-              required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="input"
+              className={`input ${errors.name ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`}
               placeholder="Nama kamu"
             />
           </Field>
-          <Field label="Email">
+          <Field label="Email" error={errors.email}>
             <input
-              required
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="input"
+              className={`input ${errors.email ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`}
               placeholder="email@contoh.com"
             />
           </Field>
-          <Field label="No. WhatsApp (opsional)">
+          <Field label="No. WhatsApp" error={errors.phone}>
             <input
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="input"
+              className={`input ${errors.phone ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`}
               placeholder="08xxxxxxxxxx"
             />
           </Field>
-          <Field label="Password">
+          <Field label="Password" error={errors.password}>
             <input
-              required
               type="password"
-              minLength={8}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="input"
+              className={`input ${errors.password ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`}
               placeholder="Minimal 8 karakter"
             />
           </Field>
@@ -100,11 +149,20 @@ export default function Register() {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="flex flex-col gap-1.5 text-sm font-medium text-brand-text">
       {label}
       {children}
+      {error && <span className="text-xs font-normal text-red-600">{error}</span>}
     </label>
   );
 }

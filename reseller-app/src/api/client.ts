@@ -58,16 +58,30 @@ async function request<T>(
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
-    const message =
-      typeof data.error === "string" ? data.error : "Terjadi kesalahan, coba lagi.";
-    throw new ApiError(message, res.status);
+    throw new ApiError(extractErrorMessage(data.error), res.status);
   }
 
   return data as T;
 }
 
+function extractErrorMessage(error: unknown): string {
+  if (typeof error === "string") return error;
+
+  // zod's `.flatten()` shape: { formErrors: string[], fieldErrors: { [key]: string[] } }
+  if (error && typeof error === "object") {
+    const flat = error as { formErrors?: string[]; fieldErrors?: Record<string, string[]> };
+    const messages = [
+      ...(flat.formErrors ?? []),
+      ...Object.values(flat.fieldErrors ?? {}).flat(),
+    ];
+    if (messages.length > 0) return messages.join(" ");
+  }
+
+  return "Terjadi kesalahan, coba lagi.";
+}
+
 export const api = {
-  register: (body: { name: string; email: string; password: string; phone?: string }) =>
+  register: (body: { name: string; email: string; password: string; phone: string }) =>
     request<{ token: string; user: AuthUser }>("/api/auth/register", {
       method: "POST",
       body,

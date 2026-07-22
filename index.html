@@ -416,6 +416,7 @@
     @keyframes ambientPulse { 0%,100%{ opacity:.7; } 50%{ opacity:1; } }
     @media (prefers-reduced-motion: reduce) { #about::before { animation:none; } }
     #about > .inner { max-width:1200px; margin:0 auto; padding:0 48px; position:relative; z-index:1; }
+    #reseller > .inner { max-width:1200px; margin:0 auto; padding:0 48px; }
 
     .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
     .about-p { font-size:.93rem; color:var(--muted); line-height:1.85; margin:20px 0 30px; font-weight:400; }
@@ -724,7 +725,7 @@
       .nav-links,.nav-cta{display:none;}
       .mob-btn{display:block;}
       section{padding:64px 24px;}
-      #about>.inner, #portfolio>.inner { padding:64px 24px; }
+      #about>.inner, #portfolio>.inner, #reseller>.inner { padding:64px 24px; }
       .cta-outer{padding:0 24px 64px;}
       footer{padding:48px 24px 32px;}
       .about-grid{grid-template-columns:1fr;gap:40px;}
