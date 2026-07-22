@@ -11,7 +11,7 @@ const registerSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   password: z.string().min(8),
-  phone: z.string().min(6).optional(),
+  phone: z.string().min(6),
 });
 
 authRouter.post("/register", async (req, res) => {
@@ -23,7 +23,7 @@ authRouter.post("/register", async (req, res) => {
 
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
-    return res.status(409).json({ error: "Email already registered" });
+    return res.status(409).json({ error: "Email ini sudah terdaftar. Silakan masuk atau gunakan email lain." });
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
