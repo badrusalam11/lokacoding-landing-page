@@ -1,3 +1,5 @@
+name: lokacoding-reseller
+
 services:
   db:
     image: postgres:16-alpine
@@ -16,10 +18,19 @@ services:
 
   api:
     build: ./server
+    container_name: lokacoding-reseller-api
     restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
+    # Loopback publish is only for convenience (curl-ing from the VPS host
+    # itself to sanity-check the container). It is NOT how a reverse proxy
+    # running in its own container reaches this service — a container's
+    # 127.0.0.1 is itself, not the host. If fronting with an existing
+    # reverse proxy on a shared Docker network, use
+    # docker-compose.shared-proxy.yml instead (see README).
+    ports:
+      - "127.0.0.1:${RESELLER_API_PORT:-4010}:4000"
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-lokacoding_reseller}?schema=public
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
@@ -34,11 +45,23 @@ services:
       context: ./reseller-app
       args:
         VITE_API_URL: ""
+    container_name: lokacoding-reseller-web
     restart: unless-stopped
+    # Same caveat as api's port above.
+    ports:
+      - "127.0.0.1:${RESELLER_WEB_PORT:-3010}:80"
 
+  # Standalone reverse proxy + auto-HTTPS. Only needed when this app is the
+  # ONLY thing on the VPS (nothing already listening on 80/443). Opt in with:
+  #   docker compose --profile standalone up -d --build
+  # If another reverse proxy (e.g. an existing Caddy/nginx for another app)
+  # already owns 80/443, skip this profile and add a site block to that
+  # proxy pointing at 127.0.0.1:${RESELLER_API_PORT} / :${RESELLER_WEB_PORT}
+  # instead — see README "Deploy ke Production" for the exact snippet.
   caddy:
     image: caddy:2-alpine
     restart: unless-stopped
+    profiles: ["standalone"]
     depends_on:
       - api
       - web
