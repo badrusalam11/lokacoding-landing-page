@@ -1,0 +1,31 @@
+# Overlay for deploying alongside an EXISTING reverse proxy on the same VPS
+# (one that already owns ports 80/443, e.g. another project's Caddy/nginx).
+#
+# It attaches api/web to that reverse proxy's Docker network so it can reach
+# them by container name — the same way lokasee's Caddyfile does
+# (`reverse_proxy backend:4000`, `reverse_proxy frontend:3000`).
+#
+# Usage:
+#   1. Find the existing reverse proxy's network name, e.g.:
+#        docker inspect <existing-caddy-container> --format '{{json .NetworkSettings.Networks}}'
+#   2. Set SHARED_PROXY_NETWORK=<that-name> in .env
+#   3. docker compose -f docker-compose.yml -f docker-compose.shared-proxy.yml up -d --build
+#   4. Add a site block to the EXISTING Caddyfile pointing at
+#      lokacoding-reseller-api:4000 and lokacoding-reseller-web:80
+#      (see README "Deploy ke Production — Skenario B").
+
+services:
+  api:
+    networks:
+      - default
+      - shared_proxy
+
+  web:
+    networks:
+      - default
+      - shared_proxy
+
+networks:
+  shared_proxy:
+    external: true
+    name: ${SHARED_PROXY_NETWORK:?Set SHARED_PROXY_NETWORK in .env to the existing reverse proxy's Docker network name}
