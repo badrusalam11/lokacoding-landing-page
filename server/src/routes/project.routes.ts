@@ -58,3 +58,56 @@ projectRouter.patch("/:id/status", requireRole("ADMIN"), async (req, res) => {
   });
   res.json(project);
 });
+
+const editSchema = z.object({
+  clientName: z.string().min(2).optional(),
+  clientContact: z.string().min(3).optional(),
+  description: z.string().min(10).optional(),
+  estimatedBudget: z.number().int().positive().optional(),
+});
+
+projectRouter.patch("/:id", requireRole("ADMIN", "RESELLER"), async (req, res) => {
+  const parsed = editSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: parsed.error.flatten() });
+  }
+
+  const existing = await prisma.project.findUnique({ where: { id: req.params.id } });
+  if (!existing) {
+    return res.status(404).json({ error: "Project not found" });
+  }
+
+  const isAdmin = req.user!.role === "ADMIN";
+  if (!isAdmin && existing.resellerId !== req.user!.userId) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+
+  const project = await prisma.project.update({
+    where: { id: req.params.id },
+    data: parsed.data,
+    include: isAdmin ? { reseller: { select: { id: true, name: true, email: true, phone: true } } } : undefined,
+  });
+  res.json(project);
+});
+
+const summarySchema = z.object({
+  developmentSummary: z.string(),
+});
+
+projectRouter.patch("/:id/summary", requireRole("ADMIN"), async (req, res) => {
+  const parsed = summarySchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: parsed.error.flatten() });
+  }
+
+  const existing = await prisma.project.findUnique({ where: { id: req.params.id } });
+  if (!existing) {
+    return res.status(404).json({ error: "Project not found" });
+  }
+
+  const project = await prisma.project.update({
+    where: { id: req.params.id },
+    data: parsed.data,
+  });
+  res.json(project);
+});

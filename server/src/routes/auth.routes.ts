@@ -60,6 +60,10 @@ authRouter.post("/login", async (req, res) => {
     return res.status(401).json({ error: "Invalid email or password" });
   }
 
+  if (!user.isActive) {
+    return res.status(403).json({ error: "Akun Anda telah dinonaktifkan. Hubungi admin." });
+  }
+
   const token = signToken({ userId: user.id, role: user.role });
   res.json({
     token,

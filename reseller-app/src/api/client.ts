@@ -27,10 +27,20 @@ export interface Project {
   estimatedBudget: number | null;
   status: ProjectStatus;
   adminNote: string | null;
+  developmentSummary: string | null;
   createdAt: string;
   updatedAt: string;
   resellerId: string;
   reseller?: { id: string; name: string; email: string; phone: string | null };
+}
+
+export interface Reseller {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  isActive: boolean;
+  createdAt: string;
 }
 
 class ApiError extends Error {
@@ -112,6 +122,29 @@ export const api = {
     id: string,
     body: { status: ProjectStatus; adminNote?: string },
   ) => request<Project>(`/api/projects/${id}/status`, { method: "PATCH", token, body }),
+
+  updateProject: (
+    token: string,
+    id: string,
+    body: Partial<{
+      clientName: string;
+      clientContact: string;
+      description: string;
+      estimatedBudget: number;
+    }>,
+  ) => request<Project>(`/api/projects/${id}`, { method: "PATCH", token, body }),
+
+  updateProjectSummary: (token: string, id: string, developmentSummary: string) =>
+    request<Project>(`/api/projects/${id}/summary`, {
+      method: "PATCH",
+      token,
+      body: { developmentSummary },
+    }),
+
+  listResellers: (token: string) => request<Reseller[]>("/api/users", { token }),
+
+  setResellerActive: (token: string, id: string, isActive: boolean) =>
+    request<Reseller>(`/api/users/${id}/status`, { method: "PATCH", token, body: { isActive } }),
 };
 
 export { ApiError };

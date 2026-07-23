@@ -18,6 +18,11 @@ export function Navbar() {
               <Link to="/dashboard" className="text-brand-text hover:text-brand-blue">
                 Dashboard
               </Link>
+              {user.role === "ADMIN" && (
+                <Link to="/admin/users" className="text-brand-text hover:text-brand-blue">
+                  Kelola Reseller
+                </Link>
+              )}
               <span className="hidden text-brand-muted sm:inline">{user.name}</span>
               <button
                 type="button"

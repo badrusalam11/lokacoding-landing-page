@@ -27,22 +27,24 @@ model User {
   name         String
   phone        String?
   role         Role      @default(RESELLER)
+  isActive     Boolean   @default(true)
   createdAt    DateTime  @default(now())
   projects     Project[]
 }
 
 model Project {
-  id              String        @id @default(uuid())
-  reseller        User          @relation(fields: [resellerId], references: [id])
-  resellerId      String
-  clientName      String
-  clientContact   String
-  description     String
-  estimatedBudget Int?
-  status          ProjectStatus @default(PENDING)
-  adminNote       String?
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id                 String        @id @default(uuid())
+  reseller           User          @relation(fields: [resellerId], references: [id])
+  resellerId         String
+  clientName         String
+  clientContact      String
+  description        String
+  estimatedBudget    Int?
+  status             ProjectStatus @default(PENDING)
+  adminNote          String?
+  developmentSummary String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
 
   @@index([resellerId])
 }

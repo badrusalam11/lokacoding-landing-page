@@ -20,6 +20,22 @@ function formatBudget(value: number | null) {
   );
 }
 
+interface EditFields {
+  clientName: string;
+  clientContact: string;
+  description: string;
+  estimatedBudget: string;
+}
+
+function toEditFields(project: Project): EditFields {
+  return {
+    clientName: project.clientName,
+    clientContact: project.clientContact,
+    description: project.description,
+    estimatedBudget: project.estimatedBudget != null ? String(project.estimatedBudget) : "",
+  };
+}
+
 export default function Dashboard() {
   const { user, token } = useAuth();
   const [projects, setProjects] = useState<Project[]>([]);
@@ -38,6 +54,10 @@ export default function Dashboard() {
   if (!user) return null;
 
   const isAdmin = user.role === "ADMIN";
+
+  function handleUpdated(updated: Project) {
+    setProjects((prev) => prev.map((x) => (x.id === updated.id ? updated : x)));
+  }
 
   return (
     <div className="min-h-screen bg-brand-bg">
@@ -74,15 +94,9 @@ export default function Dashboard() {
             <div className="flex flex-col gap-3">
               {projects.map((p) =>
                 isAdmin ? (
-                  <AdminProjectRow
-                    key={p.id}
-                    project={p}
-                    onUpdated={(updated) =>
-                      setProjects((prev) => prev.map((x) => (x.id === updated.id ? updated : x)))
-                    }
-                  />
+                  <AdminProjectRow key={p.id} project={p} onUpdated={handleUpdated} />
                 ) : (
-                  <ResellerProjectRow key={p.id} project={p} />
+                  <ResellerProjectRow key={p.id} project={p} onUpdated={handleUpdated} />
                 ),
               )}
             </div>
@@ -93,7 +107,97 @@ export default function Dashboard() {
   );
 }
 
-function ResellerProjectRow({ project }: { project: Project }) {
+function ResellerProjectRow({
+  project,
+  onUpdated,
+}: {
+  project: Project;
+  onUpdated: (p: Project) => void;
+}) {
+  const { token } = useAuth();
+  const [editing, setEditing] = useState(false);
+  const [fields, setFields] = useState<EditFields>(() => toEditFields(project));
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  function startEdit() {
+    setFields(toEditFields(project));
+    setError(null);
+    setEditing(true);
+  }
+
+  async function handleSave() {
+    if (!token) return;
+    setSaving(true);
+    setError(null);
+    try {
+      const updated = await api.updateProject(token, project.id, {
+        clientName: fields.clientName,
+        clientContact: fields.clientContact,
+        description: fields.description,
+        estimatedBudget: fields.estimatedBudget ? Number(fields.estimatedBudget) : undefined,
+      });
+      onUpdated(updated);
+      setEditing(false);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Gagal menyimpan perubahan.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (editing) {
+    return (
+      <div className="flex flex-col gap-3 rounded-2xl border border-brand-border bg-white p-5">
+        <input
+          className="input"
+          value={fields.clientName}
+          onChange={(e) => setFields((f) => ({ ...f, clientName: e.target.value }))}
+          placeholder="Nama klien"
+        />
+        <input
+          className="input"
+          value={fields.clientContact}
+          onChange={(e) => setFields((f) => ({ ...f, clientContact: e.target.value }))}
+          placeholder="Kontak klien"
+        />
+        <textarea
+          className="input"
+          rows={3}
+          value={fields.description}
+          onChange={(e) => setFields((f) => ({ ...f, description: e.target.value }))}
+          placeholder="Deskripsi project"
+        />
+        <input
+          className="input"
+          type="number"
+          value={fields.estimatedBudget}
+          onChange={(e) => setFields((f) => ({ ...f, estimatedBudget: e.target.value }))}
+          placeholder="Estimasi budget"
+        />
+        {error && <p className="text-sm text-red-600">{error}</p>}
+        <div className="flex gap-2">
+          <button
+            type="button"
+            disabled={saving}
+            onClick={handleSave}
+            className="rounded-full bg-brand-blue px-4 py-1.5 text-sm text-white transition hover:bg-brand-blue-dark disabled:opacity-50"
+          >
+            Simpan
+          </button>
+          <button
+            type="button"
+            disabled={saving}
+            onClick={() => setEditing(false)}
+            className="rounded-full border border-brand-border px-4 py-1.5 text-sm text-brand-text hover:border-brand-blue hover:text-brand-blue"
+          >
+            Batal
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-brand-border bg-white p-5">
       <div>
@@ -105,11 +209,26 @@ function ResellerProjectRow({ project }: { project: Project }) {
             Catatan admin: {project.adminNote}
           </p>
         )}
+        {project.developmentSummary && (
+          <p className="mt-2 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
+            Update perkembangan: {project.developmentSummary}
+          </p>
+        )}
         <div className="mt-2 text-xs text-brand-muted">
           Diajukan {formatDate(project.createdAt)} · Estimasi {formatBudget(project.estimatedBudget)}
         </div>
       </div>
-      <StatusBadge status={project.status} />
+
+      <div className="flex flex-col items-end gap-2">
+        <StatusBadge status={project.status} />
+        <button
+          type="button"
+          onClick={startEdit}
+          className="rounded-full border border-brand-border px-4 py-1.5 text-sm text-brand-text transition hover:border-brand-blue hover:text-brand-blue"
+        >
+          Edit
+        </button>
+      </div>
     </div>
   );
 }
@@ -125,6 +244,13 @@ function AdminProjectRow({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [editing, setEditing] = useState(false);
+  const [fields, setFields] = useState<EditFields>(() => toEditFields(project));
+
+  const [summary, setSummary] = useState(project.developmentSummary ?? "");
+  const [summarySaving, setSummarySaving] = useState(false);
+  const [summaryError, setSummaryError] = useState<string | null>(null);
+
   async function handleStatusChange(status: ProjectStatus) {
     if (!token) return;
     setSaving(true);
@@ -139,12 +265,104 @@ function AdminProjectRow({
     }
   }
 
+  function startEdit() {
+    setFields(toEditFields(project));
+    setError(null);
+    setEditing(true);
+  }
+
+  async function handleSaveEdit() {
+    if (!token) return;
+    setSaving(true);
+    setError(null);
+    try {
+      const updated = await api.updateProject(token, project.id, {
+        clientName: fields.clientName,
+        clientContact: fields.clientContact,
+        description: fields.description,
+        estimatedBudget: fields.estimatedBudget ? Number(fields.estimatedBudget) : undefined,
+      });
+      onUpdated(updated);
+      setEditing(false);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Gagal menyimpan perubahan.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleSaveSummary() {
+    if (!token) return;
+    setSummarySaving(true);
+    setSummaryError(null);
+    try {
+      const updated = await api.updateProjectSummary(token, project.id, summary);
+      onUpdated(updated);
+    } catch (err) {
+      setSummaryError(err instanceof ApiError ? err.message : "Gagal menyimpan ringkasan.");
+    } finally {
+      setSummarySaving(false);
+    }
+  }
+
+  if (editing) {
+    return (
+      <div className="flex flex-col gap-3 rounded-2xl border border-brand-border bg-white p-5">
+        <input
+          className="input"
+          value={fields.clientName}
+          onChange={(e) => setFields((f) => ({ ...f, clientName: e.target.value }))}
+          placeholder="Nama klien"
+        />
+        <input
+          className="input"
+          value={fields.clientContact}
+          onChange={(e) => setFields((f) => ({ ...f, clientContact: e.target.value }))}
+          placeholder="Kontak klien"
+        />
+        <textarea
+          className="input"
+          rows={3}
+          value={fields.description}
+          onChange={(e) => setFields((f) => ({ ...f, description: e.target.value }))}
+          placeholder="Deskripsi project"
+        />
+        <input
+          className="input"
+          type="number"
+          value={fields.estimatedBudget}
+          onChange={(e) => setFields((f) => ({ ...f, estimatedBudget: e.target.value }))}
+          placeholder="Estimasi budget"
+        />
+        {error && <p className="text-sm text-red-600">{error}</p>}
+        <div className="flex gap-2">
+          <button
+            type="button"
+            disabled={saving}
+            onClick={handleSaveEdit}
+            className="rounded-full bg-brand-blue px-4 py-1.5 text-sm text-white transition hover:bg-brand-blue-dark disabled:opacity-50"
+          >
+            Simpan
+          </button>
+          <button
+            type="button"
+            disabled={saving}
+            onClick={() => setEditing(false)}
+            className="rounded-full border border-brand-border px-4 py-1.5 text-sm text-brand-text hover:border-brand-blue hover:text-brand-blue"
+          >
+            Batal
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-brand-border bg-white p-5">
-      <div>
+      <div className="max-w-xl flex-1">
         <div className="font-semibold text-brand-text">{project.clientName}</div>
         <div className="text-sm text-brand-muted">{project.clientContact}</div>
-        <p className="mt-2 max-w-xl text-sm text-brand-text">{project.description}</p>
+        <p className="mt-2 text-sm text-brand-text">{project.description}</p>
         <div className="mt-2 text-xs text-brand-muted">
           Diajukan {formatDate(project.createdAt)} · Estimasi {formatBudget(project.estimatedBudget)}
         </div>
@@ -155,6 +373,26 @@ function AdminProjectRow({
           </div>
         )}
         {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+
+        <div className="mt-4">
+          <label className="text-xs font-medium text-brand-muted">Ringkasan perkembangan</label>
+          <textarea
+            className="input mt-1"
+            rows={2}
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
+            placeholder="Update perkembangan pengerjaan project..."
+          />
+          {summaryError && <p className="mt-1 text-sm text-red-600">{summaryError}</p>}
+          <button
+            type="button"
+            disabled={summarySaving}
+            onClick={handleSaveSummary}
+            className="mt-2 rounded-full border border-brand-border px-4 py-1.5 text-sm text-brand-text transition hover:border-brand-blue hover:text-brand-blue disabled:opacity-50"
+          >
+            Simpan Ringkasan
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-col items-end gap-2">
@@ -171,6 +409,13 @@ function AdminProjectRow({
             </option>
           ))}
         </select>
+        <button
+          type="button"
+          onClick={startEdit}
+          className="rounded-full border border-brand-border px-4 py-1.5 text-sm text-brand-text transition hover:border-brand-blue hover:text-brand-blue"
+        >
+          Edit
+        </button>
       </div>
     </div>
   );
